@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
       <NavBar />
-      <Container maxW="container.lg" color="gray.700" py={30}>
+      <Container maxW="container.xl" color="gray.700" py={30}>
         <Component {...pageProps} />
       </Container>
     </ChakraProvider>

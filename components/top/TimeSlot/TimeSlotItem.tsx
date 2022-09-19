@@ -6,6 +6,7 @@ import {
   UsersThree,
 } from "phosphor-react";
 import { Card } from "../../common/Card";
+import Router from "next/router";
 
 export const TimeSlotItem = () => {
   return (
@@ -37,6 +38,7 @@ export const TimeSlotItem = () => {
           size="sm"
           aria-label="新規作成"
           rounded="full"
+          onClick={() => Router.push("/create/1")}
         />
       </Flex>
     </Card>

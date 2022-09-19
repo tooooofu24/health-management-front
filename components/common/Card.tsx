@@ -1,5 +1,5 @@
 import { Box, BoxProps } from "@chakra-ui/react";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 
 export const Card: FC<BoxProps> = (props) => {
   return (
