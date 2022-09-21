@@ -33,7 +33,6 @@ export const TimeSlotItem = () => {
           rounded="full"
         />
         <IconButton
-          colorScheme="teal"
           icon={<Plus />}
           size="sm"
           aria-label="新規作成"
