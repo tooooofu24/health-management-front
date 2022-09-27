@@ -25,7 +25,7 @@ export const PageTitle: FC<props> = ({ backURL, title }) => {
           </a>
         </Link>
       )}
-      <Text>{title}</Text>
+      <>{title}</>
     </Flex>
   );
 };

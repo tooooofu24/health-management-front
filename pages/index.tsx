@@ -10,7 +10,7 @@ const TopPage: NextPage = () => {
       <PageTitle
         title={
           <Flex alignItems="center" gap="10px">
-            <House />
+            <House size={25} />
             <Text>時間割</Text>
           </Flex>
         }
