@@ -1,30 +1,29 @@
 import { Box, Center, Flex, Square, Text } from "@chakra-ui/react";
 import { TimeSlotColumnHeader } from "./TimeSlotColumnHeader";
 import { TimeSlotItem } from "./TimeSlotItem";
-import { TimeSlotRowHeader } from "./TimeSlotRowHeader";
 
 export const TimeSlot = () => {
   return (
-    <>
-      <TimeSlotRowHeader />
-      <Flex width="full" alignItems="stretch">
-        <TimeSlotColumnHeader />
-        <Flex flex="1">
-          {[...Array(5)].map(() => {
-            return (
-              <Flex flexDirection="column" flex="1">
-                {[...Array(6)].map(() => {
-                  return (
-                    <Flex p="7.5px">
-                      <TimeSlotItem></TimeSlotItem>
-                    </Flex>
-                  );
-                })}
+    <Flex alignItems="stretch">
+      <TimeSlotColumnHeader />
+      <Flex>
+        {["月", "火", "水", "木", "金"].map((day) => {
+          return (
+            <Flex flexDirection="column" flex="1" key={day}>
+              <Flex justifyContent="center" alignItems="center" height={50}>
+                <Text textColor="gray.500">{day}</Text>
               </Flex>
-            );
-          })}
-        </Flex>
+              {[...Array(6)].map((v, i) => {
+                return (
+                  <Flex p="7.5px" key={i}>
+                    <TimeSlotItem></TimeSlotItem>
+                  </Flex>
+                );
+              })}
+            </Flex>
+          );
+        })}
       </Flex>
-    </>
+    </Flex>
   );
 };

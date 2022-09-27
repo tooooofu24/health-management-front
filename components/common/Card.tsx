@@ -4,10 +4,11 @@ import { FC } from "react";
 export const Card: FC<BoxProps> = (props) => {
   return (
     <Box
-      p="10px"
+      p="12px"
       border="1px"
       borderColor="gray.300"
       borderRadius="10px"
+      cursor="pointer"
       {...props}
     >
       {props.children}

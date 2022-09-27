@@ -1,9 +1,10 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Square, Text } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
 export const TimeSlotColumnHeader = () => {
   return (
     <Flex width="50px" flexDirection="column">
+      <Square size="50px"></Square>
       <TimeSlotColumnHeaderItem>1</TimeSlotColumnHeaderItem>
       <TimeSlotColumnHeaderItem>2</TimeSlotColumnHeaderItem>
       <TimeSlotColumnHeaderItem>3</TimeSlotColumnHeaderItem>

@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, color } from "@chakra-ui/react";
 import { NavBar } from "../components/common/NavBar";
 import { Container } from "@chakra-ui/react";
 import { extendTheme, withDefaultColorScheme } from "@chakra-ui/react";

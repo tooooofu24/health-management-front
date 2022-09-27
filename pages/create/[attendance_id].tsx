@@ -5,7 +5,7 @@ import { AttendanceTable } from "../../components/attendance/AttendanceTable";
 const CreatePage: NextPage = () => {
   return (
     <>
-      <PageTitle>成績入力</PageTitle>
+      <PageTitle title="成績入力" backURL="/" />
       <AttendanceTable />
     </>
   );
