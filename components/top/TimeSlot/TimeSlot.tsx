@@ -1,4 +1,5 @@
 import { Box, Center, Flex, Square, Text } from "@chakra-ui/react";
+import { EmptyTimeSlotItem } from "./EmptyTimeSlotItem";
 import { TimeSlotColumnHeader } from "./TimeSlotColumnHeader";
 import { TimeSlotItem } from "./TimeSlotItem";
 
@@ -16,7 +17,7 @@ export const TimeSlot = () => {
               {[...Array(6)].map((v, i) => {
                 return (
                   <Flex p="7.5px" key={i}>
-                    <TimeSlotItem></TimeSlotItem>
+                    {i % 2 == 0 ? <TimeSlotItem /> : <EmptyTimeSlotItem />}
                   </Flex>
                 );
               })}
