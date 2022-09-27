@@ -7,12 +7,19 @@ import { extendTheme, withDefaultColorScheme } from "@chakra-ui/react";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const customTheme = extendTheme(
-    withDefaultColorScheme({ colorScheme: "teal" })
+    withDefaultColorScheme({ colorScheme: "teal" }),
+    {
+      fonts: {
+        heading: `'M PLUS Rounded 1c', sans-serif`,
+        body: `'M PLUS Rounded 1c', sans-serif`,
+      },
+      color: "gray.700",
+    }
   );
   return (
     <ChakraProvider theme={customTheme}>
       <NavBar />
-      <Container maxW="container.xl" color="gray.700" py={30}>
+      <Container maxW="container.xl" py={30}>
         <Component {...pageProps} />
       </Container>
     </ChakraProvider>

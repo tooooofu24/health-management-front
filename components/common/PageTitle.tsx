@@ -6,7 +6,7 @@ import { FC, ReactNode } from "react";
 
 type props = {
   backURL?: string;
-  title: string;
+  title: string | ReactNode;
 };
 export const PageTitle: FC<props> = ({ backURL, title }) => {
   return (
