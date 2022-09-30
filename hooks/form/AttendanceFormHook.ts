@@ -15,7 +15,14 @@ export const AttendanceRowDefaultValue: AttendanceRow = {
 };
 
 export const AttendanceFormDefaultValue: AttendanceForm = {
-  rows: [AttendanceRowDefaultValue],
+  rows: [
+    AttendanceRowDefaultValue,
+    AttendanceRowDefaultValue,
+    AttendanceRowDefaultValue,
+    AttendanceRowDefaultValue,
+    AttendanceRowDefaultValue,
+    AttendanceRowDefaultValue,
+  ],
 };
 
 export const onSubmitAttendanceForm = async (data: AttendanceForm) => {
