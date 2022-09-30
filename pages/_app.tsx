@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={customTheme}>
       <NavBar />
-      <Container maxW="container.xl" py={30}>
+      <Container maxW="container.xl" py="100px">
         <Component {...pageProps} />
       </Container>
     </ChakraProvider>

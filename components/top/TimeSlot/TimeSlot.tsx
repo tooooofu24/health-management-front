@@ -8,7 +8,7 @@ export const TimeSlot = () => {
     <Flex alignItems="stretch">
       <TimeSlotColumnHeader />
       <Flex>
-        {["月", "火", "水", "木", "金"].map((day) => {
+        {["月", "火", "水", "木", "金"].map((day, index) => {
           return (
             <Flex flexDirection="column" flex="1" key={day}>
               <Flex justifyContent="center" alignItems="center" height={50}>
@@ -17,7 +17,11 @@ export const TimeSlot = () => {
               {[...Array(6)].map((v, i) => {
                 return (
                   <Flex p="7.5px" key={i}>
-                    {i % 2 == 0 ? <TimeSlotItem /> : <EmptyTimeSlotItem />}
+                    {i % 2 == index % 2 ? (
+                      <TimeSlotItem />
+                    ) : (
+                      <EmptyTimeSlotItem />
+                    )}
                   </Flex>
                 );
               })}
