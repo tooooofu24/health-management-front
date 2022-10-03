@@ -1,9 +1,9 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { ChakraProvider, color } from "@chakra-ui/react";
+import { Box, ChakraProvider, Flex } from "@chakra-ui/react";
 import { NavBar } from "../components/common/NavBar";
-import { Container } from "@chakra-ui/react";
 import { extendTheme, withDefaultColorScheme } from "@chakra-ui/react";
+import { SideBar } from "../components/common/SideBar";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const customTheme = extendTheme(
@@ -19,9 +19,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={customTheme}>
       <NavBar />
-      <Container maxW="container.xl" py="100px">
-        <Component {...pageProps} />
-      </Container>
+      <SideBar />
+      <Box pl="200px" pt="50px">
+        <Box p="30px">
+          <Component {...pageProps} />
+        </Box>
+      </Box>
     </ChakraProvider>
   );
 }
