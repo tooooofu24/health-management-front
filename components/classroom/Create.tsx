@@ -6,7 +6,7 @@ import CSVReader from "react-csv-reader";
 export const Create = () => {
   const inputRef = useRef(null);
   const onClick = () => {
-    inputRef?.current?.click();
+    // inputRef?.current?.click();
   };
   const handleFiles: ChangeEventHandler<HTMLInputElement> = (event) => {
     const files = event.currentTarget.files;
