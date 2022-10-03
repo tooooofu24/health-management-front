@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
-import { PageTitle } from "../../components/common/PageTitle";
-import { AttendanceTable } from "../../components/attendance/AttendanceTable";
+import { PageTitle } from "../../../components/common/PageTitle";
+import { AttendanceTable } from "../../../components/attendance/AttendanceTable";
 
 const CreatePage: NextPage = () => {
   return (

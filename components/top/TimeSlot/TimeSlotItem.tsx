@@ -6,7 +6,11 @@ import { TimeSplotButton } from "./TimeSlotButton";
 
 export const TimeSlotItem = () => {
   return (
-    <Card width="160px" height="85px" onClick={() => Router.push("/create/1")}>
+    <Card
+      width="160px"
+      height="85px"
+      onClick={() => Router.push("/attendances/1/create")}
+    >
       <Flex justifyContent="space-between" flexDirection="column" height="full">
         <Flex justifyContent="space-between" alignItems="center">
           <Text fontWeight="bold" fontSize="17px">
