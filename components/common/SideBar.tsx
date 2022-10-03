@@ -11,7 +11,7 @@ export const SideBar = () => {
       pt="80px"
       pb="30px"
       position="fixed"
-      boxShadow="lg"
+      boxShadow="base"
     >
       <SidebarContent />
     </Box>

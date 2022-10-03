@@ -1,4 +1,4 @@
-import "../styles/globals.css";
+import "../styles/globals.scss";
 import type { AppProps } from "next/app";
 import { Box, ChakraProvider, Flex } from "@chakra-ui/react";
 import { NavBar } from "../components/common/NavBar";
@@ -14,13 +14,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         body: `'M PLUS Rounded 1c', sans-serif`,
       },
       color: "gray.700",
+      bodyBg: "gray.50",
     }
   );
   return (
     <ChakraProvider theme={customTheme}>
       <NavBar />
       <SideBar />
-      <Box pl="200px" pt="50px">
+      <Box pl="200px" py="50px">
         <Box p="30px">
           <Component {...pageProps} />
         </Box>
