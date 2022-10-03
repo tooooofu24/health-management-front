@@ -1,14 +1,13 @@
 import { Flex, Text } from "@chakra-ui/react";
 import Link from "next/link";
-import { CaretLeft } from "phosphor-react";
-import Router from "next/router";
 import { FC, ReactNode } from "react";
 
 type props = {
-  backURL?: string;
-  title: string | ReactNode;
+  iconUrl: string;
+  icon: ReactNode;
+  title: string;
 };
-export const PageTitle: FC<props> = ({ backURL, title }) => {
+export const PageTitle: FC<props> = ({ iconUrl, icon, title }) => {
   return (
     <Flex
       fontWeight="bold"
@@ -16,15 +15,11 @@ export const PageTitle: FC<props> = ({ backURL, title }) => {
       textColor="teal.500"
       marginBottom="20px"
       alignItems="center"
-      gap="10px"
+      gap="15px"
     >
-      {backURL && (
-        <Link href={backURL}>
-          <a>
-            <CaretLeft size={25} />
-          </a>
-        </Link>
-      )}
+      <Link href={iconUrl}>
+        <a>{icon}</a>
+      </Link>
       <>{title}</>
     </Flex>
   );

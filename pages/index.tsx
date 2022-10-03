@@ -7,14 +7,7 @@ import { TimeSlot } from "../components/top/TimeSlot/TimeSlot";
 const TopPage: NextPage = () => {
   return (
     <>
-      <PageTitle
-        title={
-          <Flex alignItems="center" gap="10px">
-            <House size={25} />
-            <Text>時間割</Text>
-          </Flex>
-        }
-      />
+      <PageTitle title="時間割" icon={<House size={25} />} iconUrl="/" />
       <Flex justifyContent="center">
         <TimeSlot />
       </Flex>
