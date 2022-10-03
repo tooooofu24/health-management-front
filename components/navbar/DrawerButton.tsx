@@ -28,7 +28,7 @@ export const DrawerButton = () => {
             <Item
               onClose={onClose}
               icon={<UserPlus size={20} />}
-              href="/create/1"
+              href="/classroom/create"
             >
               クラス新規登録
             </Item>
