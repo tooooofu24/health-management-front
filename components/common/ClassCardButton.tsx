@@ -18,9 +18,9 @@ import {
 import { FC, ReactNode } from "react";
 import * as CSS from "csstype";
 
-export const TimeSplotButton = () => {
+export const ClassCardButton = () => {
   return (
-    <Box onClick={(e) => e.stopPropagation()}>
+    <Box onClick={(e) => e.preventDefault()}>
       <Menu isLazy>
         <MenuButton
           as={IconButton}

@@ -5,7 +5,7 @@ import {
   AttendanceForm,
   AttendanceFormDefaultValue,
   onSubmitAttendanceForm,
-} from "../../hooks/form/AttendanceFormHook";
+} from "../../../hooks/form/AttendanceFormHook";
 import { AttendanceTableThead } from "./AttendanceTableThead";
 import { AttendanceTableTr } from "./AttendanceTableTr";
 

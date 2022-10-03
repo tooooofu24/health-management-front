@@ -16,8 +16,8 @@ import {
 import {
   AttendanceForm,
   AttendanceRow,
-} from "../../hooks/form/AttendanceFormHook";
-import { InputField } from "../common/form/InputField";
+} from "../../../hooks/form/AttendanceFormHook";
+import { InputField } from "../../common/form/InputField";
 import { AttendanceABCButtons } from "./AttendanceABCButtons";
 import { AttendanceTableTd } from "./AttendanceTableTd";
 

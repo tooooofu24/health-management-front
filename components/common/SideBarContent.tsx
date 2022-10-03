@@ -10,7 +10,7 @@ export const SidebarContent = () => {
       <Item icon={<House size={20} />} href="/" title="時間割" />
       <Item
         icon={<GraduationCap size={20} />}
-        href="/classroom/create"
+        href="/classrooms"
         title="クラス一覧"
       />
       <Item icon={<User size={20} />} href="/mypage" title="マイページ" />

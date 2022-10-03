@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { PageTitle } from "../../../components/common/PageTitle";
-import { AttendanceTable } from "../../../components/attendance/AttendanceTable";
+import { AttendanceTable } from "../../../components/attendance/create/AttendanceTable";
 import { CaretLeft } from "phosphor-react";
 import { Tile } from "../../../components/common/Tile";
 

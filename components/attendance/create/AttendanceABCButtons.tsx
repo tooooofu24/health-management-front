@@ -13,7 +13,7 @@ import {
   UseFormRegister,
   UseFormRegisterReturn,
 } from "react-hook-form";
-import { RatioButton } from "../common/form/RadioButton";
+import { RatioButton } from "../../common/form/RadioButton";
 
 type props = {
   register: UseFormRegisterReturn;
