@@ -7,12 +7,12 @@ import { Icon } from "./Icon";
 
 export const SidebarContent = () => {
   return (
-    <Flex flexDirection="column" h="full">
+    <Flex flexDirection="column" h="full" py="20px">
       {/* ロゴ部分 */}
-      <Box mb="40px">
+      <Box mb="20px">
         <Link href="/">
           <a>
-            <Flex alignItems="center" px="16px" gap="15px">
+            <Flex alignItems="center" px="16px" gap="15px" py="20px">
               <Icon width={30} height={30} />
               <Text fontWeight="bold" fontSize="20px" color="teal.500">
                 出席くん

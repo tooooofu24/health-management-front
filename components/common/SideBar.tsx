@@ -4,14 +4,7 @@ import { SidebarContent } from "./SideBarContent";
 
 export const SideBar = () => {
   return (
-    <Box
-      bg="white"
-      h="full"
-      w="200px"
-      py="30px"
-      position="fixed"
-      boxShadow="base"
-    >
+    <Box bg="white" h="full" w="200px" position="fixed" boxShadow="base">
       <SidebarContent />
     </Box>
   );
