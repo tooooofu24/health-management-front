@@ -6,8 +6,9 @@ type props = {
   iconUrl: string;
   icon: ReactNode;
   title: string;
+  rightItem?: ReactNode;
 };
-export const PageTitle: FC<props> = ({ iconUrl, icon, title }) => {
+export const PageTitle: FC<props> = ({ iconUrl, icon, title, rightItem }) => {
   return (
     <Flex
       fontWeight="bold"
@@ -21,6 +22,7 @@ export const PageTitle: FC<props> = ({ iconUrl, icon, title }) => {
         <a>{icon}</a>
       </Link>
       <>{title}</>
+      <Flex ml="auto">{rightItem}</Flex>
     </Flex>
   );
 };

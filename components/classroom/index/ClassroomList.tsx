@@ -3,23 +3,17 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
-  Badge,
   Button,
   Tag,
 } from "@chakra-ui/react";
-import { Pencil, Trash, Plus } from "phosphor-react";
+import { Pencil, Trash, Plus, ClipboardText } from "phosphor-react";
 export const ClassroomList = () => {
   return (
     <TableContainer>
-      <Flex justifyContent="end" px="24px">
-        <Button leftIcon={<Plus />}>クラス新規登録</Button>
-      </Flex>
       <Table variant="simple">
         <Thead>
           <Tr>
@@ -46,10 +40,13 @@ export const ClassroomList = () => {
                 <Td width="30%">
                   <Flex gap="20px" justifyContent="end">
                     <Button colorScheme="gray" leftIcon={<Pencil size={20} />}>
-                      編集する
+                      編集
+                    </Button>
+                    <Button leftIcon={<ClipboardText size={20} />}>
+                      成績処理
                     </Button>
                     <Button colorScheme="red" leftIcon={<Trash size={20} />}>
-                      削除する
+                      削除
                     </Button>
                   </Flex>
                 </Td>
