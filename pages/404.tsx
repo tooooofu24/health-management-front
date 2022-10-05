@@ -20,7 +20,7 @@ const NotFound: NextPage = () => {
       <Text>お探しのページが見つかりませんでした。</Text>
       <Link href="/">
         <a>
-          <Button marginTop={10} leftIcon={<House />}>
+          <Button marginTop={10} leftIcon={<House size={20} />}>
             トップページに戻る
           </Button>
         </a>

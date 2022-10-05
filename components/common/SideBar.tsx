@@ -8,8 +8,7 @@ export const SideBar = () => {
       bg="white"
       h="full"
       w="200px"
-      pt="80px"
-      pb="30px"
+      py="30px"
       position="fixed"
       boxShadow="base"
     >

@@ -19,9 +19,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
   return (
     <ChakraProvider theme={customTheme}>
-      <NavBar />
+      {/* <NavBar /> */}
       <SideBar />
-      <Box pl="200px" py="50px">
+      <Box pl="200px" pb="50px">
         <Box p="30px">
           <Component {...pageProps} />
         </Box>
