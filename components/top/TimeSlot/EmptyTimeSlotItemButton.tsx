@@ -23,7 +23,7 @@ export const EmptyTimeSlotItemButton = () => {
   return (
     <>
       <IconButton
-        icon={<PlusCircle size={40} />}
+        icon={<PlusCircle size={60} />}
         aria-label="授業追加"
         variant="ghost"
         size="lg"

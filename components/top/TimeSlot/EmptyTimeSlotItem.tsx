@@ -4,11 +4,11 @@ import { EmptyTimeSlotItemButton } from "./EmptyTimeSlotItemButton";
 export const EmptyTimeSlotItem = () => {
   return (
     <Flex
-      width="160px"
-      height="85px"
+      width="full"
+      height="230px"
       justifyContent="center"
       alignItems="center"
-      _hover={{ button: { color: "teal.500" } }}
+      _hover={{ button: { color: "gray.400" } }}
     >
       <EmptyTimeSlotItemButton />
     </Flex>

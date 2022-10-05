@@ -8,7 +8,6 @@ export const Card: FC<BoxProps> = (props) => {
       border="1px"
       borderColor="gray.300"
       borderRadius="10px"
-      cursor="pointer"
       {...props}
     >
       {props.children}
