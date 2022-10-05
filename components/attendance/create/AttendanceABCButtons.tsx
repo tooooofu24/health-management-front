@@ -13,7 +13,7 @@ import {
   UseFormRegister,
   UseFormRegisterReturn,
 } from "react-hook-form";
-import { RatioButton } from "../../common/form/RadioButton";
+import { RadioButton } from "../../common/form/RadioButton";
 
 type props = {
   register: UseFormRegisterReturn;
@@ -32,7 +32,7 @@ export const AttendanceABCButtons = ({ register, error }: props) => {
         {options.map((value) => {
           const radio = getRadioProps({ value });
           return (
-            <RatioButton
+            <RadioButton
               key={value}
               setValue={setValue}
               register={register}
@@ -40,7 +40,7 @@ export const AttendanceABCButtons = ({ register, error }: props) => {
               {...radio}
             >
               {value}
-            </RatioButton>
+            </RadioButton>
           );
         })}
       </HStack>

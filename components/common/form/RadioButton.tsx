@@ -8,7 +8,7 @@ import {
 import { ReactNode } from "react";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
-export const RatioButton = (
+export const RadioButton = (
   props: UseRadioProps & {
     children: ReactNode;
     setValue: React.Dispatch<React.SetStateAction<string | number>>;

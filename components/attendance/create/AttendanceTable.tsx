@@ -1,4 +1,13 @@
-import { Button, Flex, Table, TableContainer, Tbody } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Table,
+  TableContainer,
+  Tbody,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import { PaperPlaneTilt } from "phosphor-react";
 import { useFieldArray, useForm } from "react-hook-form";
 import {
@@ -6,7 +15,6 @@ import {
   AttendanceFormDefaultValue,
   onSubmitAttendanceForm,
 } from "../../../hooks/form/AttendanceFormHook";
-import { AttendanceTableThead } from "./AttendanceTableThead";
 import { AttendanceTableTr } from "./AttendanceTableTr";
 
 export const AttendanceTable = () => {
@@ -27,8 +35,32 @@ export const AttendanceTable = () => {
   return (
     <form onSubmit={handleSubmit(onSubmitAttendanceForm)}>
       <TableContainer>
-        <Table variant="simple">
-          <AttendanceTableThead />
+        <Table variant="simple" textAlign="center">
+          <Thead>
+            <Tr>
+              <Th color="teal.500" textAlign="center">
+                出席番号
+              </Th>
+              <Th color="teal.500" textAlign="center">
+                氏名
+              </Th>
+              <Th color="teal.500" textAlign="center">
+                出席
+              </Th>
+              <Th color="teal.500" textAlign="center">
+                知識・技能
+              </Th>
+              <Th color="teal.500" textAlign="center">
+                思考力・判断力・表現力
+              </Th>
+              <Th color="teal.500" textAlign="center">
+                主体的に取り組む態度
+              </Th>
+              <Th color="teal.500" textAlign="center">
+                コメント等
+              </Th>
+            </Tr>
+          </Thead>
           <Tbody>
             {fields.map((field, index) => (
               <AttendanceTableTr
