@@ -32,14 +32,18 @@ export const ClassroomList = () => {
                 <Td>33人</Td>
                 <Td>石田京楓</Td>
                 <Td>
-                  <Flex gap="10px">
+                  <Flex gap="10px" justifyContent="center">
                     <Tag>音楽</Tag>
                     <Tag>道徳</Tag>
                   </Flex>
                 </Td>
                 <Td width="30%">
                   <Flex gap="20px" justifyContent="end">
-                    <Button colorScheme="gray" leftIcon={<Pencil size={20} />}>
+                    <Button
+                      colorScheme="gray"
+                      leftIcon={<Pencil size={20} />}
+                      disabled
+                    >
                       編集
                     </Button>
                     <Button leftIcon={<ClipboardText size={20} />}>
