@@ -11,10 +11,15 @@ import {
 import Link from "next/link";
 import Router from "next/router";
 import { DotsThree, Flask, X } from "phosphor-react";
+import { FC } from "react";
+import { Schedule } from "../../../types/Schedule";
 import { Card } from "../../common/Card";
 import { TimeSlotItemButton } from "./TimeSlotItemButton";
 
-export const TimeSlotItem = () => {
+type props = {
+  schedule: Schedule;
+};
+export const TimeSlotItem: FC<props> = ({ schedule }) => {
   return (
     <Link href="/attendances/create">
       <a style={{ width: "100%" }}>
@@ -37,8 +42,11 @@ export const TimeSlotItem = () => {
               </Flex>
             </Square>
             <Flex alignItems="center" gap="10px">
-              <Text fontWeight="bold">1年3組</Text>
-              <Tag>理科</Tag>
+              <Text fontWeight="bold">
+                {schedule.course.classroom.grade}年
+                {schedule.course.classroom.name}組
+              </Text>
+              <Tag>{schedule.course.subject.name}</Tag>
             </Flex>
           </Flex>
         </Card>

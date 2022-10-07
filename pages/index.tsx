@@ -1,11 +1,14 @@
 import { Flex, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { CalendarCheck } from "phosphor-react";
+import { useEffect } from "react";
 import { PageTitle } from "../components/common/PageTitle";
 import { Tile } from "../components/common/Tile";
 import { TimeSlot } from "../components/top/TimeSlot/TimeSlot";
+import { useSchedules } from "../hooks/Schedule";
 
 const TopPage: NextPage = () => {
+  const { schedules } = useSchedules();
   return (
     <>
       <PageTitle
@@ -15,7 +18,7 @@ const TopPage: NextPage = () => {
       />
       <Tile>
         <Flex justifyContent="center">
-          <TimeSlot />
+          <TimeSlot schedules={schedules} />
         </Flex>
       </Tile>
     </>
