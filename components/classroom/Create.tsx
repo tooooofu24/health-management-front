@@ -23,6 +23,7 @@ import { Tile } from "../common/Tile";
 import {
   ArrowFatRight,
   Chalkboard,
+  FileCsv,
   GraduationCap,
   PaperPlaneTilt,
 } from "phosphor-react";
@@ -57,7 +58,7 @@ export const Create = () => {
             </FormControl>
             <FormControl isInvalid={false}>
               <FormLabel>
-                <Chalkboard />
+                <FileCsv />
                 <Text>生徒データ</Text>
               </FormLabel>
               <label>
@@ -70,7 +71,7 @@ export const Create = () => {
                   />
                 </VisuallyHidden>
                 <Tag variant="solid" size="lg" cursor="pointer">
-                  ファイルを選択
+                  CSVファイルを選択
                 </Tag>
               </label>
             </FormControl>
