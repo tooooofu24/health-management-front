@@ -29,7 +29,7 @@ export const TimeSlotItem = () => {
           <ButtonGroup size="sm" isAttached>
             <Button
               onClick={() => {
-                Router.push("/attendances/1/create");
+                Router.push("/attendances/create");
               }}
             >
               成績登録

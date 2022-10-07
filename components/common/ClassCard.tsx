@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export const ClassCard = () => {
   return (
-    <Link href="/attendances/1/create">
+    <Link href="/attendances/create">
       <a>
         <Card width="160px" height="85px">
           <Flex

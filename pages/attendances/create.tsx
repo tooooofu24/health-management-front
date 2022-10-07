@@ -1,9 +1,7 @@
 import type { NextPage } from "next";
-import { PageTitle } from "../../../components/common/PageTitle";
-import { AttendanceTable } from "../../../components/attendance/create/AttendanceTable";
 import { CaretLeft } from "phosphor-react";
-import { Tile } from "../../../components/common/Tile";
-import { AttendanceCreate } from "../../../components/attendance/create/Index";
+import { AttendanceCreate } from "../../components/attendance/create/Index";
+import { PageTitle } from "../../components/common/PageTitle";
 
 const CreatePage: NextPage = () => {
   return (
