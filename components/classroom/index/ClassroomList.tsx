@@ -10,7 +10,8 @@ import {
   Button,
   Tag,
 } from "@chakra-ui/react";
-import { Pencil, Trash, Plus, ClipboardText } from "phosphor-react";
+import Link from "next/link";
+import { Trash, IdentificationCard } from "phosphor-react";
 export const ClassroomList = () => {
   return (
     <TableContainer>
@@ -39,16 +40,14 @@ export const ClassroomList = () => {
                 </Td>
                 <Td width="30%">
                   <Flex gap="20px" justifyContent="end">
-                    <Button
-                      colorScheme="gray"
-                      leftIcon={<Pencil size={20} />}
-                      disabled
-                    >
-                      編集
-                    </Button>
-                    <Button leftIcon={<ClipboardText size={20} />}>
-                      成績処理
-                    </Button>
+                    <Link href="/classrooms/1">
+                      <a>
+                        <Button leftIcon={<IdentificationCard size={20} />}>
+                          詳細
+                        </Button>
+                      </a>
+                    </Link>
+
                     <Button colorScheme="red" leftIcon={<Trash size={20} />}>
                       削除
                     </Button>

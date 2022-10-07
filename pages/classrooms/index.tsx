@@ -15,7 +15,7 @@ const ClassroomPage: NextPage = () => {
         icon={<GraduationCap size={25} />}
         iconUrl="/classrooms"
         rightItem={
-          <Link href="classrooms/create">
+          <Link href="/classrooms/create">
             <a>
               <Button leftIcon={<Plus />}>クラス新規登録</Button>
             </a>
