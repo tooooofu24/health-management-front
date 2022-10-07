@@ -34,16 +34,12 @@ export const AttendanceTableTr = ({
   const borderColor = error ? "red.500" : "gray.100";
   return (
     <Tr>
-      <Td borderColor={borderColor} textAlign="center">
-        1
-      </Td>
-      <Td borderColor={borderColor} textAlign="center">
-        石田京楓
-      </Td>
-      <Td borderColor={borderColor} textAlign="center">
+      <Td borderColor={borderColor}>1</Td>
+      <Td borderColor={borderColor}>石田京楓</Td>
+      <Td borderColor={borderColor}>
         <Checkbox size="lg" {...register(`rows.${index}.attend`)}></Checkbox>
       </Td>
-      <Td borderColor={borderColor} textAlign="center">
+      <Td borderColor={borderColor}>
         <AttendanceABCButtons
           register={register(`rows.${index}.knowledge`, {
             required: "必須項目です！",
@@ -51,7 +47,7 @@ export const AttendanceTableTr = ({
           error={error?.knowledge}
         />
       </Td>
-      <Td borderColor={borderColor} textAlign="center">
+      <Td borderColor={borderColor}>
         <AttendanceABCButtons
           register={register(`rows.${index}.expression`, {
             required: "必須項目です！",
@@ -59,7 +55,7 @@ export const AttendanceTableTr = ({
           error={error?.expression}
         />
       </Td>
-      <Td borderColor={borderColor} textAlign="center">
+      <Td borderColor={borderColor}>
         <AttendanceABCButtons
           register={register(`rows.${index}.attitude`, {
             required: "必須項目です！",
@@ -67,7 +63,7 @@ export const AttendanceTableTr = ({
           error={error?.attitude}
         />
       </Td>
-      <Td borderColor={borderColor} textAlign="center">
+      <Td borderColor={borderColor}>
         <InputField
           register={register(`rows.${index}.comment`)}
           width="300px"
