@@ -30,7 +30,7 @@ import {
 export const Create = () => {
   return (
     <Flex gap="50px">
-      <Box flex={1}>
+      <Box flex={6}>
         <Tile>
           <Flex flexDirection="column" gap="20px">
             <FormControl isInvalid={false}>
@@ -77,10 +77,15 @@ export const Create = () => {
           </Flex>
         </Tile>
       </Box>
-      <Flex alignItems="center" color="gray.500">
+      <Flex
+        flex={1}
+        alignItems="center"
+        color="gray.500"
+        justifyContent="center"
+      >
         <ArrowFatRight size={60} />
       </Flex>
-      <Flex flex={1} flexDirection="column" gap="20px">
+      <Flex flexDirection="column" gap="20px" flex={6}>
         <Tile>
           <TableContainer>
             <Table>
