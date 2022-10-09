@@ -12,26 +12,23 @@ import {
 import Router from "next/router";
 import { House, List, UserPlus } from "phosphor-react";
 import React, { FC, ReactNode } from "react";
+import { SidebarContent } from "../common/SideBarContent";
 
 export const DrawerButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <IconButton icon={<List />} aria-label="メニュー" onClick={onOpen} />
+      <IconButton
+        icon={<List size={22} />}
+        aria-label="メニュー"
+        onClick={onOpen}
+        variant="ghost"
+      />
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerBody py={30} px={0}>
-            <Item onClose={onClose} icon={<House size={20} />} href="/">
-              ホーム
-            </Item>
-            <Item
-              onClose={onClose}
-              icon={<UserPlus size={20} />}
-              href="/classroom/create"
-            >
-              クラス新規登録
-            </Item>
+          <DrawerBody p={0}>
+            <SidebarContent />
           </DrawerBody>
         </DrawerContent>
       </Drawer>

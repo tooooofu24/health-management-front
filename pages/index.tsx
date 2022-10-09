@@ -5,10 +5,10 @@ import { useEffect } from "react";
 import { PageTitle } from "../components/common/PageTitle";
 import { Tile } from "../components/common/Tile";
 import { TimeSlot } from "../components/top/TimeSlot/TimeSlot";
-import { useSchedules } from "../hooks/Schedule";
+import { Schedule } from "../types/Schedule";
 
 const TopPage: NextPage = () => {
-  const { schedules } = useSchedules();
+  const schedules: Schedule[] = [];
   return (
     <>
       <PageTitle

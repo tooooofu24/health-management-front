@@ -22,8 +22,6 @@ type props = {
   schedules: Schedule[];
 };
 export const TimeSlot: FC<props> = ({ schedules }) => {
-  console.log(schedules);
-
   return (
     <Flex width="full">
       <TimeSlotColumnHeader />

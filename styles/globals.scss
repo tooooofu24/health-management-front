@@ -3,3 +3,16 @@
 :root {
   --chakra-colors-chakra-body-bg: var(--chakra-colors-gray-50) !important;
 }
+
+.no-side-bar-layout {
+  display: block;
+  @media screen and (min-width: 1200px) {
+    display: none;
+  }
+}
+.side-bar-layout {
+  display: none;
+  @media screen and (min-width: 1200px) {
+    display: block;
+  }
+}
