@@ -6,7 +6,14 @@ import { Icon } from "./Icon";
 
 export const NavBar = () => {
   return (
-    <Box w="100%" px="20px" position="fixed" zIndex="10" boxShadow="base">
+    <Box
+      w="100%"
+      px="20px"
+      position="fixed"
+      zIndex="10"
+      boxShadow="base"
+      bg="#fff"
+    >
       <Flex height="50px" alignItems="center" justifyContent="space-between">
         <Link href="/">
           <a>

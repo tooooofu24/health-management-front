@@ -4,7 +4,7 @@ import { FC } from "react";
 export const Tile: FC<BoxProps> = (props) => {
   return (
     <Box p="16px" bg="white" borderRadius="10px" boxShadow="base" {...props}>
-      {props.children}
+      <Box overflow="scroll">{props.children}</Box>
     </Box>
   );
 };

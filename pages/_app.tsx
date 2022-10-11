@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Box className="no-side-bar-layout">
           <NavBar />
           <Box pt="50px">
-            <Box p="30px">
+            <Box p="1.15rem">
               <Component {...pageProps} />
             </Box>
           </Box>

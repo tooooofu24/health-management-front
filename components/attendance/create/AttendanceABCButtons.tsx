@@ -16,7 +16,7 @@ import {
 import { RadioButton } from "../../common/form/RadioButton";
 
 type props = {
-  register: UseFormRegisterReturn;
+  register?: UseFormRegisterReturn;
   error?: FieldError;
 };
 export const AttendanceABCButtons = ({ register, error }: props) => {
@@ -35,7 +35,7 @@ export const AttendanceABCButtons = ({ register, error }: props) => {
             <RadioButton
               key={value}
               setValue={setValue}
-              register={register}
+              register={register!}
               error={error}
               {...radio}
             >

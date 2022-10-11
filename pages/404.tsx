@@ -1,4 +1,4 @@
-import { Button, Flex, Img, Text } from "@chakra-ui/react";
+import { Button, Flex, Img, Square, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { House } from "phosphor-react";
@@ -12,11 +12,13 @@ const NotFound: NextPage = () => {
       justifyContent="center"
       pt="10vh"
     >
-      <Img
-        src="/img/not-found.png"
-        alt="寂しい女の子のイラスト"
-        width="350px"
-      />
+      <Square size="350px">
+        <Img
+          src="/img/not-found.png"
+          alt="寂しい女の子のイラスト"
+          width="full"
+        />
+      </Square>
       <Text>お探しのページが見つかりませんでした。</Text>
       <Link href="/">
         <a>
