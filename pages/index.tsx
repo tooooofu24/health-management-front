@@ -1,14 +1,9 @@
-import { Flex, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { CalendarCheck } from "phosphor-react";
-import { useEffect } from "react";
 import { PageTitle } from "../components/common/PageTitle";
-import { Tile } from "../components/common/Tile";
-import { TimeSlot } from "../components/top/TimeSlot/TimeSlot";
-import { Schedule } from "../types/Schedule";
+import { Schedule } from "../components/top/Index";
 
 const TopPage: NextPage = () => {
-  const schedules: Schedule[] = [];
   return (
     <>
       <PageTitle
@@ -16,11 +11,7 @@ const TopPage: NextPage = () => {
         icon={<CalendarCheck size={25} />}
         iconUrl="/"
       />
-      <Tile>
-        <Flex justifyContent="center">
-          <TimeSlot schedules={schedules} />
-        </Flex>
-      </Tile>
+      <Schedule />
     </>
   );
 };

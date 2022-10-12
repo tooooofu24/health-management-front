@@ -29,6 +29,15 @@ export const CustomComponents = {
             textAlign: "center",
           },
         },
+        unstyled: {
+          th: {
+            color: "gray.500",
+            textAlign: "center",
+          },
+          td: {
+            textAlign: "center",
+          },
+        },
       },
     },
   },

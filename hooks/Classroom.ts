@@ -15,3 +15,18 @@ export const useClassrooms = () => {
   }, []);
   return { classrooms, getClassrooms };
 };
+
+export const useClassroom = (id: number) => {
+  const [classroom, setClassroom] = useState<Classroom | null>(null);
+  const getClassroom = async () => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/classrooms/${id}`
+    );
+    const json = await res.json();
+    setClassroom(json.results);
+  };
+  useEffect(() => {
+    getClassroom();
+  }, []);
+  return { classroom, getClassroom };
+};
