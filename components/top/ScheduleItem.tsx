@@ -15,6 +15,7 @@ import { FC } from "react";
 import { Schedule } from "../../types/Schedule";
 import { Tooltip } from "@chakra-ui/react";
 import Router from "next/router";
+import { SubjectIcon } from "../common/SubjectIcon";
 
 type props = {
   schedule: Schedule;
@@ -31,8 +32,12 @@ export const ScheduleItem: FC<props> = ({ schedule }) => {
         onClick={() => Router.push("/attendances/create")}
       >
         <Flex height="full" position="relative">
-          <Flex flexDirection="column" gap="5px" alignItems="center">
-            <Flask size="50%" />
+          <Flex flexDirection="column" alignItems="center">
+            <SubjectIcon
+              subjectName={schedule.course.subject.name}
+              size="50%"
+            />
+            <Text fontSize="12px">{schedule.course.subject.name}</Text>
             <Text fontWeight="bold">
               {schedule.course.classroom.grade}年
               {schedule.course.classroom.name}組
