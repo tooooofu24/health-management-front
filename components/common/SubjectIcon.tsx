@@ -11,8 +11,7 @@ import {
 type props = {
   subjectName: string;
 } & IconProps;
-export const SubjectIcon = (props: props) => {
-  const { subjectName } = props;
+export const SubjectIcon = ({ subjectName, ...props }: props) => {
   if (subjectName === "国語") return <Notebook {...props} />;
   if (subjectName === "数学") return <MathOperations {...props} />;
   if (subjectName === "社会") return <GlobeStand {...props} />;

@@ -17,7 +17,6 @@ import { ScheduleItem } from "./ScheduleItem";
 
 export const Schedule = () => {
   const { schedules } = useSchedules();
-  console.log(schedules);
 
   return (
     <Tile>

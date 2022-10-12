@@ -16,7 +16,6 @@ import { useClassrooms } from "../../../hooks/Classroom";
 import { Classroom } from "../../../types/Classroom";
 export const ClassroomList = () => {
   const { classrooms } = useClassrooms();
-  console.log(classrooms);
 
   return (
     <TableContainer>
