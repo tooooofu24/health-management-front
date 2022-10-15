@@ -26,6 +26,7 @@ import {
   Notebook,
   PaperPlaneTilt,
 } from "phosphor-react";
+import { FC } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import {
   AttendanceForm,
@@ -33,43 +34,33 @@ import {
   onSubmitAttendanceForm,
 } from "../../../hooks/form/AttendanceFormHook";
 import { isPCScreen } from "../../../styles/Responsive";
+import { Student } from "../../../types/Student";
 import { InputField } from "../../common/form/InputField";
 import { AttendanceABCButtons } from "./AttendanceABCButtons";
 
-export const AttendanceTable = () => {
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<AttendanceForm>({
-    defaultValues: AttendanceFormDefaultValue,
-  });
-
-  const { fields } = useFieldArray({
-    name: "rows",
-    control,
-  });
-
+type props = {
+  students: Student[];
+};
+export const AttendanceTable: FC<props> = ({ students }) => {
   return (
-    <form onSubmit={handleSubmit(onSubmitAttendanceForm)}>
-      <TableContainer>
-        <Table variant="simple">
-          <Thead>
-            <Tr>
-              <Th maxWidth={100}>番号</Th>
-              <Th>氏名</Th>
-              <Th maxWidth={100}>出欠</Th>
-              <Th>知識・技能</Th>
-              <Th>思考力・判断力・表現力</Th>
-              <Th>主体的に学習に取り組む態度</Th>
-              <Th maxWidth={100}>コメント</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>1</Td>
-              <Td>千葉陶也</Td>
+    <TableContainer>
+      <Table variant="simple">
+        <Thead>
+          <Tr>
+            <Th>番号</Th>
+            <Th>氏名</Th>
+            <Th>出欠</Th>
+            <Th>知識・技能</Th>
+            <Th>思考力・判断力・表現力</Th>
+            <Th>主体的に学習に取り組む態度</Th>
+            <Th>コメント</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {students.map((student, i) => (
+            <Tr key={student.id}>
+              <Td>{i + 1}</Td>
+              <Td>{student.name}</Td>
               <Td>
                 <Checkbox size="lg" />
               </Td>
@@ -91,6 +82,7 @@ export const AttendanceTable = () => {
                   <IconButton
                     height="auto"
                     minWidth="auto"
+                    color="gray.400"
                     icon={<ChatCircle size={25} />}
                     aria-label=""
                     variant="ghost"
@@ -98,9 +90,9 @@ export const AttendanceTable = () => {
                 </Flex>
               </Td>
             </Tr>
-          </Tbody>
-        </Table>
-      </TableContainer>
-    </form>
+          ))}
+        </Tbody>
+      </Table>
+    </TableContainer>
   );
 };

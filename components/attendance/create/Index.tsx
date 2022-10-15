@@ -1,76 +1,92 @@
 import {
+  Box,
   Button,
   Flex,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
   FormLabel,
-  Img,
   Input,
   Select,
-  Square,
   Text,
 } from "@chakra-ui/react";
-import Link from "next/link";
+import { AddressBook, Calendar, Clock, PaperPlaneTilt } from "phosphor-react";
+import { useForm } from "react-hook-form";
+import { useCourses } from "../../../hooks/Course";
 import {
-  AddressBook,
-  Calendar,
-  Clock,
-  House,
-  PaperPlaneTilt,
-} from "phosphor-react";
-import { isPCScreen } from "../../../styles/Responsive";
+  AttendanceForm,
+  AttendanceFormDefaultValue,
+} from "../../../hooks/form/AttendanceFormHook";
+import { useStudents } from "../../../hooks/Student";
 import { Tile, TilesWrapper } from "../../common/Tile";
-import { AttendanceList } from "./AttendanceList";
 import { AttendanceTable } from "./AttendanceTable";
 
 export const AttendanceCreate = () => {
+  const { students } = useStudents();
+  const { courses } = useCourses();
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<AttendanceForm>({
+    mode: "onBlur",
+    defaultValues: AttendanceFormDefaultValue,
+  });
+
   return (
-    <TilesWrapper>
-      <Tile>
-        <Flex gap="20px" flexWrap="wrap" width="full">
-          <FormControl isInvalid={false} flex={1} minWidth="200px">
-            <FormLabel>
-              <AddressBook />
-              <Text>クラスと教科</Text>
-            </FormLabel>
-            <Select placeholder="選択して下さい" defaultValue="option1">
-              <option value="option1">1年1組 「道徳」</option>
-              <option value="option2">2年2組 「音楽」</option>
-              <option value="option3">3年1組 「音楽」</option>
-            </Select>
-            <FormErrorMessage>Email is required.</FormErrorMessage>
-          </FormControl>
-          <FormControl isInvalid={false} flex={1} minWidth="200px">
-            <FormLabel>
-              <Calendar />
-              <Text>日付</Text>
-            </FormLabel>
-            <Input type="date" value="2022-10-01" />
-            <FormErrorMessage>Email is required.</FormErrorMessage>
-          </FormControl>
-          <FormControl isInvalid={false} flex={1} minWidth="200px">
-            <FormLabel>
-              <Clock />
-              時限
-            </FormLabel>
-            <Select placeholder="選択して下さい" defaultValue="option1">
-              <option value="option1">1時間目</option>
-              <option value="option2">2時間目</option>
-              <option value="option3">3時間目</option>
-            </Select>
-            <FormErrorMessage>Email is required.</FormErrorMessage>
-          </FormControl>
+    <form action="/">
+      <TilesWrapper>
+        <Tile>
+          <Flex gap="20px" flexWrap="wrap" width="full">
+            <FormControl isInvalid={false} flex={1} minWidth="200px">
+              <FormLabel>
+                <AddressBook />
+                <Text>クラスと教科</Text>
+              </FormLabel>
+              <Select colorScheme="teal" placeholder="選択して下さい">
+                {courses.map((course) => {
+                  return (
+                    <option value={course.id}>
+                      {course.classroom.grade}年{course.classroom.name}組「
+                      {course.subject.name}」
+                    </option>
+                  );
+                })}
+              </Select>
+              <FormErrorMessage>Email is required.</FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={false} flex={1} minWidth="200px">
+              <FormLabel>
+                <Calendar />
+                <Text>日付</Text>
+              </FormLabel>
+              <Input type="date" value="" />
+              <FormErrorMessage>Email is required.</FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={false} flex={1} minWidth="200px">
+              <FormLabel>
+                <Clock />
+                時限
+              </FormLabel>
+              <Select placeholder="選択して下さい" defaultValue="option1">
+                {[...Array(6)].map((v, i) => (
+                  <option value={i + 1}>{i + 1}時間目</option>
+                ))}
+              </Select>
+              <FormErrorMessage>Email is required.</FormErrorMessage>
+            </FormControl>
+          </Flex>
+        </Tile>
+        <Tile>
+          <AttendanceTable students={students} />
+        </Tile>
+        <Flex w="full" justifyContent="end" gap="20px">
+          <Button rightIcon={<PaperPlaneTilt />} type="submit">
+            成績を登録する
+          </Button>
         </Flex>
-      </Tile>
-      <Tile>
-        <AttendanceTable />
-      </Tile>
-      <Flex w="full" justifyContent="end" gap="20px">
-        <Button rightIcon={<PaperPlaneTilt />} type="submit">
-          成績を登録する
-        </Button>
-      </Flex>
-    </TilesWrapper>
+      </TilesWrapper>
+    </form>
   );
 };

@@ -1,5 +1,8 @@
 export type AttendanceForm = {
-  rows: AttendanceRow[];
+  course_id?: number;
+  date?: string;
+  period?: number;
+  attendances: AttendanceRow[];
 };
 
 export type AttendanceRow = {
@@ -15,7 +18,7 @@ export const AttendanceRowDefaultValue: AttendanceRow = {
 };
 
 export const AttendanceFormDefaultValue: AttendanceForm = {
-  rows: [
+  attendances: [
     AttendanceRowDefaultValue,
     AttendanceRowDefaultValue,
     AttendanceRowDefaultValue,
