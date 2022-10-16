@@ -50,35 +50,61 @@ export const AttendanceCreate = () => {
       <TilesWrapper>
         <Tile>
           <Flex gap="20px" flexWrap="wrap" width="full">
-            <FormControl isInvalid={false} flex={1} minWidth="200px">
+            <FormControl
+              isInvalid={Boolean(errors.courseId)}
+              flex={1}
+              minWidth="200px"
+            >
               <FormLabel>
                 <AddressBook />
                 <Text>クラスと教科</Text>
               </FormLabel>
-              <CourseInput register={register("courseId")} />
-              <FormErrorMessage>Email is required.</FormErrorMessage>
+              <CourseInput
+                register={register("courseId", {
+                  required: "入力してください。",
+                })}
+              />
+              <FormErrorMessage>{errors.courseId?.message}</FormErrorMessage>
             </FormControl>
-            <FormControl isInvalid={false} flex={1} minWidth="200px">
+            <FormControl
+              isInvalid={Boolean(errors.date)}
+              flex={1}
+              minWidth="200px"
+            >
               <FormLabel>
                 <Calendar />
                 <Text>日付</Text>
               </FormLabel>
-              <Input type="date" {...register("date")} />
-              <FormErrorMessage>Email is required.</FormErrorMessage>
+              <Input
+                type="date"
+                {...register("date", {
+                  required: "入力してください。",
+                })}
+              />
+              <FormErrorMessage>{errors.date?.message}</FormErrorMessage>
             </FormControl>
-            <FormControl isInvalid={false} flex={1} minWidth="200px">
+            <FormControl
+              isInvalid={Boolean(errors.period)}
+              flex={1}
+              minWidth="200px"
+            >
               <FormLabel>
                 <Clock />
                 時限
               </FormLabel>
-              <Select placeholder="選択して下さい" {...register("period")}>
+              <Select
+                placeholder="選択して下さい"
+                {...register("period", {
+                  required: "入力してください。",
+                })}
+              >
                 {[...Array(6)].map((v, i) => (
                   <option key={i} value={i + 1}>
                     {i + 1}時間目
                   </option>
                 ))}
               </Select>
-              <FormErrorMessage>Email is required.</FormErrorMessage>
+              <FormErrorMessage>{errors.period?.message}</FormErrorMessage>
             </FormControl>
           </Flex>
         </Tile>
