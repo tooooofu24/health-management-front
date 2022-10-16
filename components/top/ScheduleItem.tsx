@@ -29,7 +29,13 @@ export const ScheduleItem: FC<props> = ({ schedule }) => {
         _hover={{ bg: "gray.50" }}
         rounded="lg"
         color="teal.500"
-        onClick={() => Router.push("/attendances/create")}
+        onClick={() =>
+          Router.push(
+            `/attendances/create?courseId=${schedule.course.id}&period=${
+              schedule.period
+            }&date=${calculateDate(schedule)}`
+          )
+        }
       >
         <Flex height="full" position="relative">
           <Flex flexDirection="column" alignItems="center">
@@ -47,4 +53,8 @@ export const ScheduleItem: FC<props> = ({ schedule }) => {
       </AspectRatio>
     </Tooltip>
   );
+};
+
+const calculateDate = (schedule: Schedule) => {
+  return new Date().toLocaleDateString().replace("/", "-").replace("/", "-");
 };

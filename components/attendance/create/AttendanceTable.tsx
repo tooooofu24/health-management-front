@@ -1,47 +1,32 @@
 import {
-  Box,
-  Button,
   Checkbox,
   Flex,
-  FormControl,
-  FormLabel,
   IconButton,
+  Spinner,
   Table,
   TableContainer,
-  Tag,
   Tbody,
   Td,
-  Text,
   Th,
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import {
-  Book,
-  ChatCircle,
-  ChatCircleDots,
-  Check,
-  HandPalm,
-  Lightbulb,
-  Notebook,
-  PaperPlaneTilt,
-} from "phosphor-react";
+import { ChatCircle } from "phosphor-react";
 import { FC } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
-import {
-  AttendanceForm,
-  AttendanceFormDefaultValue,
-  onSubmitAttendanceForm,
-} from "../../../hooks/form/AttendanceFormHook";
-import { isPCScreen } from "../../../styles/Responsive";
 import { Student } from "../../../types/Student";
-import { InputField } from "../../common/form/InputField";
 import { AttendanceABCButtons } from "./AttendanceABCButtons";
 
 type props = {
   students: Student[];
 };
 export const AttendanceTable: FC<props> = ({ students }) => {
+  if (!students.length) {
+    return (
+      <Flex justifyContent="center" p={10}>
+        <Spinner color="gray.500" />
+      </Flex>
+    );
+  }
   return (
     <TableContainer>
       <Table variant="simple">

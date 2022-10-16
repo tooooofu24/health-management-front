@@ -1,13 +1,13 @@
 export type AttendanceForm = {
-  course_id?: number;
-  date?: string;
-  period?: number;
-  attendances: AttendanceRow[];
+  courseId?: string | null;
+  date?: string | null;
+  period?: string | null;
+  attendances?: AttendanceRow[];
 };
 
 export type AttendanceRow = {
   attend?: boolean;
-  knowledge?: "A" | "B" | "C";
+  knowledge?: "A" | "B" | "C" | null;
   expression?: "A" | "B" | "C";
   attitude?: "A" | "B" | "C";
   comment?: string;
