@@ -24,32 +24,36 @@ export const ClassroomDetail = () => {
         <TableContainer>
           <Table variant="unstyled" size="sm" width="auto">
             <Thead>
-              <Th textAlign="start" pe="50px">
-                担任
-              </Th>
-              <Th textAlign="start" pe="50px">
-                人数
-              </Th>
-              <Th textAlign="start" pe="50px">
-                授業回数
-              </Th>
-              <Th textAlign="start" pe="50px">
-                最終授業日
-              </Th>
+              <Tr>
+                <Th textAlign="start" pe="50px">
+                  担任
+                </Th>
+                <Th textAlign="start" pe="50px">
+                  人数
+                </Th>
+                <Th textAlign="start" pe="50px">
+                  授業回数
+                </Th>
+                <Th textAlign="start" pe="50px">
+                  最終授業日
+                </Th>
+              </Tr>
             </Thead>
             <Tbody>
-              <Td textAlign="start" fontSize="16px" pe="50px">
-                石田京香
-              </Td>
-              <Td textAlign="start" fontSize="16px" pe="50px">
-                33人
-              </Td>
-              <Td textAlign="start" fontSize="16px" pe="50px">
-                22回
-              </Td>
-              <Td textAlign="start" fontSize="16px" pe="50px">
-                2022/10/10
-              </Td>
+              <Tr>
+                <Td textAlign="start" fontSize="16px" pe="50px">
+                  石田京香
+                </Td>
+                <Td textAlign="start" fontSize="16px" pe="50px">
+                  33人
+                </Td>
+                <Td textAlign="start" fontSize="16px" pe="50px">
+                  22回
+                </Td>
+                <Td textAlign="start" fontSize="16px" pe="50px">
+                  2022/10/10
+                </Td>
+              </Tr>
             </Tbody>
           </Table>
         </TableContainer>
@@ -78,9 +82,9 @@ export const ClassroomDetail = () => {
                     </Tr>
                   </Thead>
                   <Tbody>
-                    {[...Array(5)].map(() => {
+                    {[...Array(5)].map((v, i) => {
                       return (
-                        <Tr>
+                        <Tr key={i}>
                           <Td>1</Td>
                           <Td>石田京楓</Td>
                           <Td>98.5%</Td>
