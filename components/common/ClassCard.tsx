@@ -1,7 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { DotsThree, Student, UsersThree } from "phosphor-react";
 import { Card } from "./Card";
-import Router from "next/router";
 import { ClassCardButton } from "./ClassCardButton";
 import Link from "next/link";
 

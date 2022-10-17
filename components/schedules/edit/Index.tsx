@@ -1,6 +1,4 @@
 import {
-  Box,
-  Square,
   Table,
   TableContainer,
   Tbody,
@@ -10,12 +8,11 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { ReactNode } from "react";
-import { useSchedules } from "../../hooks/Schedule";
-import { Tile } from "../common/Tile";
-import { ScheduleEmptyItem } from "./ScheduleEmptyItem";
-import { ScheduleItem } from "./ScheduleItem";
+import { useSchedules } from "../../../hooks/Schedule";
+import { Tile } from "../../common/Tile";
+import { EditScheduleItem } from "./EditScheduleItem";
 
-export const Schedule = () => {
+export const ScheduleEdit = () => {
   const { schedules } = useSchedules();
 
   return (
@@ -44,11 +41,7 @@ export const Schedule = () => {
                     );
                     return (
                       <StyledTd day={day} period={period} key={day}>
-                        {schedule ? (
-                          <ScheduleItem schedule={schedule} />
-                        ) : (
-                          <ScheduleEmptyItem />
-                        )}
+                        <EditScheduleItem schedule={schedule} />
                       </StyledTd>
                     );
                   })}
