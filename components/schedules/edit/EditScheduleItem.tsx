@@ -3,6 +3,8 @@ import { FC } from "react";
 import { Schedule } from "../../../types/Schedule";
 import { ScheduleItemContent } from "../ScheduleItemContent";
 import { Plus, X } from "phosphor-react";
+import { PlusButton } from "./PlusButton";
+import { DeleteButton } from "./DeleteButton";
 
 type props = {
   schedule?: Schedule;
@@ -15,13 +17,7 @@ export const EditScheduleItem: FC<props> = ({ schedule }) => {
           <ScheduleItemContent schedule={schedule} />
         </AspectRatio>
         <Box position="absolute" top="0" right="0">
-          <IconButton
-            colorScheme="red"
-            size="sm"
-            icon={<X />}
-            aria-label="削除"
-            rounded="full"
-          />
+          <DeleteButton schedule={schedule} />
         </Box>
       </Box>
     );
@@ -29,12 +25,7 @@ export const EditScheduleItem: FC<props> = ({ schedule }) => {
     return (
       <AspectRatio ratio={1}>
         <Box>
-          <IconButton
-            size="lg"
-            icon={<Plus />}
-            aria-label="追加"
-            rounded="full"
-          />
+          <PlusButton />
         </Box>
       </AspectRatio>
     );
