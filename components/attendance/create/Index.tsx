@@ -40,9 +40,10 @@ export const AttendanceCreate = () => {
 
   useEffect(() => {
     if (!router.isReady) return;
-    setValue("courseId", String(router.query.courseId));
-    setValue("date", String(router.query.date));
-    setValue("period", String(router.query.period));
+    const { courseId, date, period } = router.query;
+    setValue("courseId", String(courseId));
+    setValue("date", String(date));
+    setValue("period", String(period));
   }, [router]);
 
   return (
