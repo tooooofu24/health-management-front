@@ -15,6 +15,7 @@ import {
   ModalOverlay,
   Select,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { Plus, X } from "phosphor-react";
@@ -28,11 +29,20 @@ export const DeleteButton = ({ schedule }: props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { deleteSchedule } = useDeleteSchedule();
   const router = useRouter();
+  const toast = useToast();
 
   const onClick = async () => {
     deleteSchedule(schedule);
-    onClose();
     router.push("/schedules/edit");
+    onClose();
+    toast({
+      title: "",
+      description: "時間割を削除しました！",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+      position: "top",
+    });
   };
 
   return (

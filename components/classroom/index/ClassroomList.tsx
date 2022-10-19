@@ -15,9 +15,14 @@ import { Trash, IdentificationCard, CaretRight } from "phosphor-react";
 import { useClassrooms } from "../../../hooks/Classroom";
 import { Classroom } from "../../../types/Classroom";
 import Router from "next/router";
+import { useEffect } from "react";
 
 export const ClassroomList = () => {
-  const { classrooms } = useClassrooms();
+  const { classrooms, getClassrooms } = useClassrooms();
+
+  useEffect(() => {
+    getClassrooms();
+  }, []);
 
   return (
     <TableContainer>
@@ -53,7 +58,7 @@ const Row = ({ classroom }: { classroom: Classroom }) => {
         {classroom.grade}年{classroom.name}組
       </Td>
       <Td>{classroom.teacher}</Td>
-      <Td>41人</Td>
+      <Td>{classroom.studentsCount}人</Td>
       <Td>
         <Flex gap="10px" justifyContent="center">
           {classroom.subjects?.map((subject) => {
@@ -61,7 +66,7 @@ const Row = ({ classroom }: { classroom: Classroom }) => {
           })}
         </Flex>
       </Td>
-      <Td>2022年10月1日</Td>
+      <Td>{classroom.lastLessonDate}</Td>
       <Td>
         <Flex justifyContent="end" alignItems="center">
           <CaretRight />

@@ -5,5 +5,7 @@ export type Classroom = {
   grade: number;
   name: string;
   teacher: string;
+  lastLessonDate: string | null;
+  studentsCount: number;
   subjects?: Subject[];
 };

@@ -14,20 +14,17 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Select,
   useDisclosure,
 } from "@chakra-ui/react";
 import Router, { useRouter } from "next/router";
 import { Plus } from "phosphor-react";
 import { useForm } from "react-hook-form";
-import { useCreateSchedule, useSchedules } from "../../../hooks/Schedule";
+import { useCreateSchedule } from "../../../hooks/Schedule";
 import { Day } from "../../../types/Day";
 import { Period } from "../../../types/Period";
-import { Schedule } from "../../../types/Schedule";
 import { ClassroomField } from "../../common/form/ClassroomField";
-import { DayField } from "../../common/form/DayField";
-import { PeriodField } from "../../common/form/PeriodField";
 import { SubjectField } from "../../common/form/SubjectField";
+import { useToast } from "@chakra-ui/react";
 
 type props = {
   period: Period;
@@ -36,6 +33,7 @@ type props = {
 export const PlusButton = ({ period, day }: props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { createSchedule } = useCreateSchedule();
+  const toast = useToast();
 
   const {
     register,
@@ -49,8 +47,16 @@ export const PlusButton = ({ period, day }: props) => {
   const onSubmit = async (data: form) => {
     await createSchedule({ day, period, ...data });
 
-    onClose();
     router.push("/schedules/edit");
+    onClose();
+    toast({
+      title: "",
+      description: "時間割が登録されました！",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+      position: "top",
+    });
   };
 
   return (
