@@ -3,13 +3,14 @@ import { Student } from "../types/Student";
 
 export const useStudents = () => {
   const [students, setStudents] = useState<Student[]>([]);
-  const getStudents = async () => {
-    const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + "/students");
+  const getStudents = async (classroomId: number | string) => {
+    const res = await fetch(
+      process.env.NEXT_PUBLIC_API_BASE_URL +
+        "/students?classroom=" +
+        classroomId
+    );
     const json = await res.json();
     setStudents(json.results);
   };
-  useEffect(() => {
-    getStudents();
-  }, []);
-  return { students, setStudents };
+  return { students, getStudents };
 };

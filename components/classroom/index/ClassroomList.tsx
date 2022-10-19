@@ -7,15 +7,13 @@ import {
   Th,
   Td,
   TableContainer,
-  Button,
   Tag,
 } from "@chakra-ui/react";
-import Link from "next/link";
-import { Trash, IdentificationCard, CaretRight } from "phosphor-react";
+import { CaretRight } from "phosphor-react";
 import { useClassrooms } from "../../../hooks/Classroom";
 import { Classroom } from "../../../types/Classroom";
-import Router from "next/router";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export const ClassroomList = () => {
   const { classrooms, getClassrooms } = useClassrooms();
@@ -29,7 +27,7 @@ export const ClassroomList = () => {
       <Table>
         <Thead>
           <Tr>
-            <Th>学年・クラス</Th>
+            <Th>クラス</Th>
             <Th>担任</Th>
             <Th>人数</Th>
             <Th>授業</Th>
@@ -48,11 +46,12 @@ export const ClassroomList = () => {
 };
 
 const Row = ({ classroom }: { classroom: Classroom }) => {
+  const router = useRouter();
   return (
     <Tr
       _hover={{ bg: "gray.50" }}
       cursor="pointer"
-      onClick={() => Router.push("/classrooms/" + classroom.id)}
+      onClick={() => router.push("/classrooms/" + classroom.id)}
     >
       <Td>
         {classroom.grade}年{classroom.name}組

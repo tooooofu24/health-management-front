@@ -25,26 +25,46 @@ import { CourseInput } from "./Forms";
 
 export const AttendanceCreate = () => {
   const router = useRouter();
+  const { courseId, date, period } = router.query;
 
-  const { students } = useStudents();
+  const { students, getStudents } = useStudents();
+  const { courses, getCourses } = useCourses();
+
+  useEffect(() => {
+    getCourses();
+  }, []);
 
   const {
     register,
     handleSubmit,
     watch,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm<AttendanceForm>({
     mode: "onBlur",
   });
 
+  watch((value, { name, type }) => {
+    const { courseId } = value;
+    if (name != "courseId") return;
+    const course = courses.find((course) => course.id == courseId);
+    if (!course) return;
+    getStudents(course.classroom.id);
+  });
+
   useEffect(() => {
     if (!router.isReady) return;
-    const { courseId, date, period } = router.query;
     setValue("courseId", String(courseId));
     setValue("date", String(date));
     setValue("period", String(period));
   }, [router]);
+
+  useEffect(() => {
+    const course = courses.find((course) => course.id == courseId);
+    if (!course) return;
+    getStudents(course.classroom.id);
+  }, [courses]);
 
   return (
     <form action="/">

@@ -1,4 +1,5 @@
 import { Select } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import { useCourses } from "../../../hooks/Course";
 
@@ -7,7 +8,11 @@ type props = {
   error?: FieldError;
 };
 export const CourseInput = ({ register }: props) => {
-  const { courses } = useCourses();
+  const { courses, getCourses } = useCourses();
+
+  useEffect(() => {
+    getCourses();
+  }, []);
 
   if (!courses.length) {
     return <Select placeholder="選択して下さい" disabled></Select>;

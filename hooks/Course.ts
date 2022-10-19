@@ -8,8 +8,5 @@ export const useCourses = () => {
     const json = await res.json();
     setCourses(json.results);
   };
-  useEffect(() => {
-    getCourses();
-  }, []);
-  return { courses, setCourses };
+  return { courses, getCourses };
 };
