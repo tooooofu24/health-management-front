@@ -10,9 +10,6 @@ export const useClassrooms = () => {
     const json = await res.json();
     setClassrooms(json.results);
   };
-  useEffect(() => {
-    getClassrooms();
-  }, []);
   return { classrooms, getClassrooms };
 };
 

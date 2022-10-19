@@ -7,13 +7,19 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import { useRouter } from "next/router";
+import { ReactNode, useEffect } from "react";
 import { useSchedules } from "../../../hooks/Schedule";
 import { Tile } from "../../common/Tile";
 import { EditScheduleItem } from "./EditScheduleItem";
 
 export const ScheduleEdit = () => {
-  const { schedules } = useSchedules();
+  const { schedules, getSchedules } = useSchedules();
+  const router = useRouter();
+
+  useEffect(() => {
+    getSchedules();
+  }, [router]);
 
   return (
     <Tile>

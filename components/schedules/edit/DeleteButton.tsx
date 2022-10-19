@@ -16,7 +16,9 @@ import {
   Select,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { Plus, X } from "phosphor-react";
+import { useDeleteSchedule } from "../../../hooks/Schedule";
 import { Schedule } from "../../../types/Schedule";
 
 type props = {
@@ -24,6 +26,14 @@ type props = {
 };
 export const DeleteButton = ({ schedule }: props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { deleteSchedule } = useDeleteSchedule();
+  const router = useRouter();
+
+  const onClick = async () => {
+    deleteSchedule(schedule);
+    onClose();
+    router.push("/schedules/edit");
+  };
 
   return (
     <>
@@ -52,7 +62,9 @@ export const DeleteButton = ({ schedule }: props) => {
             <Button variant="ghost" onClick={onClose}>
               キャンセル
             </Button>
-            <Button colorScheme="red">削除</Button>
+            <Button colorScheme="red" onClick={onClick}>
+              削除
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

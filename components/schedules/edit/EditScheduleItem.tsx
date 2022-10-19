@@ -2,7 +2,6 @@ import { AspectRatio, Box, IconButton } from "@chakra-ui/react";
 import { FC } from "react";
 import { Schedule } from "../../../types/Schedule";
 import { ScheduleItemContent } from "../ScheduleItemContent";
-import { Plus, X } from "phosphor-react";
 import { PlusButton } from "./PlusButton";
 import { DeleteButton } from "./DeleteButton";
 

@@ -9,13 +9,17 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { useSchedules } from "../../hooks/Schedule";
 import { Tile } from "../common/Tile";
 import { ScheduleItem } from "./ScheduleItem";
 
 export const Schedule = () => {
-  const { schedules } = useSchedules();
+  const { schedules, getSchedules } = useSchedules();
+
+  useEffect(() => {
+    getSchedules();
+  }, []);
 
   return (
     <Tile>
