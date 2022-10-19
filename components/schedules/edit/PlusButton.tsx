@@ -30,16 +30,16 @@ import { PeriodField } from "../../common/form/PeriodField";
 import { SubjectField } from "../../common/form/SubjectField";
 
 type props = {
-  get: () => {};
+  period: Period;
+  day: Day;
 };
-export const PlusButton = () => {
+export const PlusButton = ({ period, day }: props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { createSchedule } = useCreateSchedule();
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<form>({
     mode: "onBlur",
@@ -47,7 +47,7 @@ export const PlusButton = () => {
   const router = useRouter();
 
   const onSubmit = async (data: form) => {
-    await createSchedule(data);
+    await createSchedule({ day, period, ...data });
 
     onClose();
     router.push("/schedules/edit");
@@ -67,48 +67,12 @@ export const PlusButton = () => {
         <ModalOverlay />
         <ModalContent>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <ModalHeader>時間割を追加</ModalHeader>
+            <ModalHeader>
+              {day}曜日{period}時間目
+            </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <Flex flexDirection="column" gap="15px">
-                <FormControl
-                  display="flex"
-                  alignItems="center"
-                  isInvalid={Boolean(errors.day)}
-                >
-                  <Box flex={1}>
-                    <FormLabel m={0} justifyContent="center">
-                      曜日
-                    </FormLabel>
-                  </Box>
-                  <Box flex={2}>
-                    <DayField
-                      register={register("day", { required: "必須項目です" })}
-                    />
-                    <FormErrorMessage>{errors.day?.message}</FormErrorMessage>
-                  </Box>
-                </FormControl>
-                <FormControl
-                  display="flex"
-                  alignItems="center"
-                  isInvalid={Boolean(errors.period)}
-                >
-                  <Box flex={1}>
-                    <FormLabel m={0} justifyContent="center">
-                      時限
-                    </FormLabel>
-                  </Box>
-                  <Box flex={2}>
-                    <PeriodField
-                      register={register("period", {
-                        required: "必須項目です",
-                      })}
-                    />
-                    <FormErrorMessage>
-                      {errors.period?.message}
-                    </FormErrorMessage>
-                  </Box>
-                </FormControl>
                 <FormControl
                   display="flex"
                   alignItems="center"
@@ -158,7 +122,7 @@ export const PlusButton = () => {
               <Button variant="ghost" onClick={onClose}>
                 キャンセル
               </Button>
-              <Button type="submit">追加</Button>
+              <Button type="submit">授業を追加</Button>
             </ModalFooter>
           </form>
         </ModalContent>
@@ -169,7 +133,5 @@ export const PlusButton = () => {
 
 type form = {
   subjectId: number;
-  day: Day;
-  period: Period;
   classroomId: number;
 };

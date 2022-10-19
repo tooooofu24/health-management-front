@@ -10,6 +10,8 @@ import {
 import { useRouter } from "next/router";
 import { ReactNode, useEffect } from "react";
 import { useSchedules } from "../../../hooks/Schedule";
+import { days } from "../../../types/Day";
+import { periods } from "../../../types/Period";
 import { Tile } from "../../common/Tile";
 import { EditScheduleItem } from "./EditScheduleItem";
 
@@ -36,18 +38,21 @@ export const ScheduleEdit = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {[...Array(6)].map((v, i) => {
-              const period = i + 1;
+            {periods.map((period) => {
               return (
                 <Tr key={period}>
                   <Th width="20px">{period}</Th>
-                  {["月", "火", "水", "木", "金"].map((day) => {
+                  {days.map((day) => {
                     const schedule = schedules.find(
                       (v) => v.dayJa === day && v.period === period
                     );
                     return (
                       <StyledTd day={day} period={period} key={day}>
-                        <EditScheduleItem schedule={schedule} />
+                        <EditScheduleItem
+                          schedule={schedule}
+                          period={period}
+                          day={day}
+                        />
                       </StyledTd>
                     );
                   })}

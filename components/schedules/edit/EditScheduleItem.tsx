@@ -4,11 +4,15 @@ import { Schedule } from "../../../types/Schedule";
 import { ScheduleItemContent } from "../ScheduleItemContent";
 import { PlusButton } from "./PlusButton";
 import { DeleteButton } from "./DeleteButton";
+import { Period } from "../../../types/Period";
+import { Day } from "../../../types/Day";
 
 type props = {
   schedule?: Schedule;
+  period: Period;
+  day: Day;
 };
-export const EditScheduleItem: FC<props> = ({ schedule }) => {
+export const EditScheduleItem: FC<props> = ({ schedule, period, day }) => {
   if (schedule) {
     return (
       <Box position="relative">
@@ -24,7 +28,7 @@ export const EditScheduleItem: FC<props> = ({ schedule }) => {
     return (
       <AspectRatio ratio={1}>
         <Box>
-          <PlusButton />
+          <PlusButton period={period} day={day} />
         </Box>
       </AspectRatio>
     );
