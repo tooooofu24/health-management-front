@@ -14,10 +14,21 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { ClockCounterClockwise } from "phosphor-react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useClassroom } from "../../../hooks/Classroom";
 import { Tile, TilesWrapper } from "../../common/Tile";
 
 export const ClassroomDetail = () => {
+  const { classroom, getClassroom } = useClassroom();
+  const router = useRouter();
+  console.log(router.query.id);
+  useEffect(() => {
+    const { id } = router.query;
+    if (!router.isReady) return;
+    // getClassroom(String(id));
+  }, [router]);
+
   return (
     <TilesWrapper>
       <Tile>
