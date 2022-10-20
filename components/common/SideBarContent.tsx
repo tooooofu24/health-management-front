@@ -1,11 +1,15 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, BoxProps, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import Link from "next/link";
-import Router, { useRouter } from "next/router";
-import { CalendarCheck, GraduationCap, SignOut, User } from "phosphor-react";
+import { useRouter } from "next/router";
+import { CalendarCheck, GraduationCap, SignOut } from "phosphor-react";
 import { FC, ReactNode } from "react";
 import { Icon } from "./Icon";
+import { LogoutModal } from "./LogoutModal";
 
 export const SidebarContent = () => {
+  const router = useRouter();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Flex flexDirection="column" h="full" py="20px">
       {/* ロゴ部分 */}
@@ -22,47 +26,59 @@ export const SidebarContent = () => {
         </Link>
       </Box>
       {/* ロゴ部分終了 */}
-      <Item icon={<CalendarCheck size={20} />} href="/" title="時間割" />
-      <Item
-        icon={<GraduationCap size={20} />}
-        href="/classrooms"
-        title="クラス一覧"
-      />
-      <Item icon={<User size={20} />} href="/mypage" title="マイページ" />
+      <Link href="/">
+        <a>
+          <Item
+            icon={<CalendarCheck size={20} />}
+            title="時間割"
+            isActive={router.pathname == "/"}
+          />
+        </a>
+      </Link>
+      <Link href="/classrooms">
+        <a>
+          <Item
+            icon={<GraduationCap size={20} />}
+            title="クラス一覧"
+            isActive={router.pathname == "/classrooms"}
+          />
+        </a>
+      </Link>
       <Box mt="auto">
-        <Item icon={<SignOut size={20} />} href="/logout" title="ログアウト" />
+        <Item
+          icon={<SignOut size={20} />}
+          isActive={isOpen}
+          title="ログアウト"
+          onClick={onOpen}
+        />
+        <LogoutModal onClose={onClose} isOpen={isOpen} />
       </Box>
     </Flex>
   );
 };
 
 type props = {
-  href: string;
   icon: ReactNode;
   title: string;
-  onClick?: () => void;
-};
-const Item: FC<props> = ({ href, icon, title, onClick }) => {
-  const isActive = useRouter().pathname === href;
+  isActive: boolean;
+} & BoxProps;
+const Item: FC<props> = ({ isActive, icon, title, ...props }) => {
   return (
-    <Link href={href} onClick={onClick}>
-      <a>
-        <Box
-          width="full"
-          p="16px"
-          bg="white"
-          textColor="teal.500"
-          fontWeight="bold"
-          cursor="pointer"
-          _hover={{ bg: "teal.500", textColor: "white" }}
-          {...(isActive && { bg: "teal.500", textColor: "white" })}
-        >
-          <Flex alignItems="center" gap="15px">
-            {icon}
-            {title}
-          </Flex>
-        </Box>
-      </a>
-    </Link>
+    <Box
+      width="full"
+      p="16px"
+      bg="white"
+      textColor="teal.500"
+      fontWeight="bold"
+      cursor="pointer"
+      _hover={{ bg: "teal.500", textColor: "white" }}
+      {...(isActive && { bg: "teal.500", textColor: "white" })}
+      {...props}
+    >
+      <Flex alignItems="center" gap="15px">
+        {icon}
+        {title}
+      </Flex>
+    </Box>
   );
 };

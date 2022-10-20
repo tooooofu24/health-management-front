@@ -9,12 +9,16 @@ import {
   IconButton,
   useDisclosure,
 } from "@chakra-ui/react";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { House, List, UserPlus } from "phosphor-react";
-import React, { FC, ReactNode } from "react";
+import React, { FC, ReactNode, useEffect } from "react";
 import { SidebarContent } from "../common/SideBarContent";
 
 export const DrawerButton = () => {
+  const router = useRouter();
+  useEffect(() => {
+    onClose();
+  }, [router]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
