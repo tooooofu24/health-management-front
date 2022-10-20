@@ -13,6 +13,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import { EnvelopeSimple, UserPlus } from "phosphor-react";
@@ -31,6 +32,7 @@ export const InviteButton = () => {
           <ModalHeader>ユーザー招待</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
+            <Text mb={3}>招待したい方のメールアドレスを入力してください。</Text>
             <FormControl>
               <InputGroup>
                 <InputLeftElement
@@ -38,11 +40,12 @@ export const InviteButton = () => {
                   children={<EnvelopeSimple />}
                   color="gray.500"
                 />
-                <Input type="email" placeholder="user@shusseki-kun.com" />
+                <Input
+                  variant="flushed"
+                  type="email"
+                  placeholder="user@shusseki-kun.com"
+                />
               </InputGroup>
-              <FormHelperText>
-                招待したい方のアドレスを入力してください！
-              </FormHelperText>
             </FormControl>
           </ModalBody>
 
