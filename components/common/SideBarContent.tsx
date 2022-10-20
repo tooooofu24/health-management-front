@@ -1,7 +1,7 @@
 import { Box, BoxProps, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { CalendarCheck, GraduationCap, SignOut } from "phosphor-react";
+import { CalendarCheck, GraduationCap, SignOut, Users } from "phosphor-react";
 import { FC, ReactNode } from "react";
 import { Icon } from "./Icon";
 import { LogoutModal } from "./LogoutModal";
@@ -16,7 +16,7 @@ export const SidebarContent = () => {
       <Box mb="20px">
         <Link href="/">
           <a>
-            <Flex alignItems="center" px="16px" gap="15px" py="20px">
+            <Flex alignItems="center" px="16px" gap="15px" height="75px">
               <Icon width={30} height={30} />
               <Text fontWeight="bold" fontSize="20px" color="teal.500">
                 出席くん
@@ -41,6 +41,15 @@ export const SidebarContent = () => {
             icon={<GraduationCap size={20} />}
             title="クラス一覧"
             isActive={router.pathname == "/classrooms"}
+          />
+        </a>
+      </Link>
+      <Link href="/users">
+        <a>
+          <Item
+            icon={<Users size={20} />}
+            title="ユーザー一覧"
+            isActive={router.pathname == "/users"}
           />
         </a>
       </Link>
