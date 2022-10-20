@@ -4,7 +4,6 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { useRouter } from "next/router";
 import { app } from "./firebase";
 
 export const login = async () => {

@@ -20,7 +20,7 @@ export const useClassroom = () => {
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/classrooms/${id}`
     );
     const json = await res.json();
-    setClassroom(json.results);
+    setClassroom(json.result);
   };
   return { classroom, getClassroom };
 };

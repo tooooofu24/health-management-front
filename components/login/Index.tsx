@@ -55,7 +55,7 @@ export const Login = () => {
         ログイン
       </Button>
       {errorMessage && (
-        <Alert status="error" mt={5}>
+        <Alert status="error" mt="16px">
           <AlertIcon />
           <AlertDescription>{errorMessage}</AlertDescription>
         </Alert>

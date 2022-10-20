@@ -1,34 +1,33 @@
 import {
-  Button,
+  Box,
   Flex,
   Tab,
   Table,
   TableContainer,
   TabList,
-  TabPanel,
-  TabPanels,
   Tabs,
+  Tag,
   Tbody,
   Td,
   Th,
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useClassroom } from "../../../hooks/Classroom";
+import { FC, useEffect, useState } from "react";
+import { Classroom } from "../../../types/Classroom";
 import { Tile, TilesWrapper } from "../../common/Tile";
+import { CalculateTable } from "./CalculatedTable";
 
-export const ClassroomDetail = () => {
-  const { classroom, getClassroom } = useClassroom();
-  const router = useRouter();
-  console.log(router.query.id);
+type props = {
+  classroom: Classroom | null;
+};
+export const ClassroomDetail: FC<props> = ({ classroom }) => {
+  const [subjectId, setSubjectId] = useState("");
+
   useEffect(() => {
-    const { id } = router.query;
-    if (!router.isReady) return;
-    // getClassroom(String(id));
-  }, [router]);
-
+    if (!classroom) return;
+    setSubjectId(classroom?.subjects?.[0].id ?? "");
+  }, [classroom]);
   return (
     <TilesWrapper>
       <Tile>
@@ -36,33 +35,29 @@ export const ClassroomDetail = () => {
           <Table variant="unstyled" size="sm" width="auto">
             <Thead>
               <Tr>
-                <Th textAlign="start" pe="50px">
-                  担任
-                </Th>
-                <Th textAlign="start" pe="50px">
-                  人数
-                </Th>
-                <Th textAlign="start" pe="50px">
-                  授業回数
-                </Th>
-                <Th textAlign="start" pe="50px">
-                  最終授業日
-                </Th>
+                <Th textAlign="start">担任</Th>
+                <Th textAlign="start">人数</Th>
+                <Th textAlign="start">授業</Th>
+                <Th textAlign="start">最終授業日</Th>
               </Tr>
             </Thead>
             <Tbody>
               <Tr>
                 <Td textAlign="start" fontSize="16px" pe="50px">
-                  石田京香
+                  {classroom?.teacher}
                 </Td>
                 <Td textAlign="start" fontSize="16px" pe="50px">
-                  33人
+                  {classroom?.studentsCount}人
+                </Td>
+                <Td textAlign="start" pe="50px">
+                  <Flex gap="10px" justifyContent="center">
+                    {classroom?.subjects?.map((subject) => (
+                      <Tag key={subject.id}>{subject.name}</Tag>
+                    ))}
+                  </Flex>
                 </Td>
                 <Td textAlign="start" fontSize="16px" pe="50px">
-                  22回
-                </Td>
-                <Td textAlign="start" fontSize="16px" pe="50px">
-                  2022/10/10
+                  {classroom?.lastLessonDate ?? "なし"}
                 </Td>
               </Tr>
             </Tbody>
@@ -70,54 +65,18 @@ export const ClassroomDetail = () => {
         </TableContainer>
       </Tile>
       <Tile>
-        <Tabs variant="soft-rounded">
+        <Tabs>
           <TabList>
-            <Tab>国語</Tab>
-            <Tab>道徳</Tab>
-            <Tab>音楽</Tab>
+            {classroom?.subjects?.map((subject) => (
+              <Tab key={subject.id} onClick={() => setSubjectId(subject.id)}>
+                {subject.name}
+              </Tab>
+            ))}
           </TabList>
-
-          <TabPanels>
-            <TabPanel>
-              <TableContainer>
-                <Table variant="simple">
-                  <Thead>
-                    <Tr>
-                      <Th>出席番号</Th>
-                      <Th>氏名</Th>
-                      <Th>出席率</Th>
-                      <Th>知識・技能</Th>
-                      <Th>思考力・判断力・表現力</Th>
-                      <Th>主体的に取り組む態度</Th>
-                      <Th>総合評価</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {[...Array(5)].map((v, i) => {
-                      return (
-                        <Tr key={i}>
-                          <Td>1</Td>
-                          <Td>石田京楓</Td>
-                          <Td>98.5%</Td>
-                          <Td>A-</Td>
-                          <Td>B</Td>
-                          <Td>C+</Td>
-                          <Td>3.7</Td>
-                        </Tr>
-                      );
-                    })}
-                  </Tbody>
-                </Table>
-              </TableContainer>
-            </TabPanel>
-            <TabPanel>
-              <p>two!</p>
-            </TabPanel>
-            <TabPanel>
-              <p>three!</p>
-            </TabPanel>
-          </TabPanels>
         </Tabs>
+        <Box py={4}>
+          <CalculateTable subjectId={subjectId} classroomId={classroom?.id} />
+        </Box>
       </Tile>
     </TilesWrapper>
   );
