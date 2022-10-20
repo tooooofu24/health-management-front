@@ -54,10 +54,9 @@ export const AttendanceCreate = () => {
   });
 
   useEffect(() => {
-    if (!router.isReady) return;
-    setValue("courseId", String(courseId));
-    setValue("date", String(date));
-    setValue("period", String(period));
+    if (courseId) setValue("courseId", String(courseId));
+    if (date) setValue("date", String(date));
+    if (period) setValue("period", String(period));
   }, [router]);
 
   useEffect(() => {
