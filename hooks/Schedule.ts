@@ -1,13 +1,19 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Day } from "../types/Day";
 import { Period } from "../types/Period";
 import { Schedule } from "../types/Schedule";
+import { getBearerToken } from "../utils/auth";
 
 export const useSchedules = () => {
   const [schedules, setSchedules] = useState<Schedule[]>([]);
   const getSchedules = async () => {
     const res = await fetch(
-      process.env.NEXT_PUBLIC_API_BASE_URL + "/schedules"
+      process.env.NEXT_PUBLIC_API_BASE_URL + "/schedules",
+      {
+        headers: {
+          Authorization: "Bearer " + getBearerToken(),
+        },
+      }
     );
     const json = await res.json();
     setSchedules(json.results);
@@ -21,7 +27,12 @@ export const useDeleteSchedule = () => {
     setIsLoading(true);
     const res = await fetch(
       process.env.NEXT_PUBLIC_API_BASE_URL + "/schedules/" + schedule.id,
-      { method: "DELETE" }
+      {
+        headers: {
+          Authorization: "Bearer " + getBearerToken(),
+        },
+        method: "DELETE",
+      }
     );
     setIsLoading(false);
   };
@@ -44,6 +55,7 @@ export const useCreateSchedule = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + getBearerToken(),
         },
         body: JSON.stringify(props),
       }

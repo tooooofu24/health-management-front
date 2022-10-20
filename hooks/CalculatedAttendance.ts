@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CalculatedAttendance } from "../types/CalculatedAttendance";
+import { getBearerToken } from "../utils/auth";
 
 export const useCalculatedAttendances = () => {
   const [calculatedAttendances, setCalculatedAttendances] = useState<
@@ -14,7 +15,12 @@ export const useCalculatedAttendances = () => {
         "/attendances/calculated?classroom=" +
         classroomId +
         "&subject=" +
-        subjectId
+        subjectId,
+      {
+        headers: {
+          Authorization: "Bearer " + getBearerToken(),
+        },
+      }
     );
     const json = await res.json();
     setCalculatedAttendances(json.results);

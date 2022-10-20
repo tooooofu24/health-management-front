@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Student } from "../types/Student";
+import { getBearerToken } from "../utils/auth";
 
 export const useStudents = () => {
   const [students, setStudents] = useState<Student[]>([]);
@@ -7,7 +8,12 @@ export const useStudents = () => {
     const res = await fetch(
       process.env.NEXT_PUBLIC_API_BASE_URL +
         "/students?classroom=" +
-        classroomId
+        classroomId,
+      {
+        headers: {
+          Authorization: "Bearer " + getBearerToken(),
+        },
+      }
     );
     const json = await res.json();
     setStudents(json.results);
