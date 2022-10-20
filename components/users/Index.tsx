@@ -13,6 +13,7 @@ import {
 import { Check, Trash, X } from "phosphor-react";
 import { useCurrentUser } from "../../hooks/CurrentUser";
 import { Tile } from "../common/Tile";
+import { DeleteUserButtton } from "./DeleteUserButton";
 
 export const UserList = () => {
   const { user } = useCurrentUser();
@@ -32,7 +33,7 @@ export const UserList = () => {
           <Tbody>
             <Tr>
               <Td>
-                <Flex justifyContent="center" alignItems="center" gap="10px">
+                <Flex justifyContent="center" alignItems="center" gap="10%">
                   <Avatar
                     name={user?.displayName ?? ""}
                     src={user?.photoURL ?? undefined}
@@ -49,13 +50,7 @@ export const UserList = () => {
               </Td>
               <Td>{format(String(user?.metadata.lastSignInTime))}</Td>
               <Td>
-                <IconButton
-                  colorScheme="red"
-                  icon={<X />}
-                  aria-label="削除"
-                  rounded="full"
-                  size="sm"
-                />
+                <DeleteUserButtton />
               </Td>
             </Tr>
           </Tbody>
