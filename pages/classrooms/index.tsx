@@ -4,12 +4,13 @@ import Link from "next/link";
 import { GraduationCap, Plus } from "phosphor-react";
 import { Create } from "../../components/classroom/Create";
 import { ClassroomList } from "../../components/classroom/index/ClassroomList";
+import { Layout } from "../../components/common/Layout";
 import { PageTitle } from "../../components/common/PageTitle";
 import { Tile } from "../../components/common/Tile";
 
 const ClassroomPage: NextPage = () => {
   return (
-    <>
+    <Layout>
       <PageTitle
         title="クラス一覧"
         icon={<GraduationCap size={25} />}
@@ -25,7 +26,7 @@ const ClassroomPage: NextPage = () => {
       <Tile>
         <ClassroomList />
       </Tile>
-    </>
+    </Layout>
   );
 };
 

@@ -5,10 +5,11 @@ import { PageTitle } from "../components/common/PageTitle";
 import { Schedule } from "../components/schedules/Index";
 import Router from "next/router";
 import { Pencil } from "phosphor-react";
+import { Layout } from "../components/common/Layout";
 
 const TopPage: NextPage = () => {
   return (
-    <>
+    <Layout>
       <PageTitle
         title="時間割"
         icon={<CalendarCheck size={25} />}
@@ -23,7 +24,7 @@ const TopPage: NextPage = () => {
         }
       />
       <Schedule />
-    </>
+    </Layout>
   );
 };
 

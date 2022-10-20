@@ -3,11 +3,12 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import { CaretLeft, Pencil } from "phosphor-react";
 import { ClassroomDetail } from "../../components/classroom/detail/Index";
+import { Layout } from "../../components/common/Layout";
 import { PageTitle } from "../../components/common/PageTitle";
 
 const CreatePage: NextPage = () => {
   return (
-    <>
+    <Layout>
       <PageTitle
         title="1年1組"
         icon={<CaretLeft size={25} />}
@@ -21,7 +22,7 @@ const CreatePage: NextPage = () => {
         }
       />
       <ClassroomDetail />
-    </>
+    </Layout>
   );
 };
 

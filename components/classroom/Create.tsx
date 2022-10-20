@@ -4,8 +4,6 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Input,
-  InputGroup,
   Select,
   Table,
   TableContainer,
@@ -18,7 +16,6 @@ import {
   Tr,
   VisuallyHidden,
 } from "@chakra-ui/react";
-import CSVReader from "react-csv-reader";
 import { Tile } from "../common/Tile";
 import {
   ArrowFatRight,
@@ -62,14 +59,7 @@ export const Create = () => {
                 <Text>生徒データ</Text>
               </FormLabel>
               <label>
-                <VisuallyHidden>
-                  <CSVReader
-                    onFileLoaded={(data, fileInfo) =>
-                      console.dir(data, fileInfo)
-                    }
-                    onError={(e) => console.log(e)}
-                  />
-                </VisuallyHidden>
+                <VisuallyHidden></VisuallyHidden>
                 <Tag variant="solid" size="lg" cursor="pointer">
                   CSVファイルを選択
                 </Tag>

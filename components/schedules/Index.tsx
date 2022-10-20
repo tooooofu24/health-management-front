@@ -1,6 +1,4 @@
 import {
-  Box,
-  Square,
   Table,
   TableContainer,
   Tbody,

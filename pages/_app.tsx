@@ -4,27 +4,23 @@ import { Box, ChakraProvider, Flex } from "@chakra-ui/react";
 import { SideBar } from "../components/common/SideBar";
 import { CustomTheme } from "../chakra/CustomTheme";
 import { NavBar } from "../components/common/NavBar";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useRouter } from "next/router";
+import { app } from "../utils/firebase";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+  const auth = getAuth(app);
+  onAuthStateChanged(auth, (user) => {
+    if (!user && router.pathname != "/login" && router.route != "/404") {
+      router.push("/login");
+    }
+  });
+
   return (
     <>
       <ChakraProvider theme={CustomTheme}>
-        <Box className="side-bar-layout">
-          <SideBar />
-          <Box pl="200px">
-            <Box p="30px">
-              <Component {...pageProps} />
-            </Box>
-          </Box>
-        </Box>
-        <Box className="no-side-bar-layout">
-          <NavBar />
-          <Box pt="50px">
-            <Box p="1.15rem">
-              <Component {...pageProps} />
-            </Box>
-          </Box>
-        </Box>
+        <Component {...pageProps} />
       </ChakraProvider>
     </>
   );
