@@ -2,7 +2,6 @@ import {
   Checkbox,
   Flex,
   IconButton,
-  Spinner,
   Table,
   TableContainer,
   Tbody,
@@ -20,13 +19,6 @@ type props = {
   students: Student[];
 };
 export const AttendanceTable: FC<props> = ({ students }) => {
-  if (!students.length) {
-    return (
-      <Flex justifyContent="center" p={10}>
-        <Spinner color="gray.500" />
-      </Flex>
-    );
-  }
   return (
     <TableContainer>
       <Table variant="simple">

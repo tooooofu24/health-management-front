@@ -17,6 +17,7 @@ export const PageTitle: FC<props> = ({ iconUrl, icon, title, rightItem }) => {
       marginBottom="20px"
       alignItems="center"
       gap="15px"
+      height="40px"
     >
       <Link href={iconUrl}>
         <a>{icon}</a>
