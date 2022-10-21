@@ -53,6 +53,7 @@ export const DeleteButton = ({ schedule }: props) => {
       if (e instanceof APIError) {
         setError(e.response);
       } else {
+        console.log(e);
         setError(unknownError);
       }
     }

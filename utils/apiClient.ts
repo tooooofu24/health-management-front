@@ -48,9 +48,11 @@ export const deleteRequest = async (uri: string, query?: {}) => {
     method: "DELETE",
     headers,
   });
-  const json = await res.json();
-  if (json.error) {
-    throw new APIError(json);
+  // 失敗時
+  if (!res.ok) {
+    const json = await res.json();
+    if (json?.error) {
+      throw new APIError(json);
+    }
   }
-  return json;
 };

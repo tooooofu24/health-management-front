@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Day } from "../types/Day";
 import { Period } from "../types/Period";
 import { Schedule } from "../types/Schedule";
-import { deleteRequest, getRequest } from "../utils/apiClient";
+import { deleteRequest, getRequest, postRequest } from "../utils/apiClient";
 import { getBearerToken } from "../utils/bearer";
 
 export const useSchedules = () => {
@@ -26,7 +26,7 @@ export const useDeleteSchedule = () => {
 };
 
 export const useCreateSchedule = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   type props = {
     subjectId: number;
     day: Day;
@@ -35,19 +35,9 @@ export const useCreateSchedule = () => {
   };
   const createSchedule = async (props: props) => {
     setIsLoading(true);
-    const res = await fetch(
-      process.env.NEXT_PUBLIC_API_BASE_URL + "/schedules/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + getBearerToken(),
-        },
-        body: JSON.stringify(props),
-      }
-    );
-    setIsLoading(false);
-    const json = await res.json();
+    await postRequest("/schedules", props).finally(() => {
+      setIsLoading(false);
+    });
   };
   return { isLoading, createSchedule };
 };

@@ -1,4 +1,7 @@
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
   Box,
   Button,
   Flex,
@@ -6,7 +9,6 @@ import {
   FormErrorMessage,
   FormLabel,
   IconButton,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -25,6 +27,12 @@ import { Period } from "../../../types/Period";
 import { ClassroomField } from "../../common/form/ClassroomField";
 import { SubjectField } from "../../common/form/SubjectField";
 import { useToast } from "@chakra-ui/react";
+import {
+  APIError,
+  APIErrorResponse,
+  unknownError,
+} from "../../../types/APIErrorResponse";
+import { useState } from "react";
 
 type props = {
   period: Period;
@@ -32,7 +40,8 @@ type props = {
 };
 export const PlusButton = ({ period, day }: props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { createSchedule } = useCreateSchedule();
+  const { createSchedule, isLoading } = useCreateSchedule();
+  const [error, setError] = useState<APIErrorResponse | null>(null);
   const toast = useToast();
 
   const {
@@ -45,18 +54,25 @@ export const PlusButton = ({ period, day }: props) => {
   const router = useRouter();
 
   const onSubmit = async (data: form) => {
-    await createSchedule({ day, period, ...data });
-
-    router.push("/schedules/edit");
-    onClose();
-    toast({
-      title: "",
-      description: "時間割が登録されました！",
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-      position: "top",
-    });
+    try {
+      await createSchedule({ day, period, ...data });
+      router.push("/schedules/edit");
+      onClose();
+      toast({
+        title: "",
+        description: "時間割が登録されました！",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
+    } catch (e) {
+      if (e instanceof APIError) {
+        setError(e.response);
+      } else {
+        setError(unknownError);
+      }
+    }
   };
 
   return (
@@ -122,13 +138,26 @@ export const PlusButton = ({ period, day }: props) => {
                   </Box>
                 </FormControl>
               </Flex>
+              {error && (
+                <Alert status="error" mt={3}>
+                  <AlertIcon />
+                  <AlertDescription>{error.message}</AlertDescription>
+                </Alert>
+              )}
             </ModalBody>
 
             <ModalFooter>
-              <Button variant="ghost" onClick={onClose}>
+              <Button
+                variant="ghost"
+                colorScheme="gray"
+                mr={2}
+                onClick={onClose}
+              >
                 キャンセル
               </Button>
-              <Button type="submit">授業を追加</Button>
+              <Button type="submit" isLoading={isLoading}>
+                授業を追加
+              </Button>
             </ModalFooter>
           </form>
         </ModalContent>
