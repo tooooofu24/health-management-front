@@ -7,19 +7,27 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useSchedules } from "../../hooks/Schedule";
+import { DataFetchError } from "../common/error/DataFetchError";
 import { Tile } from "../common/Tile";
 import { ScheduleItem } from "./ScheduleItem";
 
 export const Schedule = () => {
   const { schedules, getSchedules } = useSchedules();
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    getSchedules();
+    getSchedules().catch((e) => {
+      setIsError(true);
+    });
   }, []);
 
-  return (
+  return isError ? (
+    <Tile py="5%">
+      <DataFetchError />
+    </Tile>
+  ) : (
     <Tile>
       <TableContainer>
         <Table variant="unstyled">
