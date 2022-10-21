@@ -41,7 +41,10 @@ export const Create = () => {
 
   return (
     <form onSubmit={handleSubmit(() => {})}>
-      <Flex gap="5%" flexDirection={isSmartPhoneScreen() ? "column" : "row"}>
+      <Flex
+        gap={isSmartPhoneScreen() ? "2rem" : "5%"}
+        flexDirection={isSmartPhoneScreen() ? "column" : "row"}
+      >
         <Flex h="fit-content" flex={1}>
           <Tile w="full">
             <Flex flexDirection="column" gap="20px">
