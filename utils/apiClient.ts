@@ -1,0 +1,56 @@
+import { APIError } from "../types/APIErrorResponse";
+import { getBearerToken } from "./bearer";
+
+const createURL = (uri: string, query?: {}) => {
+  return (
+    process.env.NEXT_PUBLIC_API_BASE_URL +
+    uri +
+    "?" +
+    new URLSearchParams(query).toString()
+  );
+};
+
+const headers: HeadersInit = {
+  "Content-Type": "application/json",
+  Authorization: "Bearer " + getBearerToken(),
+};
+
+export const getRequest = async (uri: string, query?: {}) => {
+  const url = createURL(uri, query);
+  const res = await fetch(url, {
+    method: "GET",
+    headers,
+  });
+  const json = await res.json();
+  if (json.error) {
+    throw new APIError(json);
+  }
+  return json;
+};
+
+export const postRequest = async (uri: string, body: {}, query?: {}) => {
+  const url = createURL(uri, query);
+  const res = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers,
+  });
+  const json = await res.json();
+  if (json.error) {
+    throw new APIError(json);
+  }
+  return json;
+};
+
+export const deleteRequest = async (uri: string, query?: {}) => {
+  const url = createURL(uri, query);
+  const res = await fetch(url, {
+    method: "DELETE",
+    headers,
+  });
+  const json = await res.json();
+  if (json.error) {
+    throw new APIError(json);
+  }
+  return json;
+};
