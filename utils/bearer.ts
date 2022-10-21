@@ -3,7 +3,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { app } from "./firebase";
 
 export const getBearerToken = (): string => {
-  console.log(String(getCookie("token")));
   return String(getCookie("token"));
 };
 

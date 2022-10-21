@@ -3,7 +3,6 @@ import { Day } from "../types/Day";
 import { Period } from "../types/Period";
 import { Schedule } from "../types/Schedule";
 import { deleteRequest, getRequest, postRequest } from "../utils/apiClient";
-import { getBearerToken } from "../utils/bearer";
 
 export const useSchedules = () => {
   const [schedules, setSchedules] = useState<Schedule[]>([]);
