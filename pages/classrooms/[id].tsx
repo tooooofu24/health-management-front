@@ -22,7 +22,7 @@ const CreatePage: NextPage = () => {
     <Layout>
       <PageTitle
         title={classroom?.grade + "年" + classroom?.name + "組"}
-        icon={<CaretLeft size={25} />}
+        icon={<CaretLeft />}
         iconUrl="/classrooms"
       />
       <ClassroomDetail classroom={classroom} />

@@ -12,7 +12,7 @@ const TopPage: NextPage = () => {
     <Layout>
       <PageTitle
         title="時間割"
-        icon={<CalendarCheck size={25} />}
+        icon={<CalendarCheck />}
         iconUrl="/"
         rightItem={
           <Button

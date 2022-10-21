@@ -9,7 +9,7 @@ const CreatePage: NextPage = () => {
     <Layout>
       <PageTitle
         title="クラス新規登録"
-        icon={<CaretLeft size={25} />}
+        icon={<CaretLeft />}
         iconUrl="/classrooms"
       />
       <Create />

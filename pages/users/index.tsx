@@ -10,7 +10,7 @@ const UsersPage: NextPage = () => {
     <Layout>
       <PageTitle
         title="ユーザー一覧"
-        icon={<Users size={25} />}
+        icon={<Users />}
         iconUrl="/users"
         rightItem={<InviteButton />}
       />

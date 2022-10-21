@@ -7,7 +7,7 @@ import { PageTitle } from "../../components/common/PageTitle";
 const CreatePage: NextPage = () => {
   return (
     <Layout>
-      <PageTitle title="成績登録" icon={<CaretLeft size={25} />} iconUrl="/" />
+      <PageTitle title="成績登録" icon={<CaretLeft />} iconUrl="/" />
       <AttendanceCreate />
     </Layout>
   );

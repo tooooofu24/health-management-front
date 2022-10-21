@@ -13,7 +13,7 @@ const ClassroomPage: NextPage = () => {
     <Layout>
       <PageTitle
         title="クラス一覧"
-        icon={<GraduationCap size={25} />}
+        icon={<GraduationCap />}
         iconUrl="/classrooms"
         rightItem={
           <Link href="/classrooms/create">
