@@ -2,7 +2,6 @@ import { Button } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { GraduationCap, Plus } from "phosphor-react";
-import { Create } from "../../components/classroom/Create";
 import { ClassroomList } from "../../components/classroom/index/ClassroomList";
 import { Layout } from "../../components/common/Layout";
 import { PageTitle } from "../../components/common/PageTitle";

@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { CaretLeft } from "phosphor-react";
-import { Create } from "../../components/classroom/Create";
+import { Create } from "../../components/classroom/create/Index";
 import { Layout } from "../../components/common/Layout";
 import { PageTitle } from "../../components/common/PageTitle";
 
