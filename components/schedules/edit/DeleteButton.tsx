@@ -39,7 +39,7 @@ export const DeleteButton = ({ schedule }: props) => {
   const onClick = async () => {
     try {
       await deleteSchedule(schedule);
-      router.push("/schedules/edit");
+      router.push("/schedules/edit", undefined, { scroll: false });
       onClose();
       toast({
         title: "",

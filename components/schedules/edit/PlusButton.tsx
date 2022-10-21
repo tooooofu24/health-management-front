@@ -56,7 +56,7 @@ export const PlusButton = ({ period, day }: props) => {
   const onSubmit = async (data: form) => {
     try {
       await createSchedule({ day, period, ...data });
-      router.push("/schedules/edit");
+      router.push("/schedules/edit", undefined, { scroll: false });
       onClose();
       toast({
         title: "",
