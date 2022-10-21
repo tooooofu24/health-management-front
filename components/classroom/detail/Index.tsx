@@ -26,7 +26,7 @@ export const ClassroomDetail: FC<props> = ({ classroom }) => {
 
   useEffect(() => {
     if (!classroom) return;
-    setSubjectId(classroom?.subjects?.[0].id ?? "");
+    setSubjectId(classroom?.subjects?.[0]?.id ?? "");
   }, [classroom]);
   return (
     <TilesWrapper>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Day } from "../types/Day";
 import { Period } from "../types/Period";
 import { Schedule } from "../types/Schedule";
-import { getBearerToken } from "../utils/auth";
+import { getBearerToken } from "../utils/bearer";
 
 export const useSchedules = () => {
   const [schedules, setSchedules] = useState<Schedule[]>([]);

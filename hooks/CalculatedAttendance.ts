@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CalculatedAttendance } from "../types/CalculatedAttendance";
-import { getBearerToken } from "../utils/auth";
+import { getBearerToken } from "../utils/bearer";
 
 export const useCalculatedAttendances = () => {
   const [calculatedAttendances, setCalculatedAttendances] = useState<

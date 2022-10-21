@@ -7,10 +7,12 @@ import { NavBar } from "../components/common/NavBar";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/router";
 import { app } from "../utils/firebase";
+import { refreshBearerToken } from "../utils/bearer";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const auth = getAuth(app);
+  refreshBearerToken();
   onAuthStateChanged(auth, (user) => {
     if (!user && router.pathname != "/login" && router.route != "/404") {
       router.push("/login");

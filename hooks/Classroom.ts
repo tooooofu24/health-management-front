@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Classroom } from "../types/Classroom";
-import { getBearerToken } from "../utils/auth";
+import { getBearerToken } from "../utils/bearer";
 
 export const useClassrooms = () => {
   const [classrooms, setClassrooms] = useState<Classroom[]>([]);
