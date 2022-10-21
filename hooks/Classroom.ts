@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Classroom } from "../types/Classroom";
 import { getRequest } from "../utils/apiClient";
-import { getBearerToken } from "../utils/bearer";
 
 export const useClassrooms = () => {
   const [classrooms, setClassrooms] = useState<Classroom[]>([]);
