@@ -10,16 +10,18 @@ const createURL = (uri: string, query?: {}) => {
   );
 };
 
-const headers: HeadersInit = {
-  "Content-Type": "application/json",
-  Authorization: "Bearer " + getBearerToken(),
+const headers = (): HeadersInit => {
+  return {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + getBearerToken(),
+  };
 };
 
 export const getRequest = async (uri: string, query?: {}) => {
   const url = createURL(uri, query);
   const res = await fetch(url, {
     method: "GET",
-    headers,
+    headers: headers(),
   });
   const json = await res.json();
   if (json.error) {
@@ -33,7 +35,7 @@ export const postRequest = async (uri: string, body: {}, query?: {}) => {
   const res = await fetch(url, {
     method: "POST",
     body: JSON.stringify(body),
-    headers,
+    headers: headers(),
   });
   const json = await res.json();
   if (json.error) {
@@ -46,7 +48,7 @@ export const deleteRequest = async (uri: string, query?: {}) => {
   const url = createURL(uri, query);
   const res = await fetch(url, {
     method: "DELETE",
-    headers,
+    headers: headers(),
   });
   // 失敗時
   if (!res.ok) {

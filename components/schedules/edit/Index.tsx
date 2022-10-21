@@ -8,22 +8,30 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useSchedules } from "../../../hooks/Schedule";
 import { days } from "../../../types/Day";
 import { periods } from "../../../types/Period";
+import { DataFetchError } from "../../common/error/DataFetchError";
 import { Tile } from "../../common/Tile";
 import { EditScheduleItem } from "./EditScheduleItem";
 
 export const ScheduleEdit = () => {
   const { schedules, getSchedules } = useSchedules();
   const router = useRouter();
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    getSchedules();
+    getSchedules().catch((e) => {
+      setIsError(true);
+    });
   }, [router]);
 
-  return (
+  return isError ? (
+    <Tile py="5%">
+      <DataFetchError />
+    </Tile>
+  ) : (
     <Tile>
       <TableContainer>
         <Table variant="unstyled">
