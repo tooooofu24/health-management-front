@@ -27,16 +27,17 @@ export const ClassroomCreateTable: FC<props> = ({ grade, name, students }) => {
           </Tr>
         </Thead>
         <Tbody>
-          {students?.length &&
-            students.map((stundent, i) => (
-              <Tr key={i}>
-                <Td>
-                  {grade || "?"}年{name || "?"}組
-                </Td>
-                <Td>{i + 1}</Td>
-                <Td>{stundent}</Td>
-              </Tr>
-            ))}
+          {students?.length
+            ? students.map((stundent, i) => (
+                <Tr key={i}>
+                  <Td>
+                    {grade || "?"}年{name || "?"}組
+                  </Td>
+                  <Td>{i + 1}</Td>
+                  <Td>{stundent}</Td>
+                </Tr>
+              ))
+            : null}
         </Tbody>
       </Table>
     </TableContainer>

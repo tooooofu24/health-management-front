@@ -73,7 +73,10 @@ export const Create = () => {
                   <Users />
                   <Text>生徒データ</Text>
                 </FormLabel>
-                <FilePicker onUpload={setStudents} />
+                <FilePicker
+                  onUpload={setStudents}
+                  onDelete={() => setStudents([])}
+                />
                 <FormErrorMessage>{errors.students?.message}</FormErrorMessage>
               </FormControl>
             </Flex>
