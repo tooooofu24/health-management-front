@@ -15,7 +15,7 @@ export const login = async () => {
   await signInWithPopup(auth, provider).then(async (results) => {
     const token = await results.user.getIdToken(true);
     setBearerToken(token);
-    // await checkUser();
+    await checkUser();
   });
 };
 

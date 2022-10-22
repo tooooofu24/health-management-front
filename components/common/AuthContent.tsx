@@ -1,3 +1,4 @@
+import { getCookie } from "cookies-next";
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { useRouter } from "next/router";
 import { FC, ReactNode, useState } from "react";
@@ -9,7 +10,7 @@ type props = {
   children: ReactNode;
 };
 export const AuthContent: FC<props> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const router = useRouter();
   const auth = getAuth(app);
 

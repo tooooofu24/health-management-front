@@ -19,7 +19,6 @@ export const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
   const toast = useToast();
-  const { checkUser } = useCheckUser();
 
   const onClick = () => {
     login()
@@ -34,8 +33,8 @@ export const Login = () => {
           position: "top",
         });
       })
-      .catch(() => {
-        setErrorMessage("ログインに失敗しました。");
+      .catch((e: any) => {
+        setErrorMessage(e.message);
       });
   };
 
