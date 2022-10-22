@@ -11,13 +11,23 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { Check, EnvelopeSimple, UserPlus } from "phosphor-react";
+import { FC, useEffect } from "react";
 import { useCurrentUser } from "../../hooks/CurrentUser";
+import { useUsers } from "../../hooks/User";
+import { User } from "../../types/User";
 import { PageTitle } from "../common/PageTitle";
 import { Tile, TilesWrapper } from "../common/Tile";
 import { DeleteUserButtton } from "./DeleteUserButton";
 
 export const UserList = () => {
+  const { users, getUsers } = useUsers();
+  const router = useRouter();
+
+  useEffect(() => {
+    getUsers();
+  }, [router]);
   const { user } = useCurrentUser();
   return (
     <TilesWrapper>
@@ -26,6 +36,7 @@ export const UserList = () => {
           <Table>
             <Thead>
               <Tr>
+                <Th></Th>
                 <Th>ユーザー</Th>
                 <Th>メールアドレス</Th>
                 <Th>アクティブ</Th>
@@ -34,29 +45,9 @@ export const UserList = () => {
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-                <Td>
-                  <Flex justifyContent="center" alignItems="center" gap="10%">
-                    <Avatar
-                      name={user?.displayName ?? ""}
-                      src={user?.photoURL ?? undefined}
-                      size="sm"
-                      referrerPolicy="no-referrer"
-                    />
-                    {user?.displayName}
-                  </Flex>
-                </Td>
-                <Td>{user?.email}</Td>
-                <Td>
-                  <Flex justifyContent="center">
-                    <Check size={20} />
-                  </Flex>
-                </Td>
-                <Td>{format(String(user?.metadata.lastSignInTime))}</Td>
-                <Td>
-                  <DeleteUserButtton />
-                </Td>
-              </Tr>
+              {users.length
+                ? users.map((user) => <UserRow key={user.id} user={user} />)
+                : null}
             </Tbody>
           </Table>
         </TableContainer>
@@ -101,7 +92,31 @@ export const UserList = () => {
   );
 };
 
-const format = (s: string) => {
-  const date = new Date(s);
-  return date.toLocaleDateString();
+type UserRowProps = {
+  user: User;
+};
+const UserRow: FC<UserRowProps> = ({ user }) => {
+  return (
+    <Tr>
+      <Td>
+        <Avatar
+          name={user.name}
+          src={user.profileImage}
+          size="sm"
+          referrerPolicy="no-referrer"
+        />
+      </Td>
+      <Td>{user.name}</Td>
+      <Td>？？？</Td>
+      <Td>
+        <Flex justifyContent="center">
+          <Check size={20} />
+        </Flex>
+      </Td>
+      <Td>？？？</Td>
+      <Td>
+        <DeleteUserButtton />
+      </Td>
+    </Tr>
+  );
 };
