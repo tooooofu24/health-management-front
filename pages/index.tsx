@@ -6,25 +6,28 @@ import { Schedule } from "../components/schedules/Index";
 import Router from "next/router";
 import { Pencil } from "phosphor-react";
 import { Layout } from "../components/common/Layout";
+import { AuthContent } from "../components/common/AuthContent";
 
 const TopPage: NextPage = () => {
   return (
-    <Layout>
-      <PageTitle
-        title="時間割"
-        icon={<CalendarCheck />}
-        iconUrl="/"
-        rightItem={
-          <Button
-            leftIcon={<Pencil />}
-            onClick={() => Router.push("/schedules/edit")}
-          >
-            編集
-          </Button>
-        }
-      />
-      <Schedule />
-    </Layout>
+    <AuthContent>
+      <Layout>
+        <PageTitle
+          title="時間割"
+          icon={<CalendarCheck />}
+          iconUrl="/"
+          rightItem={
+            <Button
+              leftIcon={<Pencil />}
+              onClick={() => Router.push("/schedules/edit")}
+            >
+              編集
+            </Button>
+          }
+        />
+        <Schedule />
+      </Layout>
+    </AuthContent>
   );
 };
 

@@ -1,17 +1,15 @@
 import { setCookie, getCookie, deleteCookie } from "cookies-next";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { app } from "./firebase";
 
 export const getBearerToken = (): string => {
-  return String(getCookie("token"));
+  const token = getCookie("token");
+  return token ? String(token) : "";
 };
 
-export const refreshBearerToken = async () => {
-  const auth = getAuth(app);
-  onAuthStateChanged(auth, async (user) => {
-    const token = await user?.getIdToken(true);
-    setBearerToken(token ?? "");
-  });
+export const refreshBearerToken = async (user: User) => {
+  const token = await user?.getIdToken(true);
+  setBearerToken(token ?? "");
 };
 
 export const setBearerToken = (token: string) => {

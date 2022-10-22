@@ -7,18 +7,9 @@ import { useRouter } from "next/router";
 import { app } from "../utils/firebase";
 import { refreshBearerToken } from "../utils/bearer";
 import { logout } from "../utils/auth";
+import { useEffect, useState } from "react";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter();
-  const auth = getAuth(app);
-  refreshBearerToken();
-  onAuthStateChanged(auth, async (user) => {
-    if (!user && router.pathname != "/login" && router.route != "/404") {
-      await logout();
-      router.push("/login");
-    }
-  });
-
   return (
     <ChakraProvider theme={CustomTheme}>
       <Component {...pageProps} />

@@ -1,4 +1,4 @@
-import { Button, Flex, Img, Square, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Img, Square, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { House } from "phosphor-react";
@@ -6,13 +6,12 @@ import { Layout } from "../components/common/Layout";
 
 const NotFound: NextPage = () => {
   return (
-    <Layout>
+    <Box position="fixed" w="full" h="full">
       <Flex
         alignItems="center"
         flexDirection="column"
         h="full"
         justifyContent="center"
-        pt="10vh"
       >
         <Square size="350px">
           <Img
@@ -24,13 +23,13 @@ const NotFound: NextPage = () => {
         <Text>お探しのページが見つかりませんでした。</Text>
         <Link href="/">
           <a>
-            <Button marginTop={10} leftIcon={<House size={20} />}>
+            <Button marginTop={5} leftIcon={<House size={20} />}>
               トップページに戻る
             </Button>
           </a>
         </Link>
       </Flex>
-    </Layout>
+    </Box>
   );
 };
 
