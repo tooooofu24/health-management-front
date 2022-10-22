@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { AddressBook, Calendar, Clock, PaperPlaneTilt } from "phosphor-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useCourses } from "../../../hooks/Course";
 import {
@@ -19,6 +19,8 @@ import {
   AttendanceFormDefaultValue,
 } from "../../../hooks/form/AttendanceFormHook";
 import { useStudents } from "../../../hooks/Student";
+import { DataFetchError } from "../../common/error/DataFetchError";
+import { PeriodField } from "../../common/form/PeriodField";
 import { Tile, TilesWrapper } from "../../common/Tile";
 import { AttendanceTable } from "./AttendanceTable";
 import { CourseInput } from "./Forms";
@@ -29,9 +31,12 @@ export const AttendanceCreate = () => {
 
   const { students, getStudents } = useStudents();
   const { courses, getCourses } = useCourses();
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    getCourses();
+    getCourses().catch((e) => {
+      setError(e?.message || "不明なエラー");
+    });
   }, []);
 
   const {
@@ -65,7 +70,11 @@ export const AttendanceCreate = () => {
     getStudents(course.classroom.id);
   }, [courses]);
 
-  return (
+  return error ? (
+    <Tile py="5%">
+      <DataFetchError message={error} />
+    </Tile>
+  ) : (
     <form action="/">
       <TilesWrapper>
         <Tile>
@@ -112,18 +121,11 @@ export const AttendanceCreate = () => {
                 <Clock />
                 時限
               </FormLabel>
-              <Select
-                placeholder="選択して下さい"
-                {...register("period", {
+              <PeriodField
+                register={register("period", {
                   required: "入力してください。",
                 })}
-              >
-                {[...Array(6)].map((v, i) => (
-                  <option key={i} value={i + 1}>
-                    {i + 1}時間目
-                  </option>
-                ))}
-              </Select>
+              />
               <FormErrorMessage>{errors.period?.message}</FormErrorMessage>
             </FormControl>
           </Flex>

@@ -22,9 +22,7 @@ const ClassroomPage: NextPage = () => {
           </Link>
         }
       />
-      <Tile>
-        <ClassroomList />
-      </Tile>
+      <ClassroomList />
     </Layout>
   );
 };

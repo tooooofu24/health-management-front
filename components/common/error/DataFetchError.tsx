@@ -12,7 +12,7 @@ export const DataFetchError: FC<props> = ({ message }) => {
       h="full"
       justifyContent="center"
     >
-      <Square size="350px">
+      <Square size="350px" maxWidth="100%">
         <Img
           src="/img/not-found.png"
           alt="寂しい女の子のイラスト"

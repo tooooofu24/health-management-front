@@ -12,36 +12,47 @@ import {
 import { CaretRight } from "phosphor-react";
 import { useClassrooms } from "../../../hooks/Classroom";
 import { Classroom } from "../../../types/Classroom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { DataFetchError } from "../../common/error/DataFetchError";
+import { Tile } from "../../common/Tile";
 
 export const ClassroomList = () => {
   const { classrooms, getClassrooms } = useClassrooms();
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    getClassrooms();
+    getClassrooms().catch((e: any) => {
+      setError(e?.message || "不明なエラー");
+    });
   }, []);
 
-  return (
-    <TableContainer>
-      <Table>
-        <Thead>
-          <Tr>
-            <Th>クラス</Th>
-            <Th>担任</Th>
-            <Th>人数</Th>
-            <Th>授業</Th>
-            <Th>最終授業日</Th>
-            <Th></Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {classrooms.map((classroom) => {
-            return <Row key={classroom.id} classroom={classroom} />;
-          })}
-        </Tbody>
-      </Table>
-    </TableContainer>
+  return error ? (
+    <Tile py="5%">
+      <DataFetchError message={error} />
+    </Tile>
+  ) : (
+    <Tile>
+      <TableContainer>
+        <Table>
+          <Thead>
+            <Tr>
+              <Th>クラス</Th>
+              <Th>担任</Th>
+              <Th>人数</Th>
+              <Th>授業</Th>
+              <Th>最終授業日</Th>
+              <Th></Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {classrooms.map((classroom) => {
+              return <Row key={classroom.id} classroom={classroom} />;
+            })}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </Tile>
   );
 };
 
