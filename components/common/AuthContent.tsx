@@ -9,9 +9,7 @@ type props = {
   children: ReactNode;
 };
 export const AuthContent: FC<props> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    Boolean(getBearerToken())
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
   const router = useRouter();
   const auth = getAuth(app);
 
