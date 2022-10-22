@@ -126,9 +126,9 @@ const InvitationRow: FC<InvitationRowProps> = ({ invitation }) => {
           rounded="full"
         />
       </Td>
-      <Td>chiba.chatplus@gmail.com</Td>
-      <Td>？？？</Td>
-      <Td>2022-10-01</Td>
+      <Td>{invitation.email}</Td>
+      <Td>{invitation.createdBy.name}</Td>
+      <Td>{invitation.createdAt}</Td>
       <Td>
         <DeleteUserButtton />
       </Td>

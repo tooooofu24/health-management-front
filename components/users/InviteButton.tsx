@@ -1,8 +1,10 @@
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
   Button,
   FormControl,
-  FormHelperText,
-  FormLabel,
+  FormErrorMessage,
   Input,
   InputGroup,
   InputLeftElement,
@@ -15,11 +17,46 @@ import {
   ModalOverlay,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { EnvelopeSimple, UserPlus } from "phosphor-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useCreateInvitation } from "../../hooks/Invitation";
 
 export const InviteButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { createInvitation } = useCreateInvitation();
+  const [error, setError] = useState("");
+  const toast = useToast();
+  const router = useRouter();
+  const onSubmit = async (data: form) => {
+    try {
+      await createInvitation(data);
+      router.push("/users");
+      onClose();
+      toast({
+        title: "",
+        description: "招待を送信しました！",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
+      setValue("email", "");
+    } catch (e: any) {
+      setError(e.message);
+    }
+  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm<form>({
+    mode: "onSubmit",
+  });
   return (
     <>
       <Button leftIcon={<UserPlus />} onClick={onOpen}>
@@ -29,34 +66,60 @@ export const InviteButton = () => {
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>ユーザー招待</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Text mb={3}>招待したい方のメールアドレスを入力してください。</Text>
-            <FormControl>
-              <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<EnvelopeSimple />}
-                  color="gray.500"
-                />
-                <Input
-                  variant="flushed"
-                  type="email"
-                  placeholder="user@shusseki-kun.com"
-                />
-              </InputGroup>
-            </FormControl>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button variant="ghost" onClick={onClose}>
-              キャンセル
-            </Button>
-            <Button>招待する</Button>
-          </ModalFooter>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <ModalHeader>ユーザー招待</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Text mb={3}>
+                招待したい方のメールアドレスを入力してください。
+              </Text>
+              <FormControl isInvalid={Boolean(errors.email ?? error)}>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<EnvelopeSimple />}
+                    color="gray.500"
+                  />
+                  <Input
+                    variant="flushed"
+                    placeholder="user@shusseki-kun.com"
+                    {...register("email", {
+                      required: "必須項目です！",
+                      pattern: {
+                        value:
+                          /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/,
+                        message: "メールアドレスの形式が正しくありません！",
+                      },
+                    })}
+                  />
+                </InputGroup>
+                <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
+              </FormControl>
+              {error && (
+                <Alert status="error">
+                  <AlertIcon />
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
+              )}
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                colorScheme="gray"
+                mr={2}
+                variant="ghost"
+                onClick={onClose}
+              >
+                キャンセル
+              </Button>
+              <Button type="submit">招待する</Button>
+            </ModalFooter>
+          </form>
         </ModalContent>
       </Modal>
     </>
   );
+};
+
+type form = {
+  email: string;
 };
