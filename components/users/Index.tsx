@@ -14,8 +14,9 @@ import {
 import { useRouter } from "next/router";
 import { Check, EnvelopeSimple, UserPlus } from "phosphor-react";
 import { FC, useEffect } from "react";
-import { useCurrentUser } from "../../hooks/CurrentUser";
+import { useInvitations } from "../../hooks/Invitation";
 import { useUsers } from "../../hooks/User";
+import { Invitation } from "../../types/Invitation";
 import { User } from "../../types/User";
 import { PageTitle } from "../common/PageTitle";
 import { Tile, TilesWrapper } from "../common/Tile";
@@ -23,12 +24,13 @@ import { DeleteUserButtton } from "./DeleteUserButton";
 
 export const UserList = () => {
   const { users, getUsers } = useUsers();
+  const { invitations, getInvitations } = useInvitations();
   const router = useRouter();
 
   useEffect(() => {
     getUsers();
+    getInvitations();
   }, [router]);
-  const { user } = useCurrentUser();
   return (
     <TilesWrapper>
       <Tile>
@@ -36,7 +38,7 @@ export const UserList = () => {
           <Table>
             <Thead>
               <Tr>
-                <Th></Th>
+                <Th>アイコン</Th>
                 <Th>ユーザー</Th>
                 <Th>メールアドレス</Th>
                 <Th>アクティブ</Th>
@@ -67,22 +69,11 @@ export const UserList = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                <Tr>
-                  <Td>
-                    <IconButton
-                      icon={<EnvelopeSimple />}
-                      aria-label="メール送信"
-                      size="sm"
-                      rounded="full"
-                    />
-                  </Td>
-                  <Td>chiba.chatplus@gmail.com</Td>
-                  <Td>{user?.displayName}</Td>
-                  <Td>2022-10-01</Td>
-                  <Td>
-                    <DeleteUserButtton />
-                  </Td>
-                </Tr>
+                {invitations.length
+                  ? invitations.map((invitation) => (
+                      <InvitationRow invitation={invitation} />
+                    ))
+                  : null}
               </Tbody>
             </Table>
           </TableContainer>
@@ -109,11 +100,35 @@ const UserRow: FC<UserRowProps> = ({ user }) => {
       <Td>{user.name}</Td>
       <Td>？？？</Td>
       <Td>
-        <Flex justifyContent="center">
+        <Flex color="teal.500" justifyContent="center">
           <Check size={20} />
         </Flex>
       </Td>
       <Td>？？？</Td>
+      <Td>
+        <DeleteUserButtton />
+      </Td>
+    </Tr>
+  );
+};
+
+type InvitationRowProps = {
+  invitation: Invitation;
+};
+const InvitationRow: FC<InvitationRowProps> = ({ invitation }) => {
+  return (
+    <Tr>
+      <Td>
+        <IconButton
+          icon={<EnvelopeSimple />}
+          aria-label="メール送信"
+          size="sm"
+          rounded="full"
+        />
+      </Td>
+      <Td>chiba.chatplus@gmail.com</Td>
+      <Td>？？？</Td>
+      <Td>2022-10-01</Td>
       <Td>
         <DeleteUserButtton />
       </Td>
