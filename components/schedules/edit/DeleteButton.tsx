@@ -32,7 +32,7 @@ type props = {
 export const DeleteButton = ({ schedule }: props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { deleteSchedule, isLoading } = useDeleteSchedule();
-  const [error, setError] = useState<APIErrorResponse | null>(null);
+  const [error, setError] = useState<string>("");
   const router = useRouter();
   const toast = useToast();
 
@@ -49,13 +49,8 @@ export const DeleteButton = ({ schedule }: props) => {
         isClosable: true,
         position: "top",
       });
-    } catch (e) {
-      if (e instanceof APIError) {
-        setError(e.response);
-      } else {
-        console.log(e);
-        setError(unknownError);
-      }
+    } catch (e: any) {
+      setError(e?.message || "不明のエラー");
     }
   };
 
@@ -83,7 +78,7 @@ export const DeleteButton = ({ schedule }: props) => {
             {error && (
               <Alert status="error" mt={3}>
                 <AlertIcon />
-                <AlertDescription>{error.message}</AlertDescription>
+                <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
           </ModalBody>

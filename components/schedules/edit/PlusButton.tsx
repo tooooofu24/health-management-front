@@ -41,7 +41,7 @@ type props = {
 export const PlusButton = ({ period, day }: props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { createSchedule, isLoading } = useCreateSchedule();
-  const [error, setError] = useState<APIErrorResponse | null>(null);
+  const [error, setError] = useState<string>("");
   const toast = useToast();
 
   const {
@@ -66,12 +66,8 @@ export const PlusButton = ({ period, day }: props) => {
         isClosable: true,
         position: "top",
       });
-    } catch (e) {
-      if (e instanceof APIError) {
-        setError(e.response);
-      } else {
-        setError(unknownError);
-      }
+    } catch (e: any) {
+      setError(e?.message || "不明のエラー");
     }
   };
 
@@ -141,7 +137,7 @@ export const PlusButton = ({ period, day }: props) => {
               {error && (
                 <Alert status="error" mt={3}>
                   <AlertIcon />
-                  <AlertDescription>{error.message}</AlertDescription>
+                  <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
             </ModalBody>

@@ -15,17 +15,17 @@ import { ScheduleItem } from "./ScheduleItem";
 
 export const Schedule = () => {
   const { schedules, getSchedules } = useSchedules();
-  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    getSchedules().catch((e) => {
-      setIsError(true);
+    getSchedules().catch((e: any) => {
+      setError(e.message || "不明なエラー");
     });
   }, []);
 
-  return isError ? (
+  return error ? (
     <Tile py="5%">
-      <DataFetchError />
+      <DataFetchError message={error} />
     </Tile>
   ) : (
     <Tile>

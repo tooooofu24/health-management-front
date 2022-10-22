@@ -1,7 +1,10 @@
 import { Flex, Img, Square, Text } from "@chakra-ui/react";
-import Link from "next/link";
+import { FC } from "react";
 
-export const DataFetchError = () => {
+type props = {
+  message?: string;
+};
+export const DataFetchError: FC<props> = ({ message }) => {
   return (
     <Flex
       alignItems="center"
@@ -17,6 +20,7 @@ export const DataFetchError = () => {
         />
       </Square>
       <Text>データの取得に失敗しました。</Text>
+      {message && <Text color="red.500">{message}</Text>}
     </Flex>
   );
 };

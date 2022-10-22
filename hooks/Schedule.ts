@@ -17,6 +17,9 @@ export const useDeleteSchedule = () => {
   const [isLoading, setIsLoading] = useState(false);
   const deleteSchedule = async (schedule: Schedule) => {
     setIsLoading(true);
+    await deleteRequest("/schedules/1").finally(() => {
+      setIsLoading(false);
+    });
     await deleteRequest("/schedules/" + schedule.id).finally(() => {
       setIsLoading(false);
     });
