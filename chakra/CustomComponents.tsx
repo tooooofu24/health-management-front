@@ -7,7 +7,7 @@ export const CustomComponents = {
         display: "flex",
         gap: "8px",
         alignItems: "center",
-        svg: {
+        "> svg": {
           width: "20px",
           height: "20px",
         },

@@ -3,7 +3,9 @@ import {
   Flex,
   FormControl,
   FormErrorMessage,
+  FormHelperText,
   FormLabel,
+  IconButton,
   Text,
 } from "@chakra-ui/react";
 import {
@@ -12,6 +14,7 @@ import {
   Chalkboard,
   GraduationCap,
   PaperPlaneTilt,
+  Question,
   Users,
 } from "phosphor-react";
 import { isSmartPhoneScreen } from "../../../styles/Responsive";
@@ -21,6 +24,7 @@ import { ClassField } from "../../common/form/ClassField";
 import { useForm } from "react-hook-form";
 import { ClassroomCreateTable } from "./ClassroomCreateTable";
 import { FilePicker } from "./FilePicker";
+import { FileDescribeButton } from "./FileDiscribeButton";
 
 export const Create = () => {
   const {
@@ -72,6 +76,7 @@ export const Create = () => {
                 <FormLabel>
                   <Users />
                   <Text>生徒データ</Text>
+                  <FileDescribeButton />
                 </FormLabel>
                 <FilePicker
                   onUpload={setStudents}
