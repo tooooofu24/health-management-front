@@ -51,7 +51,7 @@ export const LogoutModal: FC<props> = ({ isOpen, onClose }) => {
         <ModalCloseButton />
         <ModalBody>ログアウトします。 よろしいですか？</ModalBody>
         <ModalFooter>
-          <Button variant="ghost" onClick={onClose}>
+          <Button colorScheme="gray" variant="ghost" onClick={onClose} mr={2}>
             キャンセル
           </Button>
           <Button onClick={onClick}>ログアウト</Button>
