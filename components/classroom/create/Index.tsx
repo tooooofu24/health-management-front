@@ -3,18 +3,13 @@ import {
   Flex,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
   FormLabel,
-  IconButton,
   Text,
 } from "@chakra-ui/react";
 import {
-  ArrowFatDown,
-  ArrowFatRight,
   Chalkboard,
   GraduationCap,
   PaperPlaneTilt,
-  Question,
   Users,
 } from "phosphor-react";
 import { isSmartPhoneScreen } from "../../../styles/Responsive";
@@ -43,8 +38,10 @@ export const Create = () => {
     setValue("students", students);
   };
 
+  const onSubmit = (data: form) => {};
+
   return (
-    <form onSubmit={handleSubmit(() => {})}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Flex
         gap={isSmartPhoneScreen() ? "2rem" : "5%"}
         flexDirection={isSmartPhoneScreen() ? "column" : "row"}
@@ -72,7 +69,12 @@ export const Create = () => {
                 />
                 <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
               </FormControl>
-              <FormControl isInvalid={Boolean(errors.students)}>
+              <FormControl
+                isInvalid={Boolean(errors.students)}
+                {...register("students", {
+                  required: "生徒データが存在しません！",
+                })}
+              >
                 <FormLabel>
                   <Users />
                   <Text>生徒データ</Text>

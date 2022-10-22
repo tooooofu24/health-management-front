@@ -1,27 +1,27 @@
-import { getCookie } from "cookies-next";
-import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { useRouter } from "next/router";
-import { FC, ReactNode, useState } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
+import { useCurrentUser } from "../../hooks/CurrentUser";
 import { logout } from "../../utils/auth";
-import { getBearerToken, refreshBearerToken } from "../../utils/bearer";
-import { app } from "../../utils/firebase";
+import { refreshBearerToken } from "../../utils/bearer";
 
 type props = {
   children: ReactNode;
 };
 export const AuthContent: FC<props> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { user, isLoading } = useCurrentUser();
   const router = useRouter();
-  const auth = getAuth(app);
 
-  onAuthStateChanged(auth, async (user: User | null) => {
-    if (user) {
-      setIsAuthenticated(true);
-      refreshBearerToken(user);
-    } else {
-      await logout();
-      router.push("/login");
-    }
-  });
-  return isAuthenticated ? <>{children}</> : null;
+  useEffect(() => {
+    if (isLoading) return;
+    (async () => {
+      if (user) {
+        await refreshBearerToken(user);
+      } else {
+        await logout();
+        router.push("/login");
+      }
+    })();
+  }, [user, isLoading]);
+
+  return user ? <>{children}</> : null;
 };
