@@ -2,12 +2,8 @@ import { APIError } from "../types/APIErrorResponse";
 import { getBearerToken } from "./bearer";
 
 const createURL = (uri: string, query?: {}) => {
-  return (
-    process.env.NEXT_PUBLIC_API_BASE_URL +
-    uri +
-    "?" +
-    new URLSearchParams(query).toString()
-  );
+  const queryString = query ? "?" + new URLSearchParams(query).toString() : "";
+  return process.env.NEXT_PUBLIC_API_BASE_URL + uri + queryString;
 };
 
 const headers = (): HeadersInit => {

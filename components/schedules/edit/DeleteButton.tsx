@@ -2,7 +2,6 @@ import {
   Alert,
   AlertDescription,
   AlertIcon,
-  AlertTitle,
   Button,
   IconButton,
   Modal,
@@ -19,11 +18,6 @@ import { useRouter } from "next/router";
 import { X } from "phosphor-react";
 import { useState } from "react";
 import { useDeleteSchedule } from "../../../hooks/Schedule";
-import {
-  APIError,
-  APIErrorResponse,
-  unknownError,
-} from "../../../types/APIErrorResponse";
 import { Schedule } from "../../../types/Schedule";
 
 type props = {
