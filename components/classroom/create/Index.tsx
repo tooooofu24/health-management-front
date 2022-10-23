@@ -70,7 +70,9 @@ export const Create = () => {
                 <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
               </FormControl>
               <FormControl
-                isInvalid={Boolean(errors.students)}
+                isInvalid={
+                  Boolean(errors.students) && watch("students").length == 0
+                }
                 {...register("students", {
                   required: "生徒データが存在しません！",
                 })}
