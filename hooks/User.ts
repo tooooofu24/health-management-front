@@ -15,7 +15,7 @@ export const useDeleteUser = () => {
   const [isLoading, setIsLoading] = useState(false);
   const deleteUser = async (user: User) => {
     setIsLoading(true);
-    await deleteRequest("/schedules/" + user.id).finally(() => {
+    await deleteRequest("/users/" + user.id).finally(() => {
       setIsLoading(false);
     });
   };

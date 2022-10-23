@@ -2,7 +2,9 @@ import {
   Alert,
   AlertDescription,
   AlertIcon,
+  Avatar,
   Button,
+  Flex,
   IconButton,
   Modal,
   ModalBody,
@@ -11,6 +13,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Text,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
@@ -64,11 +67,25 @@ export const DeleteUserButtton: FC<props> = ({ user }) => {
           <ModalHeader>ユーザー削除</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            ユーザーを削除します。
-            <br />
-            削除したユーザーはログインできなくなります。よろしいですか？
+            <Flex alignItems="center" gap="7%">
+              <Avatar
+                name={user.name}
+                src={user.profileImage}
+                size="lg"
+                referrerPolicy="no-referrer"
+              />
+              <Flex flexDirection="column" fontSize={14} gap={1.5}>
+                <Text>{user.name}</Text>
+                <Text>{user.email}</Text>
+              </Flex>
+            </Flex>
+            <Text mt={4}>
+              上記ユーザーを削除します。
+              <br />
+              削除したユーザーはログインできなくなります。よろしいですか？
+            </Text>
             {error && (
-              <Alert status="error">
+              <Alert status="error" mt={2}>
                 <AlertIcon />
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
@@ -76,7 +93,7 @@ export const DeleteUserButtton: FC<props> = ({ user }) => {
           </ModalBody>
 
           <ModalFooter>
-            <Button variant="ghost" onClick={onClose}>
+            <Button colorScheme="gray" variant="ghost" onClick={onClose} mr={2}>
               キャンセル
             </Button>
             <Button onClick={onClick} colorScheme="red">
