@@ -109,7 +109,7 @@ const UserRow: FC<UserRowProps> = ({ user }) => {
       </Td>
       <Td>？？？</Td>
       <Td>
-        <DeleteUserButtton />
+        <DeleteUserButtton user={user} />
       </Td>
     </Tr>
   );
@@ -132,9 +132,7 @@ const InvitationRow: FC<InvitationRowProps> = ({ invitation }) => {
       <Td>{invitation.email}</Td>
       <Td>{invitation.createdBy.name}</Td>
       <Td>{invitation.createdAt}</Td>
-      <Td>
-        <DeleteUserButtton />
-      </Td>
+      <Td>{/* <DeleteUserButtton /> */}</Td>
     </Tr>
   );
 };

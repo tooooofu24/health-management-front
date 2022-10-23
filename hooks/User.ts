@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { User } from "../types/User";
-import { getRequest } from "../utils/apiClient";
+import { deleteRequest, getRequest } from "../utils/apiClient";
 
 export const useUsers = () => {
   const [users, settUsers] = useState<User[]>([]);
@@ -9,4 +9,15 @@ export const useUsers = () => {
     settUsers(response.results);
   };
   return { users, getUsers };
+};
+
+export const useDeleteUser = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const deleteUser = async (user: User) => {
+    setIsLoading(true);
+    await deleteRequest("/schedules/" + user.id).finally(() => {
+      setIsLoading(false);
+    });
+  };
+  return { isLoading, deleteUser };
 };
