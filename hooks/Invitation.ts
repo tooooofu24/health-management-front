@@ -5,7 +5,7 @@ import { deleteRequest, getRequest, postRequest } from "../utils/apiClient";
 export const useInvitations = () => {
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const getInvitations = async () => {
-    const response = await getRequest("/invitations");
+    const response = await getRequest("/invitations", { accept: 0 });
     setInvitations(response.results);
   };
   return { invitations, getInvitations };
