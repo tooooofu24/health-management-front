@@ -5,7 +5,7 @@ import { FC, ReactNode } from "react";
 type props = {
   iconUrl: string;
   icon: ReactNode;
-  title: string;
+  title: string | ReactNode;
   rightItem?: ReactNode;
 };
 export const PageTitle: FC<props> = ({ iconUrl, icon, title, rightItem }) => {

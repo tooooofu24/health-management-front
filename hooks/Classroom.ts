@@ -7,18 +7,23 @@ export const useClassrooms = () => {
   const [isLoading, setIsLoading] = useState(true);
   const getClassrooms = async () => {
     setIsLoading(true);
-    const response = await getRequest("/classrooms");
+    const response = await getRequest("/classrooms").finally(() => {
+      setIsLoading(false);
+    });
     setClassrooms(response.results);
-    setIsLoading(false);
   };
   return { classrooms, getClassrooms, isLoading };
 };
 
 export const useClassroom = () => {
   const [classroom, setClassroom] = useState<Classroom | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const getClassroom = async (id: number | string) => {
-    const response = await getRequest("/classrooms/" + id);
+    setIsLoading(true);
+    const response = await getRequest("/classrooms/" + id).finally(() => {
+      setIsLoading(false);
+    });
     setClassroom(response.result);
   };
-  return { classroom, getClassroom };
+  return { classroom, getClassroom, isLoading };
 };

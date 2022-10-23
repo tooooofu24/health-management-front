@@ -9,20 +9,23 @@ import {
 } from "@chakra-ui/react";
 import { FC, useEffect } from "react";
 import { useCalculatedAttendances } from "../../../hooks/CalculatedAttendance";
+import { Loading } from "../../common/loading/Loading";
 
 type props = {
   classroomId?: number | string;
   subjectId?: number | string;
 };
 export const CalculateTable: FC<props> = ({ classroomId, subjectId }) => {
-  const { calculatedAttendances, getCalculatedAttendances } =
+  const { calculatedAttendances, getCalculatedAttendances, isLoading } =
     useCalculatedAttendances();
   useEffect(() => {
     if (!subjectId || !classroomId) return;
     getCalculatedAttendances(classroomId, subjectId);
   }, [subjectId, classroomId]);
 
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <TableContainer>
       <Table>
         <Thead>

@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Skeleton } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -13,7 +13,7 @@ import { Tile } from "../../components/common/Tile";
 import { useClassroom } from "../../hooks/Classroom";
 
 const CreatePage: NextPage = () => {
-  const { classroom, getClassroom } = useClassroom();
+  const { classroom, getClassroom, isLoading } = useClassroom();
   const [error, setError] = useState("");
   const router = useRouter();
   useEffect(() => {
@@ -29,7 +29,13 @@ const CreatePage: NextPage = () => {
       <Layout>
         <PageTitle
           title={
-            classroom ? classroom?.grade + "年" + classroom?.name + "組" : ""
+            isLoading ? (
+              <Skeleton height={7} w="100px" />
+            ) : classroom ? (
+              classroom?.grade + "年" + classroom?.name + "組"
+            ) : (
+              ""
+            )
           }
           icon={<CaretLeft />}
           iconUrl="/classrooms"
