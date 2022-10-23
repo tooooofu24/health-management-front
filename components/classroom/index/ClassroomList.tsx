@@ -16,9 +16,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { DataFetchError } from "../../common/error/DataFetchError";
 import { Tile } from "../../common/Tile";
+import { Loading } from "../../common/loading/Loading";
 
 export const ClassroomList = () => {
-  const { classrooms, getClassrooms } = useClassrooms();
+  const { classrooms, getClassrooms, isLoading } = useClassrooms();
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -30,6 +31,10 @@ export const ClassroomList = () => {
   return error ? (
     <Tile py="5%">
       <DataFetchError message={error} />
+    </Tile>
+  ) : isLoading ? (
+    <Tile>
+      <Loading />
     </Tile>
   ) : (
     <Tile>

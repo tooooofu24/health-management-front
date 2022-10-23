@@ -4,11 +4,14 @@ import { getRequest } from "../utils/apiClient";
 
 export const useClassrooms = () => {
   const [classrooms, setClassrooms] = useState<Classroom[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const getClassrooms = async () => {
+    setIsLoading(true);
     const response = await getRequest("/classrooms");
     setClassrooms(response.results);
+    setIsLoading(false);
   };
-  return { classrooms, getClassrooms };
+  return { classrooms, getClassrooms, isLoading };
 };
 
 export const useClassroom = () => {
