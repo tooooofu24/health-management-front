@@ -102,13 +102,13 @@ const UserRow: FC<UserRowProps> = ({ user }) => {
         />
       </Td>
       <Td>{user.name}</Td>
-      <Td>？？？</Td>
+      <Td>{user.email}</Td>
       <Td>
         <Flex color="teal.500" justifyContent="center">
           <Check size={20} />
         </Flex>
       </Td>
-      <Td>？？？</Td>
+      <Td>{user.lastAuthenticatedAt}</Td>
       <Td>
         <DeleteUserButtton user={user} />
       </Td>
