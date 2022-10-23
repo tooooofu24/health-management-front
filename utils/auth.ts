@@ -13,9 +13,15 @@ export const login = async () => {
   const auth = getAuth(app);
   const { checkUser } = useCheckUser();
   await signInWithPopup(auth, provider).then(async (results) => {
-    const token = await results.user.getIdToken(true);
+    const user = results.user;
+    const token = await user.getIdToken(true);
     setBearerToken(token);
-    await checkUser();
+    await checkUser().catch(async (e: any) => {
+      // DBにデータがない場合はFirebaseからもデータ削除
+      await user.delete();
+      await logout();
+      throw e;
+    });
   });
 };
 

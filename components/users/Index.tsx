@@ -71,7 +71,10 @@ export const UserList = () => {
               <Tbody>
                 {invitations.length
                   ? invitations.map((invitation) => (
-                      <InvitationRow invitation={invitation} />
+                      <InvitationRow
+                        key={invitation.id}
+                        invitation={invitation}
+                      />
                     ))
                   : null}
               </Tbody>

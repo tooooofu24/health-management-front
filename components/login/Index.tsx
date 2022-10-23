@@ -17,10 +17,12 @@ import { Tile } from "../common/Tile";
 
 export const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const toast = useToast();
 
   const onClick = () => {
+    setIsLoading(true);
     login()
       .then(() => {
         router.push("/");
@@ -35,7 +37,8 @@ export const Login = () => {
       })
       .catch((e: any) => {
         setErrorMessage(e.message);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -52,11 +55,16 @@ export const Login = () => {
           出席くん
         </Text>
       </Flex>
-      <Button leftIcon={<GoogleLogo />} width="100%" onClick={() => onClick()}>
+      <Button
+        isLoading={isLoading}
+        leftIcon={<GoogleLogo />}
+        width="100%"
+        onClick={() => onClick()}
+      >
         ログイン
       </Button>
       {errorMessage && (
-        <Alert status="error" mt="16px">
+        <Alert status="error" mt={2}>
           <AlertIcon />
           <AlertDescription>{errorMessage}</AlertDescription>
         </Alert>

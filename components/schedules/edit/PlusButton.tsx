@@ -135,7 +135,7 @@ export const PlusButton = ({ period, day }: props) => {
                 </FormControl>
               </Flex>
               {error && (
-                <Alert status="error" mt={3}>
+                <Alert status="error" mt={2}>
                   <AlertIcon />
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>

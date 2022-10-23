@@ -70,7 +70,7 @@ export const DeleteButton = ({ schedule }: props) => {
             <br />
             よろしいですか？
             {error && (
-              <Alert status="error" mt={3}>
+              <Alert status="error" mt={2}>
                 <AlertIcon />
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
