@@ -40,5 +40,22 @@ export const CustomComponents = {
         },
       },
     },
+    Modal: {
+      parts: ["content"],
+      sizes: {
+        md: {
+          dialog: {
+            width: "md",
+            maxWidth: "95vw",
+          },
+        },
+        lg: {
+          dialog: {
+            width: "lg",
+            maxWidth: "95vw",
+          },
+        },
+      },
+    },
   },
 };
