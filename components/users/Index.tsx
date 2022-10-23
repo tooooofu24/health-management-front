@@ -20,6 +20,7 @@ import { Invitation } from "../../types/Invitation";
 import { User } from "../../types/User";
 import { PageTitle } from "../common/PageTitle";
 import { Tile, TilesWrapper } from "../common/Tile";
+import { CancelInvitationButtton } from "./CancelInvitationButton";
 import { DeleteUserButtton } from "./DeleteUserButton";
 
 export const UserList = () => {
@@ -132,7 +133,9 @@ const InvitationRow: FC<InvitationRowProps> = ({ invitation }) => {
       <Td>{invitation.email}</Td>
       <Td>{invitation.createdBy.name}</Td>
       <Td>{invitation.createdAt}</Td>
-      <Td>{/* <DeleteUserButtton /> */}</Td>
+      <Td>
+        <CancelInvitationButtton invitation={invitation} />
+      </Td>
     </Tr>
   );
 };

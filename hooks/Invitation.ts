@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Invitation } from "../types/Invitation";
-import { getRequest, postRequest } from "../utils/apiClient";
+import { deleteRequest, getRequest, postRequest } from "../utils/apiClient";
 
 export const useInvitations = () => {
   const [invitations, setInvitations] = useState<Invitation[]>([]);
@@ -23,4 +23,15 @@ export const useCreateInvitation = () => {
     });
   };
   return { isLoading, createInvitation };
+};
+
+export const useDeleteInvitation = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const deleteInvitation = async (invitation: Invitation) => {
+    setIsLoading(true);
+    await deleteRequest("/invitations/" + invitation.id).finally(() => {
+      setIsLoading(false);
+    });
+  };
+  return { isLoading, deleteInvitation };
 };
