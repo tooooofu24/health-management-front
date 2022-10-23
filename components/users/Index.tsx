@@ -18,14 +18,19 @@ import { useInvitations } from "../../hooks/Invitation";
 import { useUsers } from "../../hooks/User";
 import { Invitation } from "../../types/Invitation";
 import { User } from "../../types/User";
+import { Loading } from "../common/loading/Loading";
 import { PageTitle } from "../common/PageTitle";
 import { Tile, TilesWrapper } from "../common/Tile";
 import { CancelInvitationButtton } from "./CancelInvitationButton";
 import { DeleteUserButtton } from "./DeleteUserButton";
 
 export const UserList = () => {
-  const { users, getUsers } = useUsers();
-  const { invitations, getInvitations } = useInvitations();
+  const { users, getUsers, isLoading: isLoadingUser } = useUsers();
+  const {
+    invitations,
+    getInvitations,
+    isLoading: isLoadingInvitations,
+  } = useInvitations();
   const router = useRouter();
 
   useEffect(() => {
@@ -34,54 +39,66 @@ export const UserList = () => {
   }, [router]);
   return (
     <TilesWrapper>
-      <Tile>
-        <TableContainer>
-          <Table>
-            <Thead>
-              <Tr>
-                <Th>アイコン</Th>
-                <Th>ユーザー</Th>
-                <Th>メールアドレス</Th>
-                <Th>アクティブ</Th>
-                <Th>最終ログイン</Th>
-                <Th>削除</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {users.length
-                ? users.map((user) => <UserRow key={user.id} user={user} />)
-                : null}
-            </Tbody>
-          </Table>
-        </TableContainer>
-      </Tile>
-      <Box>
-        <PageTitle iconUrl="/users" title="招待中" icon={<UserPlus />} />
+      {isLoadingUser ? (
+        <Tile>
+          <Loading />
+        </Tile>
+      ) : (
         <Tile>
           <TableContainer>
             <Table>
               <Thead>
                 <Tr>
-                  <Th>再通知</Th>
+                  <Th>アイコン</Th>
+                  <Th>ユーザー</Th>
                   <Th>メールアドレス</Th>
-                  <Th>招待ユーザー</Th>
-                  <Th>招待日時</Th>
-                  <Th>キャンセル</Th>
+                  <Th>アクティブ</Th>
+                  <Th>最終ログイン</Th>
+                  <Th>削除</Th>
                 </Tr>
               </Thead>
               <Tbody>
-                {invitations.length
-                  ? invitations.map((invitation) => (
-                      <InvitationRow
-                        key={invitation.id}
-                        invitation={invitation}
-                      />
-                    ))
+                {users.length
+                  ? users.map((user) => <UserRow key={user.id} user={user} />)
                   : null}
               </Tbody>
             </Table>
           </TableContainer>
         </Tile>
+      )}
+      <Box>
+        <PageTitle iconUrl="/users" title="招待中" icon={<UserPlus />} />
+        {isLoadingInvitations ? (
+          <Tile>
+            <Loading />
+          </Tile>
+        ) : (
+          <Tile>
+            <TableContainer>
+              <Table>
+                <Thead>
+                  <Tr>
+                    <Th>再通知</Th>
+                    <Th>メールアドレス</Th>
+                    <Th>招待ユーザー</Th>
+                    <Th>招待日時</Th>
+                    <Th>キャンセル</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {invitations.length
+                    ? invitations.map((invitation) => (
+                        <InvitationRow
+                          key={invitation.id}
+                          invitation={invitation}
+                        />
+                      ))
+                    : null}
+                </Tbody>
+              </Table>
+            </TableContainer>
+          </Tile>
+        )}
       </Box>
     </TilesWrapper>
   );

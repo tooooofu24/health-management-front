@@ -4,11 +4,15 @@ import { deleteRequest, getRequest } from "../utils/apiClient";
 
 export const useUsers = () => {
   const [users, settUsers] = useState<User[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const getUsers = async () => {
-    const response = await getRequest("/users");
+    setIsLoading(true);
+    const response = await getRequest("/users").finally(() => {
+      setIsLoading(false);
+    });
     settUsers(response.results);
   };
-  return { users, getUsers };
+  return { users, getUsers, isLoading };
 };
 
 export const useDeleteUser = () => {
