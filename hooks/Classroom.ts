@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { CreateClassroomForm } from "../components/classroom/create/Index";
 import { Classroom } from "../types/Classroom";
-import { getRequest } from "../utils/apiClient";
+import { getRequest, postRequest } from "../utils/apiClient";
 
 export const useClassrooms = () => {
   const [classrooms, setClassrooms] = useState<Classroom[]>([]);
@@ -26,4 +27,15 @@ export const useClassroom = () => {
     setClassroom(response.result);
   };
   return { classroom, getClassroom, isLoading };
+};
+
+export const useCreateClassroom = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const createClassroom = async (props: CreateClassroomForm) => {
+    setIsLoading(true);
+    await postRequest("/classrooms", props).finally(() => {
+      setIsLoading(false);
+    });
+  };
+  return { isLoading, createClassroom };
 };
