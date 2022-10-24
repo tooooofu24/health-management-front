@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import { FC, ReactNode, useEffect, useState } from "react";
 import { useCurrentUser } from "../../hooks/CurrentUser";
 import { logout } from "../../utils/auth";
-import { refreshBearerToken } from "../../utils/bearer";
 
 type props = {
   children: ReactNode;
@@ -14,9 +13,7 @@ export const AuthContent: FC<props> = ({ children }) => {
   useEffect(() => {
     if (isLoading) return;
     (async () => {
-      if (user) {
-        await refreshBearerToken(user);
-      } else {
+      if (!user) {
         await logout();
         router.push("/login");
       }
