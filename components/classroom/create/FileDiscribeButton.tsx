@@ -31,7 +31,13 @@ export const FileDescribeButton = () => {
       >
         ファイルの形式
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered size="lg">
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+        size="lg"
+        scrollBehavior="inside"
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>ファイルの形式について</ModalHeader>
