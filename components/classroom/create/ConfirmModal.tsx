@@ -31,7 +31,7 @@ export const ConfirmModal: FC<props> = ({
   onClose,
   ...props
 }) => {
-  const { students, grade, name } = data;
+  const { students, grade, name, teacher } = data;
   const { createClassroom, isLoading } = useCreateClassroom();
   const router = useRouter();
   const toast = useToast();
@@ -39,7 +39,7 @@ export const ConfirmModal: FC<props> = ({
   const onClick = async () => {
     try {
       await createClassroom(data);
-      router.push("/classrooms/create");
+      router.push("/classrooms");
       toast({
         title: "",
         description: "クラスを登録しました！",
@@ -67,7 +67,12 @@ export const ConfirmModal: FC<props> = ({
         <ModalCloseButton />
         <Box px={6}>以下の内容で登録します。よろしいですか？</Box>
         <ModalBody>
-          <ClassroomCreateTable grade={grade} name={name} students={students} />
+          <ClassroomCreateTable
+            grade={grade}
+            name={name}
+            students={students}
+            teacher={teacher}
+          />
         </ModalBody>
         <ModalFooter flexWrap="wrap">
           {error && (

@@ -4,6 +4,7 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
+  Input,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -11,6 +12,7 @@ import {
   Chalkboard,
   GraduationCap,
   PaperPlaneTilt,
+  User,
   Users,
 } from "phosphor-react";
 import { isSmartPhoneScreen } from "../../../styles/Responsive";
@@ -88,7 +90,7 @@ export const Create = () => {
           gap={isSmartPhoneScreen() ? "2rem" : "5%"}
           flexDirection={isSmartPhoneScreen() ? "column" : "row"}
         >
-          <Flex h="fit-content" flex={1}>
+          <Flex h="fit-content" flex={1} position="sticky" top="5">
             <Tile w="full">
               <Flex flexDirection="column" gap="20px">
                 <FormControl isInvalid={Boolean(errors.grade)}>
@@ -111,6 +113,17 @@ export const Create = () => {
                   />
                   <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
                 </FormControl>
+                <FormControl isInvalid={Boolean(errors.teacher)}>
+                  <FormLabel>
+                    <User />
+                    <Text>担任</Text>
+                  </FormLabel>
+                  <Input
+                    {...register("teacher", { required: "必須項目です！" })}
+                    placeholder="例：坂本金八"
+                  />
+                  <FormErrorMessage>{errors.teacher?.message}</FormErrorMessage>
+                </FormControl>
                 <FormControl isInvalid={Boolean(errors.students)}>
                   <FormLabel>
                     <Users />
@@ -128,16 +141,27 @@ export const Create = () => {
               </Flex>
             </Tile>
           </Flex>
-          <Flex flexDirection="column" gap="20px" flex={1}>
+          <Flex
+            flexDirection="column"
+            gap="20px"
+            flex={1}
+            position="sticky"
+            top="5"
+          >
             <Tile>
               <ClassroomCreateTable
                 grade={watch("grade")}
                 name={watch("name")}
                 students={watch("students")}
+                teacher={watch("teacher")}
               />
             </Tile>
-            <Flex justifyContent="end">
-              <Button type="submit" leftIcon={<PaperPlaneTilt />}>
+            <Flex justifyContent="end" position="sticky" bottom="5">
+              <Button
+                type="submit"
+                boxShadow="base"
+                leftIcon={<PaperPlaneTilt />}
+              >
                 クラスを登録する
               </Button>
             </Flex>
@@ -153,4 +177,5 @@ export type CreateClassroomForm = {
   grade: number;
   name: string;
   students: string[];
+  teacher: string;
 };
