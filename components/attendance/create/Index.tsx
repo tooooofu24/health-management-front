@@ -1,81 +1,99 @@
 import {
-  Box,
   Button,
   Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Input,
-  Select,
   Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { AddressBook, Calendar, Clock, PaperPlaneTilt } from "phosphor-react";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useCourses } from "../../../hooks/Course";
+import { useEffect } from "react";
+import { useFieldArray, useForm, useWatch } from "react-hook-form";
+import { useStudents } from "../../../hooks/Student";
+import { Student } from "../../../types/Student";
 import {
   AttendanceForm,
-  AttendanceFormDefaultValue,
-} from "../../../hooks/form/AttendanceFormHook";
-import { useStudents } from "../../../hooks/Student";
-import { DataFetchError } from "../../common/error/DataFetchError";
+  AttendanceRow,
+} from "../../../utils/form/AttendanceForm";
+import { CourseField } from "../../common/form/CourseField";
 import { PeriodField } from "../../common/form/PeriodField";
 import { Tile, TilesWrapper } from "../../common/Tile";
 import { AttendanceTable } from "./AttendanceTable";
-import { CourseInput } from "./Forms";
+import { Loading } from "../../common/loading/Loading";
+import { useCreateCourseLog } from "../../../hooks/CourseLog";
 
 export const AttendanceCreate = () => {
   const router = useRouter();
-  const { courseId, date, period } = router.query;
-
-  const { students, getStudents } = useStudents();
-  const { courses, getCourses } = useCourses();
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    getCourses().catch((e) => {
-      setError(e?.message || "不明なエラー");
-    });
-  }, []);
+  const { students, getStudents, isLoading } = useStudents();
+  const { createCourseLog, isLoading: isLoadingCreate } = useCreateCourseLog();
 
   const {
     register,
     handleSubmit,
     watch,
     setValue,
-    getValues,
     formState: { errors },
+    control,
   } = useForm<AttendanceForm>({
-    mode: "onBlur",
+    mode: "onSubmit",
+    defaultValues: {
+      attendances: [],
+    },
   });
 
-  watch((value, { name, type }) => {
-    const { courseId } = value;
-    if (name != "courseId") return;
-    const course = courses.find((course) => course.id == courseId);
-    if (!course) return;
-    getStudents(course.classroom.id);
+  const { fields } = useFieldArray({
+    control,
+    name: "attendances",
   });
 
   useEffect(() => {
-    if (courseId) setValue("courseId", String(courseId));
+    const { courseId, date, period } = router.query;
+    if (courseId) setValue("courseId", Number(courseId));
     if (date) setValue("date", String(date));
-    if (period) setValue("period", String(period));
+    if (period) setValue("period", Number(period));
   }, [router]);
 
   useEffect(() => {
-    const course = courses.find((course) => course.id == courseId);
-    if (!course) return;
-    getStudents(course.classroom.id);
-  }, [courses]);
+    if (
+      students.length &&
+      students[0]?.id != watch("attendances.0.student.id")
+    ) {
+      setValue("attendances", makeAttendanceRow(students));
+    }
+  }, [students]);
 
-  return error ? (
-    <Tile py="5%">
-      <DataFetchError message={error} />
-    </Tile>
-  ) : (
-    <form action="/">
+  useEffect(() => {
+    getStudents(2);
+  }, []);
+
+  const onSubmit = async ({
+    courseId,
+    date,
+    period,
+    attendances,
+  }: AttendanceForm) => {
+    await createCourseLog({
+      courseId,
+      date,
+      period,
+      attendances: attendances.map((attendance) => {
+        const { attend, knowledge, expression, attitude } = attendance;
+        return {
+          studentId: attendance.student.id,
+          attend,
+          knowledge: knowledge!,
+          expression: expression!,
+          attitude: attitude!,
+          message: "",
+        };
+      }),
+    });
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
       <TilesWrapper>
         <Tile>
           <Flex gap="20px" flexWrap="wrap" width="full">
@@ -88,9 +106,9 @@ export const AttendanceCreate = () => {
                 <AddressBook />
                 <Text>クラスと教科</Text>
               </FormLabel>
-              <CourseInput
+              <CourseField
                 register={register("courseId", {
-                  required: "入力してください。",
+                  required: "必須項目です！",
                 })}
               />
               <FormErrorMessage>{errors.courseId?.message}</FormErrorMessage>
@@ -107,7 +125,7 @@ export const AttendanceCreate = () => {
               <Input
                 type="date"
                 {...register("date", {
-                  required: "入力してください。",
+                  required: "必須項目です！",
                 })}
               />
               <FormErrorMessage>{errors.date?.message}</FormErrorMessage>
@@ -123,7 +141,7 @@ export const AttendanceCreate = () => {
               </FormLabel>
               <PeriodField
                 register={register("period", {
-                  required: "入力してください。",
+                  required: "必須項目です！",
                 })}
               />
               <FormErrorMessage>{errors.period?.message}</FormErrorMessage>
@@ -131,14 +149,35 @@ export const AttendanceCreate = () => {
           </Flex>
         </Tile>
         <Tile>
-          <AttendanceTable students={students} />
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <AttendanceTable
+              fields={fields}
+              register={register}
+              errors={errors}
+            />
+          )}
         </Tile>
         <Flex w="full" justifyContent="end" gap="20px">
-          <Button rightIcon={<PaperPlaneTilt />} type="submit">
+          <Button
+            isLoading={isLoadingCreate}
+            rightIcon={<PaperPlaneTilt />}
+            type="submit"
+          >
             成績を登録する
           </Button>
         </Flex>
       </TilesWrapper>
     </form>
   );
+};
+
+const makeAttendanceRow = (students: Student[]): AttendanceRow[] => {
+  return students.map((student) => {
+    return {
+      student: student,
+      attend: true,
+    };
+  });
 };

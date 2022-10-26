@@ -16,7 +16,7 @@ import {
 import { RadioButton } from "../../common/form/RadioButton";
 
 type props = {
-  register?: UseFormRegisterReturn;
+  register: UseFormRegisterReturn;
   error?: FieldError;
 };
 export const AttendanceABCButtons = ({ register, error }: props) => {
@@ -29,13 +29,13 @@ export const AttendanceABCButtons = ({ register, error }: props) => {
   return (
     <FormControl isInvalid={Boolean(error)}>
       <HStack {...group} justifyContent="center">
-        {options.map((value) => {
-          const radio = getRadioProps({ value });
+        {options.map((value, i) => {
+          const radio = getRadioProps({ value: i + 1 });
           return (
             <RadioButton
               key={value}
               setValue={setValue}
-              register={register!}
+              register={register}
               error={error}
               {...radio}
             >
@@ -45,12 +45,7 @@ export const AttendanceABCButtons = ({ register, error }: props) => {
         })}
       </HStack>
       <Flex w="full" justifyContent="center">
-        <FormErrorMessage>
-          <Flex alignItems="center" gap="5px">
-            <WarningCircle />
-            {error?.message}
-          </Flex>
-        </FormErrorMessage>
+        <FormErrorMessage>{error?.message}</FormErrorMessage>
       </Flex>
     </FormControl>
   );

@@ -13,8 +13,8 @@ export const useCalculatedAttendances = () => {
   ) => {
     setIsLoading(true);
     const response = await getRequest("/attendances/calculated", {
-      classroomId,
-      subjectId,
+      "classroom-id": classroomId,
+      "subject-id": subjectId,
     }).finally(() => {
       setIsLoading(false);
     });

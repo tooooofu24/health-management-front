@@ -1,6 +1,8 @@
 import {
   Checkbox,
   Flex,
+  FormControl,
+  FormErrorMessage,
   IconButton,
   Table,
   TableContainer,
@@ -12,13 +14,19 @@ import {
 } from "@chakra-ui/react";
 import { ChatCircle } from "phosphor-react";
 import { FC } from "react";
-import { Student } from "../../../types/Student";
+import { FieldErrorsImpl, UseFormRegister } from "react-hook-form";
+import {
+  AttendanceForm,
+  AttendanceRow,
+} from "../../../utils/form/AttendanceForm";
 import { AttendanceABCButtons } from "./AttendanceABCButtons";
 
 type props = {
-  students: Student[];
+  fields?: AttendanceRow[];
+  register: UseFormRegister<AttendanceForm>;
+  errors: any;
 };
-export const AttendanceTable: FC<props> = ({ students }) => {
+export const AttendanceTable: FC<props> = ({ fields, register, errors }) => {
   return (
     <TableContainer>
       <Table variant="simple">
@@ -34,42 +42,77 @@ export const AttendanceTable: FC<props> = ({ students }) => {
           </Tr>
         </Thead>
         <Tbody>
-          {students.map((student, i) => (
-            <Tr key={student.id}>
-              <Td>{i + 1}</Td>
-              <Td>{student.name}</Td>
-              <Td>
-                <Checkbox size="lg" />
-              </Td>
-              <Td>
-                <AttendanceABCButtons />
-              </Td>
-              <Td>
-                <AttendanceABCButtons />
-              </Td>
-              <Td>
-                <AttendanceABCButtons />
-              </Td>
-              <Td>
-                <Flex
-                  alignItems="center"
-                  justifyContent="center"
-                  color="gray.500"
-                >
-                  <IconButton
-                    height="auto"
-                    minWidth="auto"
-                    color="gray.400"
-                    icon={<ChatCircle size={25} />}
-                    aria-label=""
-                    variant="ghost"
-                  />
-                </Flex>
-              </Td>
-            </Tr>
-          ))}
+          {fields?.map((field, i) => {
+            return (
+              <Row
+                key={i}
+                errors={errors}
+                register={register}
+                field={field}
+                i={i}
+              />
+            );
+          })}
         </Tbody>
       </Table>
     </TableContainer>
+  );
+};
+
+type RowProps = {
+  field: AttendanceRow;
+  register: UseFormRegister<AttendanceForm>;
+  errors: any;
+  i: number;
+};
+const Row: FC<RowProps> = ({ field, register, errors, i }) => {
+  return (
+    <Tr key={field.student.id}>
+      <Td>{field.student.number}</Td>
+      <Td>{field.student.name}</Td>
+      <Td>
+        <FormControl isInvalid={Boolean(errors.attendances?.[i]?.attend)}>
+          <Checkbox {...register(`attendances.${i}.attend`)} size="lg" />
+          <FormErrorMessage justifyContent="center">
+            {errors.attendances?.[i]?.attend?.message}
+          </FormErrorMessage>
+        </FormControl>
+      </Td>
+      <Td>
+        <AttendanceABCButtons
+          register={register(`attendances.${i}.knowledge`, {
+            required: "必須項目です！",
+          })}
+          error={errors.attendances?.[i]?.knowledge}
+        />
+      </Td>
+      <Td>
+        <AttendanceABCButtons
+          register={register(`attendances.${i}.expression`, {
+            required: "必須項目です！",
+          })}
+          error={errors.attendances?.[i]?.expression}
+        />
+      </Td>
+      <Td>
+        <AttendanceABCButtons
+          register={register(`attendances.${i}.attitude`, {
+            required: "必須項目です！",
+          })}
+          error={errors.attendances?.[i]?.attitude}
+        />
+      </Td>
+      <Td>
+        <Flex alignItems="center" justifyContent="center" color="gray.500">
+          <IconButton
+            color="gray.400"
+            icon={<ChatCircle size={25} />}
+            aria-label=""
+            variant="ghost"
+            size="md"
+          />
+        </Flex>
+      </Td>
+    </Tr>
   );
 };

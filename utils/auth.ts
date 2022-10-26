@@ -12,10 +12,8 @@ export const login = async () => {
   const auth = getAuth(app);
   const { checkUser } = useCheckUser();
   await signInWithPopup(auth, provider).then(async (results) => {
-    const user = results.user;
     await checkUser().catch(async (e: any) => {
       // DBにデータがない場合はFirebaseからもデータ削除
-      await user.delete();
       await logout();
       throw e;
     });
