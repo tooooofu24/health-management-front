@@ -55,6 +55,12 @@ export const CustomComponents = {
             maxWidth: "95vw",
           },
         },
+        xl: {
+          dialog: {
+            width: "lg",
+            maxWidth: "95vw",
+          },
+        },
       },
     },
   },

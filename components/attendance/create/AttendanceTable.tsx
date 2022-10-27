@@ -29,14 +29,8 @@ type props = {
   fields?: AttendanceRow[];
   register: UseFormRegister<AttendanceForm>;
   errors: any;
-  watch: UseFormWatch<AttendanceForm>;
 };
-export const AttendanceTable: FC<props> = ({
-  fields,
-  register,
-  errors,
-  watch,
-}) => {
+export const AttendanceTable: FC<props> = ({ fields, register, errors }) => {
   return (
     <TableContainer>
       <Table variant="simple">
@@ -60,7 +54,6 @@ export const AttendanceTable: FC<props> = ({
                 register={register}
                 field={field}
                 i={i}
-                watch={watch}
               />
             );
           })}
@@ -75,9 +68,8 @@ type RowProps = {
   register: UseFormRegister<AttendanceForm>;
   errors: any;
   i: number;
-  watch: UseFormWatch<AttendanceForm>;
 };
-const Row: FC<RowProps> = ({ field, register, errors, i, watch }) => {
+const Row: FC<RowProps> = ({ field, register, errors, i }) => {
   return (
     <Tr key={field.student.id}>
       <Td>{field.student.number}</Td>
@@ -117,7 +109,7 @@ const Row: FC<RowProps> = ({ field, register, errors, i, watch }) => {
       <Td>
         <Flex alignItems="center" justifyContent="center">
           <MessageButton
-            filled={Boolean(watch(`attendances.${i}.message`))}
+            filled={false}
             register={register(`attendances.${i}.message`)}
           />
         </Flex>

@@ -6,10 +6,11 @@ import {
   FormLabel,
   Input,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { AddressBook, Calendar, Clock, PaperPlaneTilt } from "phosphor-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { useStudents } from "../../../hooks/Student";
 import { Student } from "../../../types/Student";
@@ -23,11 +24,13 @@ import { Tile, TilesWrapper } from "../../common/Tile";
 import { AttendanceTable } from "./AttendanceTable";
 import { Loading } from "../../common/loading/Loading";
 import { useCreateCourseLog } from "../../../hooks/CourseLog";
+import { ConfirmModal } from "./ConfirmModal";
 
 export const AttendanceCreate = () => {
   const router = useRouter();
   const { students, getStudentsByCourseId, isLoading } = useStudents();
-  const { createCourseLog, isLoading: isLoadingCreate } = useCreateCourseLog();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [data, setData] = useState<AttendanceForm>();
 
   const {
     register,
@@ -55,6 +58,8 @@ export const AttendanceCreate = () => {
     if (period) setValue("period", Number(period));
   }, [router]);
 
+  const courseId = watch("courseId");
+
   useEffect(() => {
     if (
       students.length &&
@@ -65,34 +70,14 @@ export const AttendanceCreate = () => {
   }, [students]);
 
   useEffect(() => {
-    const courseId = watch("courseId");
     if (courseId) {
       getStudentsByCourseId(courseId);
     }
-  }, [watch("courseId")]);
+  }, [courseId]);
 
-  const onSubmit = async ({
-    courseId,
-    date,
-    period,
-    attendances,
-  }: AttendanceForm) => {
-    await createCourseLog({
-      courseId,
-      date,
-      period,
-      attendances: attendances.map((attendance) => {
-        const { attend, knowledge, expression, attitude } = attendance;
-        return {
-          studentId: attendance.student.id,
-          attend,
-          knowledge: knowledge!,
-          expression: expression!,
-          attitude: attitude!,
-          message: "",
-        };
-      }),
-    });
+  const onSubmit = async (data: AttendanceForm) => {
+    setData(data);
+    onOpen();
   };
 
   return (
@@ -159,20 +144,16 @@ export const AttendanceCreate = () => {
               fields={fields}
               register={register}
               errors={errors}
-              watch={watch}
             />
           )}
         </Tile>
         <Flex w="full" justifyContent="end" gap="20px">
-          <Button
-            isLoading={isLoadingCreate}
-            rightIcon={<PaperPlaneTilt />}
-            type="submit"
-          >
+          <Button rightIcon={<PaperPlaneTilt />} type="submit">
             成績を登録する
           </Button>
         </Flex>
       </TilesWrapper>
+      <ConfirmModal isOpen={isOpen} onClose={onClose} data={data!} />
     </form>
   );
 };
