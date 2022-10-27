@@ -160,6 +160,7 @@ export const AttendanceCreate = () => {
               fields={fields}
               register={register}
               errors={errors}
+              watch={watch}
             />
           )}
         </Tile>
@@ -182,6 +183,7 @@ const makeAttendanceRow = (students: Student[]): AttendanceRow[] => {
     return {
       student: student,
       attend: true,
+      message: "",
     };
   });
 };

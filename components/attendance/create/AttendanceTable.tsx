@@ -12,21 +12,31 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { ChatCircle } from "phosphor-react";
 import { FC } from "react";
-import { FieldErrorsImpl, UseFormRegister } from "react-hook-form";
+import {
+  FieldErrorsImpl,
+  UseFormRegister,
+  UseFormWatch,
+} from "react-hook-form";
 import {
   AttendanceForm,
   AttendanceRow,
 } from "../../../utils/form/AttendanceForm";
 import { ABCButtons } from "../../common/form/ABCButtons";
+import { MessageButton } from "./MessageButton";
 
 type props = {
   fields?: AttendanceRow[];
   register: UseFormRegister<AttendanceForm>;
   errors: any;
+  watch: UseFormWatch<AttendanceForm>;
 };
-export const AttendanceTable: FC<props> = ({ fields, register, errors }) => {
+export const AttendanceTable: FC<props> = ({
+  fields,
+  register,
+  errors,
+  watch,
+}) => {
   return (
     <TableContainer>
       <Table variant="simple">
@@ -50,6 +60,7 @@ export const AttendanceTable: FC<props> = ({ fields, register, errors }) => {
                 register={register}
                 field={field}
                 i={i}
+                watch={watch}
               />
             );
           })}
@@ -64,8 +75,9 @@ type RowProps = {
   register: UseFormRegister<AttendanceForm>;
   errors: any;
   i: number;
+  watch: UseFormWatch<AttendanceForm>;
 };
-const Row: FC<RowProps> = ({ field, register, errors, i }) => {
+const Row: FC<RowProps> = ({ field, register, errors, i, watch }) => {
   return (
     <Tr key={field.student.id}>
       <Td>{field.student.number}</Td>
@@ -103,13 +115,10 @@ const Row: FC<RowProps> = ({ field, register, errors, i }) => {
         />
       </Td>
       <Td>
-        <Flex alignItems="center" justifyContent="center" color="gray.500">
-          <IconButton
-            color="gray.400"
-            icon={<ChatCircle size={25} />}
-            aria-label=""
-            variant="ghost"
-            size="md"
+        <Flex alignItems="center" justifyContent="center">
+          <MessageButton
+            filled={Boolean(watch(`attendances.${i}.message`))}
+            register={register(`attendances.${i}.message`)}
           />
         </Flex>
       </Td>
