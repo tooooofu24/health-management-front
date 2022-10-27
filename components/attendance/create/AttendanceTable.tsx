@@ -14,9 +14,11 @@ import {
 } from "@chakra-ui/react";
 import { FC } from "react";
 import {
+  Control,
   FieldErrorsImpl,
   UseFormRegister,
   UseFormWatch,
+  useWatch,
 } from "react-hook-form";
 import {
   AttendanceForm,
@@ -29,8 +31,14 @@ type props = {
   fields?: AttendanceRow[];
   register: UseFormRegister<AttendanceForm>;
   errors: any;
+  control: Control<AttendanceForm>;
 };
-export const AttendanceTable: FC<props> = ({ fields, register, errors }) => {
+export const AttendanceTable: FC<props> = ({
+  fields,
+  register,
+  errors,
+  control,
+}) => {
   return (
     <TableContainer>
       <Table variant="simple">
@@ -54,6 +62,7 @@ export const AttendanceTable: FC<props> = ({ fields, register, errors }) => {
                 register={register}
                 field={field}
                 i={i}
+                control={control}
               />
             );
           })}
@@ -68,8 +77,10 @@ type RowProps = {
   register: UseFormRegister<AttendanceForm>;
   errors: any;
   i: number;
+  control: Control<AttendanceForm>;
 };
-const Row: FC<RowProps> = ({ field, register, errors, i }) => {
+const Row: FC<RowProps> = ({ field, register, errors, i, control }) => {
+  const message = useWatch({ name: `attendances.${i}.message`, control });
   return (
     <Tr key={field.student.id}>
       <Td>{field.student.number}</Td>
@@ -109,7 +120,7 @@ const Row: FC<RowProps> = ({ field, register, errors, i }) => {
       <Td>
         <Flex alignItems="center" justifyContent="center">
           <MessageButton
-            filled={false}
+            filled={Boolean(message)}
             register={register(`attendances.${i}.message`)}
           />
         </Flex>

@@ -23,7 +23,6 @@ import { PeriodField } from "../../common/form/PeriodField";
 import { Tile, TilesWrapper } from "../../common/Tile";
 import { AttendanceTable } from "./AttendanceTable";
 import { Loading } from "../../common/loading/Loading";
-import { useCreateCourseLog } from "../../../hooks/CourseLog";
 import { ConfirmModal } from "./ConfirmModal";
 
 export const AttendanceCreate = () => {
@@ -40,7 +39,7 @@ export const AttendanceCreate = () => {
     formState: { errors },
     control,
   } = useForm<AttendanceForm>({
-    mode: "onSubmit",
+    mode: "onBlur",
     defaultValues: {
       attendances: [],
     },
@@ -144,6 +143,7 @@ export const AttendanceCreate = () => {
               fields={fields}
               register={register}
               errors={errors}
+              control={control}
             />
           )}
         </Tile>
