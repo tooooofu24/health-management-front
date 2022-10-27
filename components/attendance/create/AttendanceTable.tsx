@@ -3,7 +3,6 @@ import {
   Flex,
   FormControl,
   FormErrorMessage,
-  IconButton,
   Table,
   TableContainer,
   Tbody,
@@ -13,13 +12,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { FC } from "react";
-import {
-  Control,
-  FieldErrorsImpl,
-  UseFormRegister,
-  UseFormWatch,
-  useWatch,
-} from "react-hook-form";
+import { Control, UseFormRegister, useWatch } from "react-hook-form";
 import {
   AttendanceForm,
   AttendanceRow,

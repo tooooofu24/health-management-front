@@ -152,7 +152,15 @@ const ConfirmTable: FC<ConfirmTableProps> = ({ data }) => {
                   <Td>{attendance.student.name}</Td>
                   <Td>
                     <Flex justifyContent="center">
-                      {attendance.attend ? <Check /> : <X />}
+                      {attendance.attend ? (
+                        <Box color="teal.500">
+                          <Check />
+                        </Box>
+                      ) : (
+                        <Box color="red.500">
+                          <X />
+                        </Box>
+                      )}
                     </Flex>
                   </Td>
                   <Td>{convert(attendance.knowledge)}</Td>

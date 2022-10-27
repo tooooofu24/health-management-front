@@ -9,7 +9,7 @@ const CreatePage: NextPage = () => {
   return (
     <AuthContent>
       <Layout>
-        <PageTitle title="成績登録" icon={<CaretLeft />} iconUrl="/" />
+        <PageTitle title="出席登録" icon={<CaretLeft />} iconUrl="/" />
         <AttendanceCreate />
       </Layout>
     </AuthContent>
