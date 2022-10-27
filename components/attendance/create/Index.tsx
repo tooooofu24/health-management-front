@@ -26,7 +26,7 @@ import { useCreateCourseLog } from "../../../hooks/CourseLog";
 
 export const AttendanceCreate = () => {
   const router = useRouter();
-  const { students, getStudents, isLoading } = useStudents();
+  const { students, getStudentsByCourseId, isLoading } = useStudents();
   const { createCourseLog, isLoading: isLoadingCreate } = useCreateCourseLog();
 
   const {
@@ -65,12 +65,11 @@ export const AttendanceCreate = () => {
   }, [students]);
 
   useEffect(() => {
-    getStudents(2);
-  }, []);
-
-  useEffect(() => {
-    console.log(watch("attendances"));
-  }, [watch()]);
+    const courseId = watch("courseId");
+    if (courseId) {
+      getStudentsByCourseId(courseId);
+    }
+  }, [watch("courseId")]);
 
   const onSubmit = async ({
     courseId,

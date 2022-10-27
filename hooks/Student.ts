@@ -5,7 +5,7 @@ import { getRequest } from "../utils/apiClient";
 export const useStudents = () => {
   const [students, setStudents] = useState<Student[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const getStudents = async (classroomId: number | string) => {
+  const getStudentsByClassroomId = async (classroomId: number | string) => {
     setIsLoading(true);
     const response = await getRequest("/students", {
       "classroom-id": classroomId,
@@ -14,5 +14,19 @@ export const useStudents = () => {
     });
     setStudents(response.results);
   };
-  return { students, getStudents, isLoading };
+  const getStudentsByCourseId = async (courseId: number | string) => {
+    setIsLoading(true);
+    const response = await getRequest("/students", {
+      "course-id": courseId,
+    }).finally(() => {
+      setIsLoading(false);
+    });
+    setStudents(response.results);
+  };
+  return {
+    students,
+    getStudentsByClassroomId,
+    getStudentsByCourseId,
+    isLoading,
+  };
 };
