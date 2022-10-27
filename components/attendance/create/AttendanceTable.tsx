@@ -19,7 +19,7 @@ import {
   AttendanceForm,
   AttendanceRow,
 } from "../../../utils/form/AttendanceForm";
-import { AttendanceABCButtons } from "./AttendanceABCButtons";
+import { ABCButtons } from "../../common/form/ABCButtons";
 
 type props = {
   fields?: AttendanceRow[];
@@ -79,7 +79,7 @@ const Row: FC<RowProps> = ({ field, register, errors, i }) => {
         </FormControl>
       </Td>
       <Td>
-        <AttendanceABCButtons
+        <ABCButtons
           register={register(`attendances.${i}.knowledge`, {
             required: "必須項目です！",
           })}
@@ -87,7 +87,7 @@ const Row: FC<RowProps> = ({ field, register, errors, i }) => {
         />
       </Td>
       <Td>
-        <AttendanceABCButtons
+        <ABCButtons
           register={register(`attendances.${i}.expression`, {
             required: "必須項目です！",
           })}
@@ -95,7 +95,7 @@ const Row: FC<RowProps> = ({ field, register, errors, i }) => {
         />
       </Td>
       <Td>
-        <AttendanceABCButtons
+        <ABCButtons
           register={register(`attendances.${i}.attitude`, {
             required: "必須項目です！",
           })}

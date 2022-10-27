@@ -68,6 +68,10 @@ export const AttendanceCreate = () => {
     getStudents(2);
   }, []);
 
+  useEffect(() => {
+    console.log(watch("attendances"));
+  }, [watch()]);
+
   const onSubmit = async ({
     courseId,
     date,
