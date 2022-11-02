@@ -13,11 +13,12 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { Check, EnvelopeSimple, UserPlus } from "phosphor-react";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { useInvitations } from "../../hooks/Invitation";
 import { useUsers } from "../../hooks/User";
 import { Invitation } from "../../types/Invitation";
 import { User } from "../../types/User";
+import { CommonError } from "../common/error/CommonError";
 import { Loading } from "../common/loading/Loading";
 import { PageTitle } from "../common/PageTitle";
 import { Tile, TilesWrapper } from "../common/Tile";
@@ -26,6 +27,7 @@ import { DeleteUserButtton } from "./DeleteUserButton";
 
 export const UserList = () => {
   const { users, getUsers, isLoading: isLoadingUser } = useUsers();
+  const [error, setError] = useState("");
   const {
     invitations,
     getInvitations,
@@ -34,14 +36,29 @@ export const UserList = () => {
   const router = useRouter();
 
   useEffect(() => {
-    getUsers();
-    getInvitations();
+    (async () => {
+      try {
+        await getUsers();
+        await getInvitations();
+      } catch (e: any) {
+        setError(e.message);
+      }
+    })();
   }, [router]);
-  return (
+
+  return error ? (
+    <Tile>
+      <CommonError message="ユーザーの取得に失敗しました" error={error} />
+    </Tile>
+  ) : (
     <TilesWrapper>
       {isLoadingUser ? (
         <Tile>
           <Loading />
+        </Tile>
+      ) : !users.length ? (
+        <Tile>
+          <CommonError message="ユーザーが存在しません" />
         </Tile>
       ) : (
         <Tile>
@@ -58,9 +75,9 @@ export const UserList = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {users.length
-                  ? users.map((user) => <UserRow key={user.id} user={user} />)
-                  : null}
+                {users.map((user) => (
+                  <UserRow key={user.id} user={user} />
+                ))}
               </Tbody>
             </Table>
           </TableContainer>
@@ -71,6 +88,10 @@ export const UserList = () => {
         {isLoadingInvitations ? (
           <Tile>
             <Loading />
+          </Tile>
+        ) : !invitations.length ? (
+          <Tile>
+            <CommonError message="招待中のユーザーはいません" />
           </Tile>
         ) : (
           <Tile>
@@ -86,14 +107,12 @@ export const UserList = () => {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {invitations.length
-                    ? invitations.map((invitation) => (
-                        <InvitationRow
-                          key={invitation.id}
-                          invitation={invitation}
-                        />
-                      ))
-                    : null}
+                  {invitations.map((invitation) => (
+                    <InvitationRow
+                      key={invitation.id}
+                      invitation={invitation}
+                    />
+                  ))}
                 </Tbody>
               </Table>
             </TableContainer>
