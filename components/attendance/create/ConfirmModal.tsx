@@ -22,6 +22,8 @@ import {
   Tr,
   useToast,
 } from "@chakra-ui/react";
+import { format } from "date-fns";
+import ja from "date-fns/locale/ja";
 import { useRouter } from "next/router";
 import { Check, X } from "phosphor-react";
 import { FC, useState } from "react";
@@ -126,8 +128,10 @@ const ConfirmTable: FC<ConfirmTableProps> = ({ data }) => {
           <Tbody>
             <Tr>
               <Td>{data.courseId}（実装中...）</Td>
-              <Td>{data.date}</Td>
-              <Td>{data.period}</Td>
+              <Td>
+                {format(new Date(data.date), "yyyy年M月d日(E)", { locale: ja })}
+              </Td>
+              <Td>{data.period}時間目</Td>
             </Tr>
           </Tbody>
         </Table>

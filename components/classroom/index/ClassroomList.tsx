@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import { Tile } from "../../common/Tile";
 import { Loading } from "../../common/loading/Loading";
 import { CommonError } from "../../common/error/CommonError";
+import { formatDate } from "../../../utils/time";
 
 export const ClassroomList = () => {
   const { classrooms, getClassrooms, isLoading } = useClassrooms();
@@ -85,7 +86,7 @@ const Row = ({ classroom }: { classroom: Classroom }) => {
           })}
         </Flex>
       </Td>
-      <Td>{classroom.lastLessonDate}</Td>
+      <Td>{formatDate(classroom.lastLessonDate) || "なし"}</Td>
       <Td>
         <Flex justifyContent="end" alignItems="center">
           <CaretRight />

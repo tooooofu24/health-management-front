@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
 import { Classroom } from "../../../types/Classroom";
+import { formatDate } from "../../../utils/time";
 import { Loading } from "../../common/loading/Loading";
 import { Tile, TilesWrapper } from "../../common/Tile";
 import { CalculateTable } from "./CalculatedTable";
@@ -61,7 +62,7 @@ export const ClassroomDetail: FC<props> = ({ classroom }) => {
                       </Flex>
                     </Td>
                     <Td textAlign="start" fontSize="16px" pe="50px">
-                      {classroom?.lastLessonDate ?? "なし"}
+                      {formatDate(classroom?.lastLessonDate) || "なし"}
                     </Td>
                   </Tr>
                 </Tbody>

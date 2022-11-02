@@ -18,6 +18,7 @@ import { useInvitations } from "../../hooks/Invitation";
 import { useUsers } from "../../hooks/User";
 import { Invitation } from "../../types/Invitation";
 import { User } from "../../types/User";
+import { formatDate } from "../../utils/time";
 import { CommonError } from "../common/error/CommonError";
 import { Loading } from "../common/loading/Loading";
 import { PageTitle } from "../common/PageTitle";
@@ -69,7 +70,6 @@ export const UserList = () => {
                   <Th>アイコン</Th>
                   <Th>ユーザー</Th>
                   <Th>メールアドレス</Th>
-                  <Th>アクティブ</Th>
                   <Th>最終ログイン</Th>
                   <Th>削除</Th>
                 </Tr>
@@ -139,12 +139,7 @@ const UserRow: FC<UserRowProps> = ({ user }) => {
       </Td>
       <Td>{user.name}</Td>
       <Td>{user.email}</Td>
-      <Td>
-        <Flex color="teal.500" justifyContent="center">
-          <Check size={20} />
-        </Flex>
-      </Td>
-      <Td>{user.lastAuthenticatedAt}</Td>
+      <Td>{formatDate(user.lastAuthenticatedAt)}</Td>
       <Td>
         <DeleteUserButtton user={user} />
       </Td>

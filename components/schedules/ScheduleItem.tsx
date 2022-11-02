@@ -5,6 +5,7 @@ import { Tooltip } from "@chakra-ui/react";
 import Router from "next/router";
 import { SubjectIcon } from "../common/SubjectIcon";
 import { ScheduleItemContent } from "./ScheduleItemContent";
+import { format, previousDay } from "date-fns";
 
 type props = {
   schedule?: Schedule;
@@ -41,5 +42,6 @@ export const ScheduleItem: FC<props> = ({ schedule }) => {
 };
 
 const calculateDate = (schedule: Schedule) => {
-  return new Date().toLocaleDateString().replace("/", "-").replace("/", "-");
+  const date = previousDay(new Date(), schedule.day);
+  return format(date, "yyyy-MM-dd");
 };
