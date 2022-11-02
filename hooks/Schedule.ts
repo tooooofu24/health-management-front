@@ -6,11 +6,15 @@ import { deleteRequest, getRequest, postRequest } from "../utils/apiClient";
 
 export const useSchedules = () => {
   const [schedules, setSchedules] = useState<Schedule[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const getSchedules = async () => {
-    const response = await getRequest("/schedules");
+    setIsLoading(true);
+    const response = await getRequest("/schedules").finally(() => {
+      setIsLoading(false);
+    });
     setSchedules(response.results);
   };
-  return { schedules, getSchedules };
+  return { schedules, getSchedules, isLoading };
 };
 
 export const useDeleteSchedule = () => {

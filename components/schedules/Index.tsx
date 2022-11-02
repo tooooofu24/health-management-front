@@ -1,4 +1,6 @@
 import {
+  Button,
+  Flex,
   Table,
   TableContainer,
   Tbody,
@@ -7,25 +9,40 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { ReactNode, useEffect, useState } from "react";
 import { useSchedules } from "../../hooks/Schedule";
-import { DataFetchError } from "../common/error/DataFetchError";
+import { CommonError } from "../common/error/CommonError";
 import { Tile } from "../common/Tile";
 import { ScheduleItem } from "./ScheduleItem";
+import { CalendarPlus } from "phosphor-react";
 
 export const Schedule = () => {
-  const { schedules, getSchedules } = useSchedules();
+  const { schedules, getSchedules, isLoading } = useSchedules();
   const [error, setError] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     getSchedules().catch((e: any) => {
       setError(e.message || "不明なエラー");
     });
-  }, []);
+  }, [router]);
 
   return error ? (
-    <Tile py="5%">
-      <DataFetchError message={error} />
+    <Tile>
+      <CommonError message="データの取得に失敗しました" error={error} />
+    </Tile>
+  ) : !isLoading && !schedules.length ? (
+    <Tile>
+      <CommonError message="時間割が登録されていません" />
+      <Flex justifyContent="center" pb={10}>
+        <Link href="/schedules/edit">
+          <a>
+            <Button leftIcon={<CalendarPlus />}>時間割を登録する</Button>
+          </a>
+        </Link>
+      </Flex>
     </Tile>
   ) : (
     <Tile>

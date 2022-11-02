@@ -6,10 +6,8 @@ import {
   Thead,
   Tr,
   Table,
-  Text,
   TableCaption,
 } from "@chakra-ui/react";
-import { type } from "os";
 import { FC } from "react";
 import { CommonError } from "../../common/error/CommonError";
 

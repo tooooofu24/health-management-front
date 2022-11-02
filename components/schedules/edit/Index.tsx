@@ -12,6 +12,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { useSchedules } from "../../../hooks/Schedule";
 import { days } from "../../../types/Day";
 import { periods } from "../../../types/Period";
+import { CommonError } from "../../common/error/CommonError";
 import { DataFetchError } from "../../common/error/DataFetchError";
 import { Tile } from "../../common/Tile";
 import { EditScheduleItem } from "./EditScheduleItem";
@@ -28,8 +29,8 @@ export const ScheduleEdit = () => {
   }, [router]);
 
   return error ? (
-    <Tile py="5%">
-      <DataFetchError message={error} />
+    <Tile>
+      <CommonError message="データの取得に失敗しました" error={error} />
     </Tile>
   ) : (
     <Tile>

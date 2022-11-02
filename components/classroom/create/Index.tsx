@@ -24,7 +24,6 @@ import { ClassroomCreateTable } from "./ClassroomCreateTable";
 import { FilePicker } from "./FilePicker";
 import { FileDescribeButton } from "./FileDiscribeButton";
 import { useEffect } from "react";
-import { useRouter } from "next/router";
 import { ConfirmModal } from "./ConfirmModal";
 
 export const Create = () => {

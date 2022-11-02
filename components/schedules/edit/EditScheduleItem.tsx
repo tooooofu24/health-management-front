@@ -13,24 +13,20 @@ type props = {
   day: Day;
 };
 export const EditScheduleItem: FC<props> = ({ schedule, period, day }) => {
-  if (schedule) {
-    return (
-      <Box position="relative">
-        <AspectRatio ratio={1} color="gray.400">
-          <ScheduleItemContent schedule={schedule} />
-        </AspectRatio>
-        <Box position="absolute" top="0" right="0">
-          <DeleteButton schedule={schedule} />
-        </Box>
-      </Box>
-    );
-  } else {
-    return (
-      <AspectRatio ratio={1}>
-        <Box>
-          <PlusButton period={period} day={day} />
-        </Box>
+  return schedule ? (
+    <Box position="relative">
+      <AspectRatio ratio={1} color="gray.400">
+        <ScheduleItemContent schedule={schedule} />
       </AspectRatio>
-    );
-  }
+      <Box position="absolute" top="0" right="0">
+        <DeleteButton schedule={schedule} />
+      </Box>
+    </Box>
+  ) : (
+    <AspectRatio ratio={1}>
+      <Box>
+        <PlusButton period={period} day={day} />
+      </Box>
+    </AspectRatio>
+  );
 };
