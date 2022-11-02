@@ -42,18 +42,25 @@ export const CustomComponents = {
     // Table
     Table: {
       variants: {
-        simple: {
-          th: {
-            color: "teal.500",
-            textAlign: "center",
-            whiteSpace: "nowrap",
-            textOverflow: "ellipsis",
-            maxWidth: 0,
-            overflow: "hidden",
-          },
-          td: {
-            textAlign: "center",
-          },
+        simple: (props: StyleFunctionProps) => {
+          let res: object = {
+            ...theme.components.Table.variants?.simple(props),
+            th: {
+              color: "teal.500",
+              textAlign: "center",
+              whiteSpace: "nowrap",
+              textOverflow: "ellipsis",
+              maxWidth: 0,
+              overflow: "hidden",
+            },
+            td: {
+              textAlign: "center",
+            },
+          };
+          if (isSmartPhoneScreen()) {
+            res = { ...res, ...theme.components.Table.sizes?.sm };
+          }
+          return res;
         },
         unstyled: {
           th: {
