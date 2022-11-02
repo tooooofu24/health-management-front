@@ -1,6 +1,4 @@
-import { Button, Skeleton } from "@chakra-ui/react";
 import type { NextPage } from "next";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { CaretLeft, Pencil } from "phosphor-react";
 import { useEffect, useState } from "react";
@@ -25,19 +23,13 @@ const CreatePage: NextPage = () => {
     });
   }, [router]);
 
-  const Title = () => {
-    return isLoading ? (
-      <Skeleton height={7} w="100px" />
-    ) : classroom ? (
-      <>{classroom?.grade + "年" + classroom?.name + "組"}</>
-    ) : null;
-  };
-
   return (
     <AuthContent>
       <Layout>
         <PageTitle
-          title={<Title />}
+          title={
+            classroom ? classroom?.grade + "年" + classroom?.name + "組" : ""
+          }
           icon={<CaretLeft />}
           iconUrl="/classrooms"
         />

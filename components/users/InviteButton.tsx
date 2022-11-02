@@ -59,7 +59,7 @@ export const InviteButton = () => {
   });
   return (
     <>
-      <Button leftIcon={<UserPlus />} onClick={onOpen}>
+      <Button variant="responsive" leftIcon={<UserPlus />} onClick={onOpen}>
         招待する
       </Button>
 

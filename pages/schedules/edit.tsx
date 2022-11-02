@@ -17,7 +17,7 @@ const TopPage: NextPage = () => {
           iconUrl="/"
           rightItem={
             <Button
-              variant="outline"
+              variant="responsiveOutline"
               leftIcon={<Check />}
               onClick={() => Router.push("/")}
             >

@@ -18,6 +18,7 @@ const TopPage: NextPage = () => {
           iconUrl="/"
           rightItem={
             <Button
+              variant="responsive"
               leftIcon={<Pencil />}
               onClick={() => Router.push("/schedules/edit")}
             >

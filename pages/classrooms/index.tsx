@@ -19,7 +19,9 @@ const ClassroomPage: NextPage = () => {
           rightItem={
             <Link href="/classrooms/create">
               <a>
-                <Button leftIcon={<Plus />}>クラス新規登録</Button>
+                <Button variant="responsive" leftIcon={<Plus />}>
+                  クラス新規登録
+                </Button>
               </a>
             </Link>
           }

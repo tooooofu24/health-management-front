@@ -1,5 +1,31 @@
+import { StyleFunctionProps, theme } from "@chakra-ui/react";
+import { isSmartPhoneScreen } from "../styles/Responsive";
+
 export const CustomComponents = {
   components: {
+    // Button
+    Button: {
+      variants: {
+        responsive: (props: StyleFunctionProps) => {
+          let res = {
+            ...theme.components.Button.variants?.solid(props),
+          };
+          if (isSmartPhoneScreen()) {
+            res = { ...theme.components.Button.sizes?.sm, ...res };
+          }
+          return res;
+        },
+        responsiveOutline: (props: StyleFunctionProps) => {
+          let res = {
+            ...theme.components.Button.variants?.outline(props),
+          };
+          if (isSmartPhoneScreen()) {
+            res = { ...theme.components.Button.sizes?.sm, ...res };
+          }
+          return res;
+        },
+      },
+    },
     // FormLabel
     FormLabel: {
       baseStyle: {
