@@ -1,13 +1,13 @@
-import { Button, Flex, Img, Square, Text } from "@chakra-ui/react";
-import Link from "next/link";
-import { FC } from "react";
+import { Box, Button, Flex, Img, Square, Text } from "@chakra-ui/react";
+import { FC, memo } from "react";
 
 type props = {
   message?: string;
   error?: string;
   image?: typeof images[number];
 };
-export const CommonError: FC<props> = ({ message, error, image }) => {
+
+export const CommonError: FC<props> = memo(({ message, error, image }) => {
   return (
     <Flex
       alignItems="center"
@@ -19,11 +19,17 @@ export const CommonError: FC<props> = ({ message, error, image }) => {
       <Square size="200px" maxWidth="100%">
         <Illustration image={image} />
       </Square>
-      {message && <Text>{message}</Text>}
-      {error && <Text color="red.500">{error}</Text>}
+      <Box width="300px" maxWidth="100%">
+        {message && <Text textAlign="center">{message}</Text>}
+        {error && (
+          <Text textAlign="center" color="red.500">
+            {error}
+          </Text>
+        )}
+      </Box>
     </Flex>
   );
-};
+});
 
 const images = [
   "bath",

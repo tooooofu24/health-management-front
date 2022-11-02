@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import { DataFetchError } from "../../common/error/DataFetchError";
 import { Tile } from "../../common/Tile";
 import { Loading } from "../../common/loading/Loading";
+import { CommonError } from "../../common/error/CommonError";
 
 export const ClassroomList = () => {
   const { classrooms, getClassrooms, isLoading } = useClassrooms();
@@ -24,17 +25,21 @@ export const ClassroomList = () => {
 
   useEffect(() => {
     getClassrooms().catch((e: any) => {
-      setError(e?.message || "不明なエラー");
+      setError(e.message);
     });
   }, []);
 
   return error ? (
-    <Tile py="5%">
-      <DataFetchError message={error} />
+    <Tile>
+      <CommonError message="データを取得できませんでした" error={error} />
     </Tile>
   ) : isLoading ? (
     <Tile>
       <Loading />
+    </Tile>
+  ) : !classrooms.length ? (
+    <Tile>
+      <CommonError message="クラスのデータがありません" />
     </Tile>
   ) : (
     <Tile>
