@@ -2,6 +2,7 @@ import { Box, Button, Flex, Img, Square, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { House } from "phosphor-react";
+import { CommonError } from "../components/common/error/CommonError";
 import { Layout } from "../components/common/Layout";
 
 const NotFound: NextPage = () => {
@@ -13,21 +14,16 @@ const NotFound: NextPage = () => {
         h="full"
         justifyContent="center"
       >
-        <Square size="350px">
-          <Img
-            src="/img/not-found.png"
-            alt="寂しい女の子のイラスト"
-            width="full"
-          />
-        </Square>
-        <Text>お探しのページが見つかりませんでした。</Text>
-        <Link href="/">
-          <a>
-            <Button marginTop={5} leftIcon={<House size={20} />}>
-              トップページに戻る
-            </Button>
-          </a>
-        </Link>
+        <Box>
+          <CommonError message="お探しのページが見つかりませんでした" />
+          <Link href="/">
+            <a>
+              <Button w="full" leftIcon={<House size={20} />}>
+                トップページに戻る
+              </Button>
+            </a>
+          </Link>
+        </Box>
       </Flex>
     </Box>
   );

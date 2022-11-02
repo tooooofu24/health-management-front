@@ -13,7 +13,6 @@ import { useSchedules } from "../../../hooks/Schedule";
 import { days } from "../../../types/Day";
 import { periods } from "../../../types/Period";
 import { CommonError } from "../../common/error/CommonError";
-import { DataFetchError } from "../../common/error/DataFetchError";
 import { Tile } from "../../common/Tile";
 import { EditScheduleItem } from "./EditScheduleItem";
 

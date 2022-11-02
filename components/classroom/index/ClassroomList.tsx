@@ -14,7 +14,6 @@ import { useClassrooms } from "../../../hooks/Classroom";
 import { Classroom } from "../../../types/Classroom";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { DataFetchError } from "../../common/error/DataFetchError";
 import { Tile } from "../../common/Tile";
 import { Loading } from "../../common/loading/Loading";
 import { CommonError } from "../../common/error/CommonError";

@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { ClassroomDetail } from "../../components/classroom/detail/Index";
 import { AuthContent } from "../../components/common/AuthContent";
 import { CommonError } from "../../components/common/error/CommonError";
-import { DataFetchError } from "../../components/common/error/DataFetchError";
 import { Layout } from "../../components/common/Layout";
 import { PageTitle } from "../../components/common/PageTitle";
 import { Tile } from "../../components/common/Tile";

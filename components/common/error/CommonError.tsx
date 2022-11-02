@@ -12,7 +12,6 @@ export const CommonError: FC<props> = memo(({ message, error, image }) => {
     <Flex
       alignItems="center"
       flexDirection="column"
-      h="full"
       justifyContent="center"
       pb={8}
     >

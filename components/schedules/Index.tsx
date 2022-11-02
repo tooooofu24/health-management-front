@@ -36,7 +36,7 @@ export const Schedule = () => {
   ) : !isLoading && !schedules.length ? (
     <Tile>
       <CommonError message="時間割が登録されていません" />
-      <Flex justifyContent="center" pb={10}>
+      <Flex justifyContent="center" pb={5}>
         <Link href="/schedules/edit">
           <a>
             <Button leftIcon={<CalendarPlus />}>時間割を登録する</Button>
