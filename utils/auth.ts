@@ -13,7 +13,6 @@ export const login = async () => {
   const { checkUser } = useCheckUser();
   await signInWithPopup(auth, provider).then(async (results) => {
     await checkUser().catch(async (e: any) => {
-      // DBにデータがない場合はFirebaseからもデータ削除
       await logout();
       throw e;
     });

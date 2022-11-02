@@ -118,12 +118,14 @@ const ConfirmTable: FC<ConfirmTableProps> = ({ data }) => {
           <TableCaption placement="top">授業情報</TableCaption>
           <Thead>
             <Tr>
+              <Th>クラス</Th>
               <Th>日付</Th>
               <Th>時限</Th>
             </Tr>
           </Thead>
           <Tbody>
             <Tr>
+              <Td>{data.courseId}（実装中...）</Td>
               <Td>{data.date}</Td>
               <Td>{data.period}</Td>
             </Tr>
@@ -177,7 +179,7 @@ const ConfirmTable: FC<ConfirmTableProps> = ({ data }) => {
   );
 };
 
-const convert = (s?: number | string) => {
+const convert = (s?: number | string | null) => {
   if (s == 1) {
     return "A";
   }
@@ -187,5 +189,5 @@ const convert = (s?: number | string) => {
   if (s == 3) {
     return "C";
   }
-  return "？";
+  return "なし";
 };

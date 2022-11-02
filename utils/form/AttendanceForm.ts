@@ -10,8 +10,8 @@ export type AttendanceForm = {
 export type AttendanceRow = {
   student: Student;
   attend: boolean;
-  knowledge?: 1 | 2 | 3;
-  expression?: 1 | 2 | 3;
-  attitude?: 1 | 2 | 3;
+  knowledge: 1 | 2 | 3 | null;
+  expression: 1 | 2 | 3 | null;
+  attitude: 1 | 2 | 3 | null;
   message: string;
 };

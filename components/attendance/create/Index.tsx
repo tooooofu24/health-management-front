@@ -163,6 +163,9 @@ const makeAttendanceRow = (students: Student[]): AttendanceRow[] => {
     return {
       student: student,
       attend: true,
+      knowledge: null,
+      expression: null,
+      attitude: null,
       message: "",
     };
   });

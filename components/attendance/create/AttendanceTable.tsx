@@ -88,25 +88,19 @@ const Row: FC<RowProps> = ({ field, register, errors, i, control }) => {
       </Td>
       <Td>
         <ABCButtons
-          register={register(`attendances.${i}.knowledge`, {
-            required: "必須項目です！",
-          })}
+          register={register(`attendances.${i}.knowledge`)}
           error={errors.attendances?.[i]?.knowledge}
         />
       </Td>
       <Td>
         <ABCButtons
-          register={register(`attendances.${i}.expression`, {
-            required: "必須項目です！",
-          })}
+          register={register(`attendances.${i}.expression`)}
           error={errors.attendances?.[i]?.expression}
         />
       </Td>
       <Td>
         <ABCButtons
-          register={register(`attendances.${i}.attitude`, {
-            required: "必須項目です！",
-          })}
+          register={register(`attendances.${i}.attitude`)}
           error={errors.attendances?.[i]?.attitude}
         />
       </Td>
