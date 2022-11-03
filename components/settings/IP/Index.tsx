@@ -56,7 +56,7 @@ export const IPList = () => {
           </Thead>
           <Tbody>
             {IPAddresses.map((IPAddress) => (
-              <Tr>
+              <Tr key={IPAddress.id}>
                 <Td>
                   <Flex justifyContent="center" color="teal.500">
                     <Check />
