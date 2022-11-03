@@ -1,7 +1,13 @@
 import { Box, BoxProps, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { CalendarCheck, GraduationCap, SignOut, Users } from "phosphor-react";
+import {
+  CalendarCheck,
+  Gear,
+  GraduationCap,
+  SignOut,
+  Users,
+} from "phosphor-react";
 import { FC, ReactNode } from "react";
 import { Icon } from "./Icon";
 import { LogoutModal } from "./LogoutModal";
@@ -29,7 +35,7 @@ export const SidebarContent = () => {
       <Link href="/">
         <a>
           <Item
-            icon={<CalendarCheck size={20} />}
+            icon={<CalendarCheck />}
             title="時間割"
             isActive={router.pathname == "/"}
           />
@@ -38,7 +44,7 @@ export const SidebarContent = () => {
       <Link href="/classrooms">
         <a>
           <Item
-            icon={<GraduationCap size={20} />}
+            icon={<GraduationCap />}
             title="クラス一覧"
             isActive={router.pathname == "/classrooms"}
           />
@@ -47,15 +53,24 @@ export const SidebarContent = () => {
       <Link href="/users">
         <a>
           <Item
-            icon={<Users size={20} />}
+            icon={<Users />}
             title="ユーザー一覧"
             isActive={router.pathname == "/users"}
           />
         </a>
       </Link>
+      <Link href="/settings">
+        <a>
+          <Item
+            icon={<Gear />}
+            title="設定"
+            isActive={router.pathname == "/settings"}
+          />
+        </a>
+      </Link>
       <Box mt="auto">
         <Item
-          icon={<SignOut size={20} />}
+          icon={<SignOut />}
           isActive={isOpen}
           title="ログアウト"
           onClick={onOpen}
@@ -83,6 +98,12 @@ const Item: FC<props> = ({ isActive, icon, title, ...props }) => {
       _hover={{ bg: "teal.500", textColor: "white" }}
       {...(isActive && { bg: "teal.500", textColor: "white" })}
       {...props}
+      __css={{
+        svg: {
+          height: "20px",
+          width: "20px",
+        },
+      }}
     >
       <Flex alignItems="center" gap="15px">
         {icon}

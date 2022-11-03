@@ -35,7 +35,7 @@ const CreatePage: NextPage = () => {
         />
         {error ? (
           <Tile>
-            <CommonError message="データを取得できませんでした" error={error} />
+            <CommonError message="データの取得に失敗しました" error={error} />
           </Tile>
         ) : (
           <ClassroomDetail classroom={classroom} />

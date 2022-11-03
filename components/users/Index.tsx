@@ -49,7 +49,7 @@ export const UserList = () => {
 
   return error ? (
     <Tile>
-      <CommonError message="ユーザーの取得に失敗しました" error={error} />
+      <CommonError message="データの取得に失敗しました" error={error} />
     </Tile>
   ) : (
     <TilesWrapper>
