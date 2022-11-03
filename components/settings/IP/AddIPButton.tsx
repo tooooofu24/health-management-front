@@ -27,7 +27,7 @@ import { useCreateIPAddress } from "../../../hooks/IPAddress";
 
 export const AddIPButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { createIPAddress } = useCreateIPAddress();
+  const { createIPAddress, isLoading } = useCreateIPAddress();
 
   const toast = useToast();
   const router = useRouter();
@@ -48,6 +48,7 @@ export const AddIPButton = () => {
       });
       setValue("label", "");
       setValue("ip", "");
+      setError("");
     } catch (e: any) {
       setError(e.message);
     }
@@ -121,7 +122,7 @@ export const AddIPButton = () => {
                 </FormControl>
               </Flex>
               {error && (
-                <Alert status="error">
+                <Alert mt={3} status="error">
                   <AlertIcon />
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
@@ -136,7 +137,9 @@ export const AddIPButton = () => {
               >
                 キャンセル
               </Button>
-              <Button type="submit">追加する</Button>
+              <Button isLoading={isLoading} type="submit">
+                追加する
+              </Button>
             </ModalFooter>
           </form>
         </ModalContent>

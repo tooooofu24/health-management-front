@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IPAddress } from "../types/IPAddress";
-import { getRequest, postRequest } from "../utils/apiClient";
+import { deleteRequest, getRequest, postRequest } from "../utils/apiClient";
 
 export const useIPAddresses = () => {
   const [IPAddresses, setIPAddresses] = useState<IPAddress[]>([]);
@@ -28,4 +28,33 @@ export const useCreateIPAddress = () => {
     });
   };
   return { isLoading, createIPAddress };
+};
+
+export const useDeleteIPAddress = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const deleteIPAddress = async (IPAddress: IPAddress) => {
+    setIsLoading(true);
+    await deleteRequest("/ip-addresses/" + IPAddress.id).finally(() => {
+      setIsLoading(false);
+    });
+  };
+  return { isLoading, deleteIPAddress };
+};
+
+export const useCurrentIP = () => {
+  const [currentIP, setCurrentIP] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    fetchIp();
+  }, []);
+  const fetchIp = async () => {
+    setIsLoading(true);
+    const url = "https://ipinfo.io?token=c275321cf4d83b";
+    const res = await fetch(url).finally(() => {
+      setIsLoading(false);
+    });
+    const json = await res.json();
+    setCurrentIP(json.ip);
+  };
+  return { currentIP, isLoading };
 };

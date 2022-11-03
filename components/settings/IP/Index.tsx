@@ -11,7 +11,7 @@ import {
 import { useRouter } from "next/router";
 import { Check, Trash, X } from "phosphor-react";
 import { useEffect, useState } from "react";
-import { useIPAddresses } from "../../../hooks/IPAddress";
+import { useCurrentIP, useIPAddresses } from "../../../hooks/IPAddress";
 import { formatDate } from "../../../utils/time";
 import { CommonError } from "../../common/error/CommonError";
 import { Loading } from "../../common/loading/Loading";
@@ -21,6 +21,7 @@ import { DeleteIPButtton } from "./DeleteIPButton";
 export const IPList = () => {
   const { IPAddresses, getIPAddresses, isLoading } = useIPAddresses();
   const [error, setError] = useState("");
+  const { currentIP } = useCurrentIP();
   const router = useRouter();
 
   useEffect(() => {
@@ -58,16 +59,18 @@ export const IPList = () => {
             {IPAddresses.map((IPAddress) => (
               <Tr key={IPAddress.id}>
                 <Td>
-                  <Flex justifyContent="center" color="teal.500">
-                    <Check />
-                  </Flex>
+                  {currentIP == IPAddress.ip && (
+                    <Flex justifyContent="center" color="teal.500">
+                      <Check />
+                    </Flex>
+                  )}
                 </Td>
                 <Td>{IPAddress.label}</Td>
                 <Td>{IPAddress.ip}</Td>
                 <Td>{IPAddress.createdBy.name}</Td>
                 <Td>{formatDate(IPAddress.createdAt)}</Td>
                 <Td>
-                  <DeleteIPButtton />
+                  <DeleteIPButtton IPAddress={IPAddress} />
                 </Td>
               </Tr>
             ))}

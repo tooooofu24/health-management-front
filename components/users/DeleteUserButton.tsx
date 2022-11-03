@@ -28,7 +28,7 @@ type props = {
 };
 export const DeleteUserButtton: FC<props> = ({ user }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { deleteUser } = useDeleteUser();
+  const { deleteUser, isLoading } = useDeleteUser();
   const [error, setError] = useState("");
   const router = useRouter();
   const toast = useToast();
@@ -45,6 +45,7 @@ export const DeleteUserButtton: FC<props> = ({ user }) => {
         isClosable: true,
         position: "top",
       });
+      setError("");
     } catch (e: any) {
       setError(e.message);
     }
@@ -96,7 +97,7 @@ export const DeleteUserButtton: FC<props> = ({ user }) => {
             <Button colorScheme="gray" variant="ghost" onClick={onClose} mr={2}>
               キャンセル
             </Button>
-            <Button onClick={onClick} colorScheme="red">
+            <Button isLoading={isLoading} onClick={onClick} colorScheme="red">
               削除する
             </Button>
           </ModalFooter>

@@ -21,15 +21,22 @@ import {
 import { useRouter } from "next/router";
 import { Tag, WifiHigh, X } from "phosphor-react";
 import { FC, useState } from "react";
+import { useDeleteIPAddress } from "../../../hooks/IPAddress";
+import { IPAddress } from "../../../types/IPAddress";
 
-export const DeleteIPButtton: FC = () => {
+type props = {
+  IPAddress: IPAddress;
+};
+export const DeleteIPButtton: FC<props> = ({ IPAddress }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [error, setError] = useState("");
+  const { deleteIPAddress, isLoading } = useDeleteIPAddress();
   const router = useRouter();
   const toast = useToast();
 
   const onClick = async () => {
     try {
+      await deleteIPAddress(IPAddress);
       router.push("/settings");
       toast({
         title: "",
@@ -40,6 +47,7 @@ export const DeleteIPButtton: FC = () => {
         position: "top",
       });
       onClose();
+      setError("");
     } catch (e: any) {
       setError(e.message);
     }
@@ -66,18 +74,18 @@ export const DeleteIPButtton: FC = () => {
               <Box color="gray.500">
                 <Tag />
               </Box>
-              <Text>自宅</Text>
+              <Text>{IPAddress.label}</Text>
             </Flex>
-            <Flex alignItems="center" gap={5}>
+            <Flex alignItems="center" gap={5} mt={1}>
               <Box color="gray.500">
                 <WifiHigh />
               </Box>
-              <Text>121.114.22.92</Text>
+              <Text>{IPAddress.ip}</Text>
             </Flex>
             <Text mt={4}>
               上記IPアドレスを削除します。
               <br />
-              削除したユーザーはログインできなくなります。よろしいですか？
+              削除したIPアドレスからは操作ができなくなります。よろしいですか？
             </Text>
             {error && (
               <Alert status="error" mt={2}>
@@ -91,7 +99,7 @@ export const DeleteIPButtton: FC = () => {
             <Button colorScheme="gray" variant="ghost" onClick={onClose} mr={2}>
               キャンセル
             </Button>
-            <Button onClick={onClick} colorScheme="red">
+            <Button isLoading={isLoading} onClick={onClick} colorScheme="red">
               削除する
             </Button>
           </ModalFooter>

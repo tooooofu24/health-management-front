@@ -27,7 +27,7 @@ import { useCreateInvitation } from "../../hooks/Invitation";
 
 export const InviteButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { createInvitation } = useCreateInvitation();
+  const { createInvitation, isLoading } = useCreateInvitation();
   const [error, setError] = useState("");
   const toast = useToast();
   const router = useRouter();
@@ -45,6 +45,7 @@ export const InviteButton = () => {
         position: "top",
       });
       setValue("email", "");
+      setError("");
     } catch (e: any) {
       setError(e.message);
     }
@@ -111,7 +112,9 @@ export const InviteButton = () => {
               >
                 キャンセル
               </Button>
-              <Button type="submit">招待する</Button>
+              <Button type="submit" isLoading={isLoading}>
+                招待する
+              </Button>
             </ModalFooter>
           </form>
         </ModalContent>
