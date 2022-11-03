@@ -28,18 +28,20 @@ export const IPList = () => {
             </Tr>
           </Thead>
           <Tbody>
-            <Td>
-              <Flex justifyContent="center" color="teal.500">
-                <Check />
-              </Flex>
-            </Td>
-            <Td>自宅</Td>
-            <Td>121.114.22.92</Td>
-            <Td>千葉陶也</Td>
-            <Td>1日前</Td>
-            <Td>
-              <DeleteIPButtton />
-            </Td>
+            <Tr>
+              <Td>
+                <Flex justifyContent="center" color="teal.500">
+                  <Check />
+                </Flex>
+              </Td>
+              <Td>自宅</Td>
+              <Td>121.114.22.92</Td>
+              <Td>千葉陶也</Td>
+              <Td>1日前</Td>
+              <Td>
+                <DeleteIPButtton />
+              </Td>
+            </Tr>
           </Tbody>
         </Table>
       </TableContainer>
