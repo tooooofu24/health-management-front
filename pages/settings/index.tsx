@@ -14,7 +14,7 @@ const TopPage: NextPage = () => {
         <PageTitle
           title="IPアドレス"
           icon={<WifiHigh />}
-          iconUrl="/setting"
+          iconUrl="/settings"
           rightItem={<AddIPButton />}
         />
         <IPList />

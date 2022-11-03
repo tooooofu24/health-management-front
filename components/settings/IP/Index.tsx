@@ -8,12 +8,39 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { Check, Trash, X } from "phosphor-react";
+import { useEffect, useState } from "react";
+import { useIPAddresses } from "../../../hooks/IPAddress";
+import { formatDate } from "../../../utils/time";
+import { CommonError } from "../../common/error/CommonError";
+import { Loading } from "../../common/loading/Loading";
 import { Tile } from "../../common/Tile";
 import { DeleteIPButtton } from "./DeleteIPButton";
 
 export const IPList = () => {
-  return (
+  const { IPAddresses, getIPAddresses, isLoading } = useIPAddresses();
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    getIPAddresses().catch((e) => {
+      setError(e.message);
+    });
+  }, [router]);
+  return error ? (
+    <Tile>
+      <CommonError message="データの取得に失敗しました" error={error} />
+    </Tile>
+  ) : isLoading ? (
+    <Tile>
+      <Loading />
+    </Tile>
+  ) : !IPAddresses.length ? (
+    <Tile>
+      <CommonError message="IPアドレスが存在しません" />
+    </Tile>
+  ) : (
     <Tile>
       <TableContainer>
         <Table>
@@ -28,20 +55,22 @@ export const IPList = () => {
             </Tr>
           </Thead>
           <Tbody>
-            <Tr>
-              <Td>
-                <Flex justifyContent="center" color="teal.500">
-                  <Check />
-                </Flex>
-              </Td>
-              <Td>自宅</Td>
-              <Td>121.114.22.92</Td>
-              <Td>千葉陶也</Td>
-              <Td>1日前</Td>
-              <Td>
-                <DeleteIPButtton />
-              </Td>
-            </Tr>
+            {IPAddresses.map((IPAddress) => (
+              <Tr>
+                <Td>
+                  <Flex justifyContent="center" color="teal.500">
+                    <Check />
+                  </Flex>
+                </Td>
+                <Td>{IPAddress.label}</Td>
+                <Td>{IPAddress.ip}</Td>
+                <Td>{IPAddress.createdBy.name}</Td>
+                <Td>{formatDate(IPAddress.createdAt)}</Td>
+                <Td>
+                  <DeleteIPButtton />
+                </Td>
+              </Tr>
+            ))}
           </Tbody>
         </Table>
       </TableContainer>
