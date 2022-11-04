@@ -81,13 +81,17 @@ const Row = ({ classroom }: { classroom: Classroom }) => {
       <Td>{classroom.studentsCount}人</Td>
       <Td>
         <Flex gap="10px" justifyContent="center">
-          {!classroom.subjects?.length && <>なし</>}
+          {!classroom.subjects?.length && (
+            <Tag colorScheme="gray" shadow="none" variant="outline">
+              なし
+            </Tag>
+          )}
           {classroom.subjects?.map((subject) => {
             return <Tag key={subject.id}>{subject.name}</Tag>;
           })}
         </Flex>
       </Td>
-      <Td>{formatDate(classroom.lastLessonDate) || "なし"}</Td>
+      <Td>{formatDate(classroom.lastLessonDate) || "-"}</Td>
       <Td>
         <Flex justifyContent="end" alignItems="center">
           <CaretRight />
