@@ -81,6 +81,7 @@ const Row = ({ classroom }: { classroom: Classroom }) => {
       <Td>{classroom.studentsCount}人</Td>
       <Td>
         <Flex gap="10px" justifyContent="center">
+          {!classroom.subjects?.length && <>なし</>}
           {classroom.subjects?.map((subject) => {
             return <Tag key={subject.id}>{subject.name}</Tag>;
           })}

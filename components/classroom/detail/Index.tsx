@@ -17,6 +17,7 @@ import {
 import { FC, useEffect, useState } from "react";
 import { Classroom } from "../../../types/Classroom";
 import { formatDate } from "../../../utils/time";
+import { CommonError } from "../../common/error/CommonError";
 import { Tile, TilesWrapper } from "../../common/Tile";
 import { ScoreTable } from "./ScoresTable";
 
@@ -63,6 +64,7 @@ export const ClassroomDetail: FC<props> = ({ classroom }) => {
                   <Td>{classroom?.studentsCount}人</Td>
                   <Td>
                     <Flex gap="10px">
+                      {!classroom.subjects?.length && <>なし</>}
                       {classroom?.subjects?.map((subject) => (
                         <Tag key={subject.id}>{subject.name}</Tag>
                       ))}
@@ -76,18 +78,24 @@ export const ClassroomDetail: FC<props> = ({ classroom }) => {
         </Flex>
       </Tile>
       <Tile>
-        <Tabs>
-          <TabList>
-            {classroom?.subjects?.map((subject) => (
-              <Tab h={10} key={subject.id}>
-                {subject.name}
-              </Tab>
-            ))}
-          </TabList>
-        </Tabs>
-        <Box py={4}>
-          <ScoreTable courseId={36} />
-        </Box>
+        {!classroom.subjects?.length ? (
+          <CommonError message="担当している授業がありません" />
+        ) : (
+          <>
+            <Tabs>
+              <TabList>
+                {classroom.subjects?.map((subject) => (
+                  <Tab h={10} key={subject.id}>
+                    {subject.name}
+                  </Tab>
+                ))}
+              </TabList>
+            </Tabs>
+            <Box py={4}>
+              <ScoreTable courseId={36} />
+            </Box>
+          </>
+        )}
       </Tile>
     </TilesWrapper>
   );
