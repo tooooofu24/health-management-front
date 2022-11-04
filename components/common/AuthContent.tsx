@@ -18,14 +18,6 @@ export const AuthContent: FC<props> = ({ children }) => {
       if (!user) {
         await logout();
         router.push("/login");
-        toast({
-          title: "",
-          description: "セッションが切れました！",
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-          position: "top",
-        });
       }
     })();
   }, [user, isLoading]);

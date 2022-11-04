@@ -8,17 +8,19 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { FC, useEffect } from "react";
-import { useCalculatedAttendances } from "../../../hooks/CalculatedAttendance";
 import { useScores } from "../../../hooks/Score";
 import { Course } from "../../../types/Course";
 import { Loading } from "../../common/loading/Loading";
 
 type props = {
-  course: Course;
+  courseId: number;
 };
-export const CalculateTable: FC<props> = ({ course }) => {
+export const ScoreTable: FC<props> = ({ courseId }) => {
   const { scores, getScores, isLoading } = useScores();
-  useEffect(() => {}, []);
+
+  useEffect(() => {
+    getScores(courseId);
+  }, []);
 
   return isLoading ? (
     <Loading />
@@ -37,18 +39,19 @@ export const CalculateTable: FC<props> = ({ course }) => {
           </Tr>
         </Thead>
         <Tbody>
-          {/* {calculatedAttendances.map((calculatedAttendance) => (
-            <Tr key={calculatedAttendance.student.id}>
-              <Td>{calculatedAttendance.student.number}</Td>
-              <Td>{calculatedAttendance.student.name}</Td>
-              <Td>{calculatedAttendance.attendanceRate}</Td>
-              <Td>{calculatedAttendance.knowledgeAverage}</Td>
-              <Td>{calculatedAttendance.expressionAverage}</Td>
-              <Td>{calculatedAttendance.attitudeAverage}</Td>
-              <Td>?</Td>
-            </Tr>
-          ))} */}
-          <Tr></Tr>
+          {scores.map((score) => {
+            return (
+              <Tr key={score.student.id}>
+                <Td>{score.student.number}</Td>
+                <Td>{score.student.name}</Td>
+                <Td>{score.attendanceRate}</Td>
+                <Td>{score.knowledgeAverage}</Td>
+                <Td>{score.expressionAverage}</Td>
+                <Td>{score.attitudeAverage}</Td>
+                <Td>?</Td>
+              </Tr>
+            );
+          })}
         </Tbody>
       </Table>
     </TableContainer>
