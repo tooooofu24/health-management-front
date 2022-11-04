@@ -137,6 +137,7 @@ export const Create = () => {
                   <FilePicker
                     onUpload={setStudents}
                     onDelete={() => setStudents([])}
+                    isInvalid={Boolean(errors.students)}
                   />
                   <FormErrorMessage>
                     {errors.students?.message}

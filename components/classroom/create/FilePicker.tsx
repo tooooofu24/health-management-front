@@ -6,8 +6,9 @@ import { useCSVReader } from "react-papaparse";
 type props = {
   onUpload: (data: any) => void;
   onDelete: () => void;
+  isInvalid: boolean;
 };
-export const FilePicker: FC<props> = ({ onUpload, onDelete }) => {
+export const FilePicker: FC<props> = ({ onUpload, onDelete, isInvalid }) => {
   const { CSVReader } = useCSVReader();
   return (
     <CSVReader onUploadAccepted={(result: any) => onUpload(result.data)}>
@@ -24,7 +25,7 @@ export const FilePicker: FC<props> = ({ onUpload, onDelete }) => {
               px={3}
               py={1}
               border="1px"
-              borderColor="gray.300"
+              borderColor={isInvalid ? "red.500" : "gray.300"}
               rounded="md"
             >
               <Flex color="gray.500" alignItems="center" gap={3}>
