@@ -44,7 +44,7 @@ export const IPList = () => {
   ) : (
     <Tile>
       <TableContainer>
-        <Table>
+        <Table size={["sm", "md"]}>
           <Thead>
             <Tr>
               <Th>使用中</Th>

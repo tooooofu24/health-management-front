@@ -26,7 +26,7 @@ export const ClassroomCreateTable: FC<props> = ({
   return (
     <>
       <TableContainer mb={3}>
-        <Table>
+        <Table size={["sm", "md"]}>
           <TableCaption placement="top">クラス情報</TableCaption>
           <Thead>
             <Tr>
@@ -47,7 +47,7 @@ export const ClassroomCreateTable: FC<props> = ({
         </Table>
       </TableContainer>
       <TableContainer>
-        <Table>
+        <Table size={["sm", "md"]}>
           <TableCaption placement="top">生徒情報</TableCaption>
           {students?.length ? (
             <>

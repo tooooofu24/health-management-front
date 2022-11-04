@@ -116,7 +116,7 @@ const ConfirmTable: FC<ConfirmTableProps> = ({ data }) => {
   return (
     <>
       <TableContainer>
-        <Table variant="simple">
+        <Table size={["sm", "md"]}>
           <TableCaption placement="top">授業情報</TableCaption>
           <Thead>
             <Tr>
@@ -137,7 +137,7 @@ const ConfirmTable: FC<ConfirmTableProps> = ({ data }) => {
         </Table>
       </TableContainer>
       <TableContainer>
-        <Table variant="simple">
+        <Table size={["sm", "md"]}>
           <TableCaption placement="top">生徒情報</TableCaption>
           <Thead>
             <Tr>

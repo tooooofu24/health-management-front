@@ -34,7 +34,7 @@ export const AttendanceTable: FC<props> = ({
 }) => {
   return (
     <TableContainer>
-      <Table variant="simple">
+      <Table size={["sm", "md"]}>
         <Thead>
           <Tr>
             <Th>番号</Th>

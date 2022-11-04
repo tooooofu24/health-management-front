@@ -24,7 +24,7 @@ export const CalculateTable: FC<props> = ({ course }) => {
     <Loading />
   ) : (
     <TableContainer>
-      <Table>
+      <Table size={["sm", "md"]}>
         <Thead>
           <Tr>
             <Th>出席番号</Th>

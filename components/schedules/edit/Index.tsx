@@ -34,7 +34,7 @@ export const ScheduleEdit = () => {
   ) : (
     <Tile>
       <TableContainer>
-        <Table variant="unstyled">
+        <Table variant="unstyled" size={["sm", "md"]}>
           <Thead>
             <Tr>
               <Th></Th>

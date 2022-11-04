@@ -64,7 +64,7 @@ export const UserList = () => {
       ) : (
         <Tile>
           <TableContainer>
-            <Table>
+            <Table size={["sm", "md"]}>
               <Thead>
                 <Tr>
                   <Th>アイコン</Th>
@@ -96,7 +96,7 @@ export const UserList = () => {
         ) : (
           <Tile>
             <TableContainer>
-              <Table>
+              <Table size={["sm", "md"]}>
                 <Thead>
                   <Tr>
                     <Th>再通知</Th>

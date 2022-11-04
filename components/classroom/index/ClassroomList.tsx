@@ -44,7 +44,7 @@ export const ClassroomList = () => {
   ) : (
     <Tile>
       <TableContainer>
-        <Table>
+        <Table size={["sm", "md"]}>
           <Thead>
             <Tr>
               <Th>クラス</Th>
