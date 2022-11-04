@@ -8,7 +8,7 @@ const createURL = (uri: string, query?: {}) => {
 
 const headers = async (): Promise<HeadersInit> => {
   const user = getAuth().currentUser;
-  const bearer = await user?.getIdToken(true);
+  const bearer = await user?.getIdToken();
   return {
     "Content-Type": "application/json",
     Authorization: "Bearer " + bearer,
