@@ -82,7 +82,12 @@ const Row = ({ classroom }: { classroom: Classroom }) => {
       <Td>
         <Flex gap="10px" justifyContent="center">
           {!classroom.subjects?.length && (
-            <Tag colorScheme="gray" shadow="none" variant="outline">
+            <Tag
+              colorScheme="gray"
+              shadow="none"
+              variant="outline"
+              color="chakra-body-text"
+            >
               なし
             </Tag>
           )}

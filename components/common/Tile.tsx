@@ -3,7 +3,13 @@ import { FC } from "react";
 
 export const Tile: FC<BoxProps> = (props) => {
   return (
-    <Box p="16px" bg="white" borderRadius="10px" boxShadow="base" {...props}>
+    <Box
+      p={["12px", "16px"]}
+      bg="white"
+      borderRadius="10px"
+      boxShadow="base"
+      {...props}
+    >
       <Box overflow="scroll">{props.children}</Box>
     </Box>
   );
