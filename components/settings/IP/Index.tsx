@@ -1,4 +1,5 @@
 import {
+  Box,
   Flex,
   Table,
   TableContainer,
@@ -59,10 +60,17 @@ export const IPList = () => {
             {IPAddresses.map((IPAddress) => (
               <Tr key={IPAddress.id}>
                 <Td>
-                  {currentIP == IPAddress.ip && (
-                    <Flex justifyContent="center" color="teal.500">
+                  {currentIP == IPAddress.ip ? (
+                    <Flex
+                      mx="auto"
+                      w={8}
+                      justifyContent="center"
+                      color="teal.500"
+                    >
                       <Check />
                     </Flex>
+                  ) : (
+                    <Box w={8} />
                   )}
                 </Td>
                 <Td>{IPAddress.label}</Td>
