@@ -9,7 +9,6 @@ import {
 } from "@chakra-ui/react";
 import { FC, useEffect } from "react";
 import { useScores } from "../../../hooks/Score";
-import { Course } from "../../../types/Course";
 import { Loading } from "../../common/loading/Loading";
 
 type props = {
