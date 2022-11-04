@@ -9,6 +9,11 @@ import {
 } from "@chakra-ui/react";
 import { FC, useEffect } from "react";
 import { useScores } from "../../../hooks/Score";
+import {
+  calculateAttendanceRate,
+  calculateEvaluation,
+  calculateValue,
+} from "../../../utils/calculate";
 import { Loading } from "../../common/loading/Loading";
 
 type props = {
@@ -43,11 +48,11 @@ export const ScoreTable: FC<props> = ({ courseId }) => {
               <Tr key={score.student.id}>
                 <Td>{score.student.number}</Td>
                 <Td>{score.student.name}</Td>
-                <Td>{score.attendanceRate}</Td>
-                <Td>{score.knowledgeAverage}</Td>
-                <Td>{score.expressionAverage}</Td>
-                <Td>{score.attitudeAverage}</Td>
-                <Td>?</Td>
+                <Td>{calculateAttendanceRate(score.attendanceRate)}</Td>
+                <Td>{calculateValue(score.knowledgeAverage)}</Td>
+                <Td>{calculateValue(score.expressionAverage)}</Td>
+                <Td>{calculateValue(score.attitudeAverage)}</Td>
+                <Td>{calculateEvaluation(score)}</Td>
               </Tr>
             );
           })}

@@ -92,7 +92,7 @@ export const ClassroomDetail: FC<props> = ({ classroom }) => {
               </TabList>
             </Tabs>
             <Box py={4}>
-              <ScoreTable courseId={36} />
+              <ScoreTable courseId={40} />
             </Box>
           </>
         )}

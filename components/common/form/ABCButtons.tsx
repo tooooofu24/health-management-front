@@ -17,13 +17,13 @@ export const ABCButtons = ({ register, error }: props) => {
     <FormControl isInvalid={Boolean(error)}>
       <RadioGroup>
         <Stack spacing={3} direction="row" justifyContent="center">
-          <Radio {...register} value="1">
+          <Radio {...register} value="3">
             A
           </Radio>
           <Radio {...register} value="2">
             B
           </Radio>
-          <Radio {...register} value="3">
+          <Radio {...register} value="1">
             C
           </Radio>
         </Stack>
