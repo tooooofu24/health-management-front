@@ -89,7 +89,12 @@ export const Create = () => {
           gap={isSmartPhoneScreen() ? "2rem" : "5%"}
           flexDirection={isSmartPhoneScreen() ? "column" : "row"}
         >
-          <Flex h="fit-content" flex={1} position="sticky" top="5">
+          <Flex
+            h="fit-content"
+            flex={1}
+            position={isSmartPhoneScreen() ? "inherit" : "sticky"}
+            top="5"
+          >
             <Tile w="full">
               <Flex flexDirection="column" gap="20px">
                 <FormControl isInvalid={Boolean(errors.grade)}>
@@ -144,7 +149,7 @@ export const Create = () => {
             flexDirection="column"
             gap="20px"
             flex={1}
-            position="sticky"
+            position={isSmartPhoneScreen() ? "inherit" : "sticky"}
             top="5"
           >
             <Tile>

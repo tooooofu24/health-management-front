@@ -147,8 +147,14 @@ export const AttendanceCreate = () => {
             />
           )}
         </Tile>
-        <Flex w="full" justifyContent="end" gap="20px">
-          <Button rightIcon={<PaperPlaneTilt />} type="submit">
+        <Flex
+          w="full"
+          justifyContent="end"
+          gap="20px"
+          position="sticky"
+          bottom="5"
+        >
+          <Button boxShadow="base" rightIcon={<PaperPlaneTilt />} type="submit">
             成績を登録する
           </Button>
         </Flex>
