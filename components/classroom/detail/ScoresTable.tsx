@@ -8,27 +8,18 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { FC, useEffect } from "react";
-import { useScores } from "../../../hooks/Score";
+import { Score } from "../../../types/Score";
 import {
   calculateAttendanceRate,
   calculateEvaluation,
   calculateValue,
 } from "../../../utils/calculate";
-import { Loading } from "../../common/loading/Loading";
 
 type props = {
-  courseId: number;
+  scores: Score[];
 };
-export const ScoreTable: FC<props> = ({ courseId }) => {
-  const { scores, getScores, isLoading } = useScores();
-
-  useEffect(() => {
-    getScores(courseId);
-  }, []);
-
-  return isLoading ? (
-    <Loading />
-  ) : (
+export const ScoreTable: FC<props> = ({ scores }) => {
+  return (
     <TableContainer>
       <Table size={["sm", "md"]}>
         <Thead>

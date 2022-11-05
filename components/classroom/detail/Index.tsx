@@ -6,6 +6,8 @@ import {
   Table,
   TableContainer,
   TabList,
+  TabPanel,
+  TabPanels,
   Tabs,
   Tag,
   Tbody,
@@ -25,12 +27,6 @@ type props = {
   classroom: Classroom;
 };
 export const ClassroomDetail: FC<props> = ({ classroom }) => {
-  const [courseId, setCourseId] = useState("");
-
-  // useEffect(() => {
-  //   if (!classroom) return;
-  //   setCourseId(classroom?.subjects?.[0]?.id ?? "");
-  // }, [classroom]);
   return (
     <TilesWrapper>
       <Tile>
@@ -64,9 +60,9 @@ export const ClassroomDetail: FC<props> = ({ classroom }) => {
                   <Td>{classroom?.studentsCount}人</Td>
                   <Td>
                     <Flex gap="10px">
-                      {!classroom.subjects?.length && <>なし</>}
-                      {classroom?.subjects?.map((subject) => (
-                        <Tag key={subject.id}>{subject.name}</Tag>
+                      {!classroom.courses?.length && <>なし</>}
+                      {classroom.courses?.map((course) => (
+                        <Tag key={course.subject.id}>{course.subject.name}</Tag>
                       ))}
                     </Flex>
                   </Td>
@@ -78,22 +74,26 @@ export const ClassroomDetail: FC<props> = ({ classroom }) => {
         </Flex>
       </Tile>
       <Tile>
-        {!classroom.subjects?.length ? (
+        {!classroom.courses?.length ? (
           <CommonError message="担当している授業がありません" />
         ) : (
           <>
             <Tabs>
               <TabList>
-                {classroom.subjects?.map((subject) => (
-                  <Tab h={10} key={subject.id}>
-                    {subject.name}
+                {classroom.courses?.map((course) => (
+                  <Tab h={10} key={course.id}>
+                    {course.subject.name}
                   </Tab>
                 ))}
               </TabList>
+              <TabPanels>
+                {classroom.courses?.map((course) => (
+                  <TabPanel key={course.id}>
+                    <ScoreTable scores={course.scores!} />
+                  </TabPanel>
+                ))}
+              </TabPanels>
             </Tabs>
-            <Box py={4}>
-              <ScoreTable courseId={40} />
-            </Box>
           </>
         )}
       </Tile>

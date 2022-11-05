@@ -81,7 +81,7 @@ const Row = ({ classroom }: { classroom: Classroom }) => {
       <Td>{classroom.studentsCount}人</Td>
       <Td>
         <Flex gap="10px" justifyContent="center">
-          {!classroom.subjects?.length && (
+          {!classroom.courses?.length && (
             <Tag
               colorScheme="gray"
               shadow="none"
@@ -91,8 +91,8 @@ const Row = ({ classroom }: { classroom: Classroom }) => {
               なし
             </Tag>
           )}
-          {classroom.subjects?.map((subject) => {
-            return <Tag key={subject.id}>{subject.name}</Tag>;
+          {classroom.courses?.map((course) => {
+            return <Tag key={course.id}>{course.subject.name}</Tag>;
           })}
         </Flex>
       </Td>

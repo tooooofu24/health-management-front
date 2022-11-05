@@ -1,3 +1,4 @@
+import { Course } from "./Course";
 import { Subject } from "./Subject";
 
 export type Classroom = {
@@ -7,5 +8,5 @@ export type Classroom = {
   teacher: string;
   lastLessonDate: string | null;
   studentsCount: number;
-  subjects?: Subject[];
+  courses?: Course[];
 };
