@@ -13,5 +13,5 @@ export type AttendanceRow = {
   knowledge: 1 | 2 | 3 | null;
   expression: 1 | 2 | 3 | null;
   attitude: 1 | 2 | 3 | null;
-  message: string;
+  comment: string;
 };

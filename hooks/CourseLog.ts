@@ -15,7 +15,7 @@ export const useCreateCourseLog = () => {
     knowledge: 1 | 2 | 3;
     expression: 1 | 2 | 3;
     attitude: 1 | 2 | 3;
-    message: string;
+    comment: string;
   };
   const createCourseLog = async (props: props) => {
     setIsLoading(true);

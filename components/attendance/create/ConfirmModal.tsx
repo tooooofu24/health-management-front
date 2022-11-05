@@ -49,7 +49,7 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose, data }) => {
         date,
         period,
         attendances: attendances.map((attendance) => {
-          const { attend, knowledge, expression, attitude, message } =
+          const { attend, knowledge, expression, attitude, comment } =
             attendance;
           return {
             studentId: attendance.student.id,
@@ -57,7 +57,7 @@ export const ConfirmModal: FC<props> = ({ isOpen, onClose, data }) => {
             knowledge: knowledge!,
             expression: expression!,
             attitude: attitude!,
-            message,
+            comment,
           };
         }),
       });
@@ -172,7 +172,7 @@ const ConfirmTable: FC<ConfirmTableProps> = ({ data }) => {
                   <Td>{convert(attendance.knowledge)}</Td>
                   <Td>{convert(attendance.expression)}</Td>
                   <Td>{convert(attendance.attitude)}</Td>
-                  <Td>{attendance.message}</Td>
+                  <Td>{attendance.comment}</Td>
                 </Tr>
               );
             })}

@@ -172,7 +172,7 @@ const makeAttendanceRow = (students: Student[]): AttendanceRow[] => {
       knowledge: null,
       expression: null,
       attitude: null,
-      message: "",
+      comment: "",
     };
   });
 };

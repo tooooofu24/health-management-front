@@ -73,7 +73,7 @@ type RowProps = {
   control: Control<AttendanceForm>;
 };
 const Row: FC<RowProps> = ({ field, register, errors, i, control }) => {
-  const message = useWatch({ name: `attendances.${i}.message`, control });
+  const comment = useWatch({ name: `attendances.${i}.comment`, control });
   return (
     <Tr key={field.student.id}>
       <Td>{field.student.number}</Td>
@@ -107,8 +107,8 @@ const Row: FC<RowProps> = ({ field, register, errors, i, control }) => {
       <Td>
         <Flex alignItems="center" justifyContent="center">
           <MessageButton
-            filled={Boolean(message)}
-            register={register(`attendances.${i}.message`)}
+            filled={Boolean(comment)}
+            register={register(`attendances.${i}.comment`)}
           />
         </Flex>
       </Td>
