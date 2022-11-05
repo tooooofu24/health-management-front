@@ -36,6 +36,8 @@ export const AttendanceCreate = () => {
     handleSubmit,
     watch,
     setValue,
+    setError,
+    clearErrors,
     formState: { errors },
     control,
   } = useForm<AttendanceForm>({
@@ -69,8 +71,13 @@ export const AttendanceCreate = () => {
   }, [students]);
 
   useEffect(() => {
+    clearErrors("courseId");
     if (courseId) {
-      getStudentsByCourseId(courseId);
+      getStudentsByCourseId(courseId).catch((e: Error) => {
+        setError("courseId", { message: e.message });
+      });
+    } else {
+      setValue("attendances", makeAttendanceRow([]));
     }
   }, [courseId]);
 

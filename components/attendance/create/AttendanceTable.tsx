@@ -17,6 +17,7 @@ import {
   AttendanceForm,
   AttendanceRow,
 } from "../../../utils/form/AttendanceForm";
+import { CommonError } from "../../common/error/CommonError";
 import { ABCButtons } from "../../common/form/ABCButtons";
 import { MessageButton } from "./MessageButton";
 
@@ -32,7 +33,9 @@ export const AttendanceTable: FC<props> = ({
   errors,
   control,
 }) => {
-  return (
+  return !fields?.length ? (
+    <CommonError message="生徒のデータがありません" />
+  ) : (
     <TableContainer>
       <Table size={["sm", "md"]}>
         <Thead>
