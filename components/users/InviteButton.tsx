@@ -21,7 +21,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { EnvelopeSimple, UserPlus } from "phosphor-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useCreateInvitation } from "../../hooks/Invitation";
 
@@ -44,8 +44,6 @@ export const InviteButton = () => {
         isClosable: true,
         position: "top",
       });
-      setValue("email", "");
-      setError("");
     } catch (e: any) {
       setError(e.message);
     }
@@ -55,9 +53,17 @@ export const InviteButton = () => {
     handleSubmit,
     formState: { errors },
     setValue,
+    clearErrors,
   } = useForm<form>({
     mode: "onSubmit",
   });
+
+  useEffect(() => {
+    setValue("email", "");
+    setError("");
+    clearErrors();
+  }, [router]);
+
   return (
     <>
       <Button variant="responsive" leftIcon={<UserPlus />} onClick={onOpen}>

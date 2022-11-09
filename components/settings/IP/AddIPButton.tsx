@@ -21,7 +21,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { Plus, WifiHigh } from "phosphor-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useCreateIPAddress } from "../../../hooks/IPAddress";
 
@@ -46,9 +46,6 @@ export const AddIPButton = () => {
         isClosable: true,
         position: "top",
       });
-      setValue("label", "");
-      setValue("ip", "");
-      setError("");
     } catch (e: any) {
       setError(e.message);
     }
@@ -58,9 +55,17 @@ export const AddIPButton = () => {
     handleSubmit,
     formState: { errors },
     setValue,
+    clearErrors,
   } = useForm<form>({
     mode: "onSubmit",
   });
+
+  useEffect(() => {
+    setValue("label", "");
+    setValue("ip", "");
+    setError("");
+    clearErrors();
+  }, [router]);
 
   return (
     <>
@@ -110,11 +115,11 @@ export const AddIPButton = () => {
                       placeholder="123.456.789.000"
                       {...register("ip", {
                         required: "必須項目です！",
-                        // pattern: {
-                        //   value:
-                        //     /^((25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])$/,
-                        //   message: "IPアドレスの形式が正しくありません！",
-                        // },
+                        pattern: {
+                          value:
+                            /^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$/,
+                          message: "IPアドレスの形式が正しくありません！",
+                        },
                       })}
                     />
                     <FormErrorMessage>{errors.ip?.message}</FormErrorMessage>
