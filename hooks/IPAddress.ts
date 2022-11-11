@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
+import useSWR from "swr";
 import { IPAddress } from "../types/IPAddress";
 import { deleteRequest, getRequest, postRequest } from "../utils/apiClient";
+import { fetcher } from "../utils/fetcher";
 
 export const useIPAddresses = () => {
-  const [IPAddresses, setIPAddresses] = useState<IPAddress[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const getIPAddresses = async () => {
-    setIsLoading(true);
-    const response = await getRequest("/ip-addresses").finally(() => {
-      setIsLoading(false);
-    });
-    setIPAddresses(response.results);
-  };
-  return { IPAddresses, getIPAddresses, isLoading };
+  const { data, mutate: refetch } = useSWR(["/ip-addresses"], fetcher, {
+    suspense: true,
+  });
+  const IPAddresses: IPAddress[] = data?.results;
+  return { IPAddresses, refetch };
 };
 
 export const useCreateIPAddress = () => {
@@ -42,19 +39,11 @@ export const useDeleteIPAddress = () => {
 };
 
 export const useCurrentIP = () => {
-  const [currentIP, setCurrentIP] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    fetchIp();
-  }, []);
-  const fetchIp = async () => {
-    setIsLoading(true);
-    const url = "https://ipinfo.io?token=c275321cf4d83b";
-    const res = await fetch(url).finally(() => {
-      setIsLoading(false);
-    });
-    const json = await res.json();
-    setCurrentIP(json.ip);
-  };
-  return { currentIP, isLoading };
+  const url = "https://ipinfo.io?token=c275321cf4d83b";
+  const fetcher = (url: string) => fetch(url).then((res) => res.json());
+  const { data, mutate: refetch } = useSWR([url], fetcher, {
+    suspense: true,
+  });
+  const currentIP = data?.ip;
+  return { currentIP, refetch };
 };

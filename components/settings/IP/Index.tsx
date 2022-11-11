@@ -10,35 +10,24 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { Check, Trash, X } from "phosphor-react";
-import { useEffect, useState } from "react";
+import { Check } from "phosphor-react";
+import { useEffect } from "react";
 import { useCurrentIP, useIPAddresses } from "../../../hooks/IPAddress";
 import { formatDate } from "../../../utils/time";
 import { CommonError } from "../../common/error/CommonError";
-import { Loading } from "../../common/loading/Loading";
 import { Tile } from "../../common/Tile";
 import { DeleteIPButtton } from "./DeleteIPButton";
 
 export const IPList = () => {
-  const { IPAddresses, getIPAddresses, isLoading } = useIPAddresses();
-  const [error, setError] = useState("");
+  const { IPAddresses, refetch } = useIPAddresses();
   const { currentIP } = useCurrentIP();
   const router = useRouter();
 
   useEffect(() => {
-    getIPAddresses().catch((e) => {
-      setError(e.message);
-    });
+    refetch();
   }, [router]);
-  return error ? (
-    <Tile>
-      <CommonError message="データの取得に失敗しました" error={error} />
-    </Tile>
-  ) : isLoading ? (
-    <Tile>
-      <Loading />
-    </Tile>
-  ) : !IPAddresses.length ? (
+
+  return !IPAddresses.length ? (
     <Tile>
       <CommonError message="IPアドレスが存在しません" />
     </Tile>
