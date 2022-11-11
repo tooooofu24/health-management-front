@@ -12,32 +12,15 @@ import {
 import { CaretRight } from "phosphor-react";
 import { useClassrooms } from "../../../hooks/Classroom";
 import { Classroom } from "../../../types/Classroom";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Tile } from "../../common/Tile";
-import { Loading } from "../../common/loading/Loading";
 import { CommonError } from "../../common/error/CommonError";
 import { formatDate } from "../../../utils/time";
 
 export const ClassroomList = () => {
-  const { classrooms, getClassrooms, isLoading } = useClassrooms();
-  const [error, setError] = useState("");
+  const { classrooms } = useClassrooms();
 
-  useEffect(() => {
-    getClassrooms().catch((e: any) => {
-      setError(e.message);
-    });
-  }, []);
-
-  return error ? (
-    <Tile>
-      <CommonError message="データの取得に失敗しました" error={error} />
-    </Tile>
-  ) : isLoading ? (
-    <Tile>
-      <Loading />
-    </Tile>
-  ) : !classrooms.length ? (
+  return !classrooms?.length ? (
     <Tile>
       <CommonError message="クラスのデータがありません" />
     </Tile>
@@ -56,7 +39,7 @@ export const ClassroomList = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {classrooms.map((classroom) => {
+            {classrooms?.map((classroom) => {
               return <Row key={classroom.id} classroom={classroom} />;
             })}
           </Tbody>

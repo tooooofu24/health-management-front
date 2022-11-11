@@ -1,19 +1,16 @@
 import { useState } from "react";
+import useSWR from "swr";
 import { CreateClassroomForm } from "../components/classroom/create/Index";
 import { Classroom } from "../types/Classroom";
 import { getRequest, postRequest } from "../utils/apiClient";
+import { fetcher } from "../utils/fetcher";
 
 export const useClassrooms = () => {
-  const [classrooms, setClassrooms] = useState<Classroom[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const getClassrooms = async () => {
-    setIsLoading(true);
-    const response = await getRequest("/classrooms").finally(() => {
-      setIsLoading(false);
-    });
-    setClassrooms(response.results);
+  const { data } = useSWR(["/classrooms"], fetcher, { suspense: true });
+  const classrooms: Classroom[] = data?.results;
+  return {
+    classrooms,
   };
-  return { classrooms, getClassrooms, isLoading };
 };
 
 export const useClassroom = () => {

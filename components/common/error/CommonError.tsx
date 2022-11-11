@@ -13,7 +13,7 @@ export const CommonError: FC<props> = memo(({ message, error, image }) => {
       alignItems="center"
       flexDirection="column"
       justifyContent="center"
-      pb={8}
+      pb={3}
     >
       <Square size="200px" maxWidth="100%">
         <Illustration image={image} />

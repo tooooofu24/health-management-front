@@ -1,12 +1,12 @@
 import { getAuth } from "firebase/auth";
 import { APIError } from "../types/APIErrorResponse";
 
-const createURL = (uri: string, query?: {}) => {
+export const createURL = (uri: string, query?: {}) => {
   const queryString = query ? "?" + new URLSearchParams(query).toString() : "";
   return process.env.NEXT_PUBLIC_API_BASE_URL + uri + queryString;
 };
 
-const headers = async (): Promise<HeadersInit> => {
+export const headers = async (): Promise<HeadersInit> => {
   const user = getAuth().currentUser;
   const bearer = await user?.getIdToken();
   return {

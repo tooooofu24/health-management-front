@@ -2,11 +2,14 @@ import { Button } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { GraduationCap, Plus } from "phosphor-react";
+import { Suspense } from "react";
 import { ClassroomList } from "../../components/classroom/index/ClassroomList";
 import { AuthContent } from "../../components/common/AuthContent";
 import { Layout } from "../../components/common/Layout";
 import { PageTitle } from "../../components/common/PageTitle";
-import { Tile } from "../../components/common/Tile";
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorFallbackTile } from "../../components/common/error/ErrorFallbackTile";
+import { LoadingTile } from "../../components/common/loading/LoadingTile";
 
 const ClassroomPage: NextPage = () => {
   return (
@@ -26,7 +29,11 @@ const ClassroomPage: NextPage = () => {
             </Link>
           }
         />
-        <ClassroomList />
+        <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
+          <Suspense fallback={<LoadingTile />}>
+            <ClassroomList />
+          </Suspense>
+        </ErrorBoundary>
       </Layout>
     </AuthContent>
   );
