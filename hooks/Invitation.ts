@@ -1,20 +1,19 @@
 import { useState } from "react";
+import useSWR from "swr";
 import { Invitation } from "../types/Invitation";
 import { deleteRequest, getRequest, postRequest } from "../utils/apiClient";
+import { fetcher } from "../utils/fetcher";
 
 export const useInvitations = () => {
-  const [invitations, setInvitations] = useState<Invitation[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const getInvitations = async () => {
-    setIsLoading(true);
-    const response = await getRequest("/invitations", { accept: 0 }).finally(
-      () => {
-        setIsLoading(false);
-      }
-    );
-    setInvitations(response.results);
-  };
-  return { invitations, getInvitations, isLoading };
+  const { data, mutate: refetch } = useSWR(
+    ["/invitations", { accept: 0 }],
+    fetcher,
+    {
+      suspense: true,
+    }
+  );
+  const invitations: Invitation[] = data?.results;
+  return { invitations, refetch };
 };
 
 export const useCreateInvitation = () => {

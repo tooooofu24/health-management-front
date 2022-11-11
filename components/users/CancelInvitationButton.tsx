@@ -45,6 +45,7 @@ export const CancelInvitationButtton: FC<props> = ({ invitation }) => {
         isClosable: true,
         position: "top",
       });
+      onClose();
     } catch (e: any) {
       setError(e.message);
     }

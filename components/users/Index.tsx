@@ -1,7 +1,6 @@
 import {
   Avatar,
   Box,
-  Flex,
   IconButton,
   Table,
   TableContainer,
@@ -12,7 +11,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { Check, EnvelopeSimple, UserPlus } from "phosphor-react";
+import { EnvelopeSimple, UserPlus } from "phosphor-react";
 import { FC, useEffect, useState } from "react";
 import { useInvitations } from "../../hooks/Invitation";
 import { useUsers } from "../../hooks/User";
@@ -20,44 +19,24 @@ import { Invitation } from "../../types/Invitation";
 import { User } from "../../types/User";
 import { formatDate } from "../../utils/time";
 import { CommonError } from "../common/error/CommonError";
-import { Loading } from "../common/loading/Loading";
 import { PageTitle } from "../common/PageTitle";
 import { Tile, TilesWrapper } from "../common/Tile";
 import { CancelInvitationButtton } from "./CancelInvitationButton";
 import { DeleteUserButtton } from "./DeleteUserButton";
 
 export const UserList = () => {
-  const { users, getUsers, isLoading: isLoadingUser } = useUsers();
-  const [error, setError] = useState("");
-  const {
-    invitations,
-    getInvitations,
-    isLoading: isLoadingInvitations,
-  } = useInvitations();
+  const { users, refetch: refetchUsers } = useUsers();
+  const { invitations, refetch: refetchInvitations } = useInvitations();
   const router = useRouter();
 
   useEffect(() => {
-    (async () => {
-      try {
-        await getUsers();
-        await getInvitations();
-      } catch (e: any) {
-        setError(e.message);
-      }
-    })();
+    refetchUsers();
+    refetchInvitations();
   }, [router]);
 
-  return error ? (
-    <Tile>
-      <CommonError message="データの取得に失敗しました" error={error} />
-    </Tile>
-  ) : (
+  return (
     <TilesWrapper>
-      {isLoadingUser ? (
-        <Tile>
-          <Loading />
-        </Tile>
-      ) : !users.length ? (
+      {!users.length ? (
         <Tile>
           <CommonError message="ユーザーが存在しません" />
         </Tile>
@@ -75,7 +54,7 @@ export const UserList = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {users.map((user) => (
+                {users?.map((user) => (
                   <UserRow key={user.id} user={user} />
                 ))}
               </Tbody>
@@ -85,11 +64,7 @@ export const UserList = () => {
       )}
       <Box>
         <PageTitle iconUrl="/users" title="招待中" icon={<UserPlus />} />
-        {isLoadingInvitations ? (
-          <Tile>
-            <Loading />
-          </Tile>
-        ) : !invitations.length ? (
+        {!invitations?.length ? (
           <Tile>
             <CommonError message="招待中のユーザーはいません" />
           </Tile>
@@ -107,7 +82,7 @@ export const UserList = () => {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {invitations.map((invitation) => (
+                  {invitations?.map((invitation) => (
                     <InvitationRow
                       key={invitation.id}
                       invitation={invitation}
@@ -163,7 +138,7 @@ const InvitationRow: FC<InvitationRowProps> = ({ invitation }) => {
       </Td>
       <Td>{invitation.email}</Td>
       <Td>{invitation.createdBy.name}</Td>
-      <Td>{formatDate(invitation.createdAt)}</Td>
+      <Td>{formatDate(invitation?.createdAt)}</Td>
       <Td>
         <CancelInvitationButtton invitation={invitation} />
       </Td>

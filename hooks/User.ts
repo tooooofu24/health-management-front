@@ -1,18 +1,15 @@
 import { useState } from "react";
+import useSWR from "swr";
 import { User } from "../types/User";
 import { deleteRequest, getRequest } from "../utils/apiClient";
+import { fetcher } from "../utils/fetcher";
 
 export const useUsers = () => {
-  const [users, settUsers] = useState<User[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const getUsers = async () => {
-    setIsLoading(true);
-    const response = await getRequest("/users").finally(() => {
-      setIsLoading(false);
-    });
-    settUsers(response.results);
-  };
-  return { users, getUsers, isLoading };
+  const { data, mutate: refetch } = useSWR(["/users"], fetcher, {
+    suspense: true,
+  });
+  const users: User[] = data?.results;
+  return { users, refetch };
 };
 
 export const useDeleteUser = () => {
