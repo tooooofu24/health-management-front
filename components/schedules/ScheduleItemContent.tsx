@@ -17,11 +17,9 @@ export const ScheduleItemContent: FC<props> = ({ schedule }) => {
     <Flex height="full" position="relative">
       <Flex flexDirection="column" alignItems="center">
         {isSmallest ? (
-          <>
-            <Text fontWeight="bold" fontSize="md">
-              {schedule.course.subject.name.slice(0, 1)}
-            </Text>
-          </>
+          <Text fontWeight="bold" fontSize="xl">
+            {schedule.course.subject.name.slice(0, 1)}
+          </Text>
         ) : isSmall ? (
           <>
             <Text fontSize="xs">{schedule.course.subject.name}</Text>
