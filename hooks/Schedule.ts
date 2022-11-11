@@ -1,20 +1,17 @@
 import { useState } from "react";
+import useSWR from "swr";
 import { Day } from "../types/Day";
 import { Period } from "../types/Period";
 import { Schedule } from "../types/Schedule";
 import { deleteRequest, getRequest, postRequest } from "../utils/apiClient";
+import { fetcher } from "../utils/fetcher";
 
 export const useSchedules = () => {
-  const [schedules, setSchedules] = useState<Schedule[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const getSchedules = async () => {
-    setIsLoading(true);
-    const response = await getRequest("/schedules").finally(() => {
-      setIsLoading(false);
-    });
-    setSchedules(response.results);
-  };
-  return { schedules, getSchedules, isLoading };
+  const { data, mutate: refetch } = useSWR(["/schedules"], fetcher, {
+    suspense: true,
+  });
+  const schedules: Schedule[] = data?.results;
+  return { schedules, refetch };
 };
 
 export const useDeleteSchedule = () => {

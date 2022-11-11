@@ -19,21 +19,14 @@ import { ScheduleItem } from "./ScheduleItem";
 import { CalendarPlus } from "phosphor-react";
 
 export const Schedule = () => {
-  const { schedules, getSchedules, isLoading } = useSchedules();
-  const [error, setError] = useState("");
+  const { schedules, refetch } = useSchedules();
   const router = useRouter();
 
   useEffect(() => {
-    getSchedules().catch((e: any) => {
-      setError(e.message || "不明なエラー");
-    });
+    refetch();
   }, [router]);
 
-  return error ? (
-    <Tile>
-      <CommonError message="データの取得に失敗しました" error={error} />
-    </Tile>
-  ) : !isLoading && !schedules.length ? (
+  return !schedules.length ? (
     <Tile>
       <CommonError message="時間割が登録されていません" />
       <Flex justifyContent="center" pb={5}>

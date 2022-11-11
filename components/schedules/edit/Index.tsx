@@ -17,21 +17,14 @@ import { Tile } from "../../common/Tile";
 import { EditScheduleItem } from "./EditScheduleItem";
 
 export const ScheduleEdit = () => {
-  const { schedules, getSchedules } = useSchedules();
+  const { schedules, refetch } = useSchedules();
   const router = useRouter();
-  const [error, setError] = useState("");
 
   useEffect(() => {
-    getSchedules().catch((e: any) => {
-      setError(e?.message || "不明なエラー");
-    });
+    refetch();
   }, [router]);
 
-  return error ? (
-    <Tile>
-      <CommonError message="データの取得に失敗しました" error={error} />
-    </Tile>
-  ) : (
+  return (
     <Tile>
       <TableContainer>
         <Table variant="unstyled" size={["sm", "md"]}>

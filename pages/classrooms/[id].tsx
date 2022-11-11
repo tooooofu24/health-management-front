@@ -6,11 +6,9 @@ import { ErrorBoundary } from "react-error-boundary";
 import { DetailSkelton } from "../../components/classroom/detail/DetailSkelton";
 import { ClassroomDetail } from "../../components/classroom/detail/Index";
 import { AuthContent } from "../../components/common/AuthContent";
-import { CommonError } from "../../components/common/error/CommonError";
 import { ErrorFallbackTile } from "../../components/common/error/ErrorFallbackTile";
 import { Layout } from "../../components/common/Layout";
 import { PageTitle } from "../../components/common/PageTitle";
-import { Tile } from "../../components/common/Tile";
 import { useClassroom } from "../../hooks/Classroom";
 
 const CreatePage: NextPage = () => {

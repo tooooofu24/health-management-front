@@ -7,10 +7,7 @@ type props = {
   register?: UseFormRegisterReturn;
 } & SelectProps;
 export const SubjectField = ({ register, ...props }: props) => {
-  const { subjects, getSubjects } = useSubjects();
-  useEffect(() => {
-    getSubjects();
-  }, []);
+  const { subjects } = useSubjects();
   if (!subjects.length) {
     return <Select placeholder="読み込み中..." disabled></Select>;
   }
