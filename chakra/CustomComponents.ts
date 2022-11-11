@@ -42,19 +42,19 @@ export const CustomComponents = {
     // Table
     Table: {
       variants: {
-        simple: () => {
-          const th: object = {
+        simple: {
+          th: {
             color: "teal.500",
             textAlign: "center",
             whiteSpace: "nowrap",
             textOverflow: "ellipsis",
             maxWidth: 0,
             overflow: "hidden",
-          };
-          const td: object = {
+          },
+          td: {
             textAlign: "center",
-          };
-          return { th, td };
+            height: 12,
+          },
         },
         unstyled: {
           th: {

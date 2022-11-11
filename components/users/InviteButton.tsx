@@ -67,12 +67,7 @@ export const InviteButton = () => {
 
   return (
     <>
-      <Button
-        variant="responsive"
-        leftIcon={<UserPlus />}
-        onClick={onOpen}
-        size={isSmartPhoneScreen() ? "xs" : "sm"}
-      >
+      <Button variant="responsive" leftIcon={<UserPlus />} onClick={onOpen}>
         招待する
       </Button>
 

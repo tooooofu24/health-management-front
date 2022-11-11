@@ -34,15 +34,18 @@ export const ClassroomDetail: FC<props> = ({ classroom }) => {
           <TableContainer>
             <Table
               variant="unstyled"
-              size="sm"
+              size={["sm", "md"]}
               width="auto"
               __css={{
                 td: {
-                  fontSize: "16px",
                   textAlign: "start",
+                  py: 2,
+                  px: 4,
                 },
                 th: {
                   textAlign: "start",
+                  py: 2,
+                  px: 4,
                 },
               }}
             >

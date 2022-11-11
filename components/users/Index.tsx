@@ -15,6 +15,7 @@ import { EnvelopeSimple, UserPlus } from "phosphor-react";
 import { FC, useEffect, useState } from "react";
 import { useInvitations } from "../../hooks/Invitation";
 import { useUsers } from "../../hooks/User";
+import { isSmartPhoneScreen } from "../../styles/Responsive";
 import { Invitation } from "../../types/Invitation";
 import { User } from "../../types/User";
 import { formatDate } from "../../utils/time";
@@ -132,8 +133,8 @@ const InvitationRow: FC<InvitationRowProps> = ({ invitation }) => {
         <IconButton
           icon={<EnvelopeSimple />}
           aria-label="メール送信"
-          size="sm"
           rounded="full"
+          size={isSmartPhoneScreen() ? "xs" : "sm"}
         />
       </Td>
       <Td>{invitation.email}</Td>
