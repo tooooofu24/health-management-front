@@ -18,6 +18,7 @@ import { useRouter } from "next/router";
 import { X } from "phosphor-react";
 import { useState } from "react";
 import { useDeleteSchedule } from "../../../hooks/Schedule";
+import { isSmartPhoneScreen } from "../../../styles/Responsive";
 import { Schedule } from "../../../types/Schedule";
 
 type props = {
@@ -52,7 +53,7 @@ export const DeleteButton = ({ schedule }: props) => {
     <>
       <IconButton
         colorScheme="red"
-        size="sm"
+        size={isSmartPhoneScreen() ? "xs" : "sm"}
         icon={<X />}
         aria-label="削除"
         rounded="full"

@@ -18,7 +18,7 @@ export const EditScheduleItem: FC<props> = ({ schedule, period, day }) => {
       <AspectRatio ratio={1} color="gray.400">
         <ScheduleItemContent schedule={schedule} />
       </AspectRatio>
-      <Box position="absolute" top="0" right="0">
+      <Box position="absolute" top="5%" right="5%">
         <DeleteButton schedule={schedule} />
       </Box>
     </Box>

@@ -27,12 +27,8 @@ import { Period } from "../../../types/Period";
 import { ClassroomField } from "../../common/form/ClassroomField";
 import { SubjectField } from "../../common/form/SubjectField";
 import { useToast } from "@chakra-ui/react";
-import {
-  APIError,
-  APIErrorResponse,
-  unknownError,
-} from "../../../types/APIErrorResponse";
 import { useState } from "react";
+import { isSmartPhoneScreen } from "../../../styles/Responsive";
 
 type props = {
   period: Period;
@@ -75,7 +71,7 @@ export const PlusButton = ({ period, day }: props) => {
     <>
       <IconButton
         onClick={onOpen}
-        size="lg"
+        size={isSmartPhoneScreen() ? "sm" : "lg"}
         icon={<Plus />}
         aria-label="追加"
         rounded="full"
