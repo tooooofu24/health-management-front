@@ -53,7 +53,7 @@ export const CustomComponents = {
           },
           td: {
             textAlign: "center",
-            height: 12,
+            height: 14,
           },
         },
         unstyled: {
