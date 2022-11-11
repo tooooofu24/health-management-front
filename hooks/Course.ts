@@ -1,18 +1,18 @@
 import { useState } from "react";
+import useSWR from "swr";
 import { Course } from "../types/Course";
 import { getRequest } from "../utils/apiClient";
+import { fetcher } from "../utils/fetcher";
 
 export const useCourses = () => {
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const getCourses = async () => {
-    setIsLoading(true);
-    const response = await getRequest("/courses").finally(() => {
-      setIsLoading(false);
-    });
-    setCourses(response.results);
+  const { data, mutate: refetch } = useSWR(["/courses"], fetcher, {
+    suspense: true,
+  });
+  const courses: Course[] = data?.results;
+  return {
+    courses,
+    refetch,
   };
-  return { courses, getCourses, isLoading };
 };
 
 export const useCourse = () => {

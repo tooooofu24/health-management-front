@@ -1,9 +1,7 @@
 import { Select, SelectProps } from "@chakra-ui/react";
-import { FC, Suspense, useEffect } from "react";
-import { ErrorBoundary } from "react-error-boundary";
+import { FC, Suspense } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 import { useSubjects } from "../../../hooks/Subject";
-import { ErrorFallbackTile } from "../error/ErrorFallbackTile";
 import { LoadingField } from "../loading/LoadingField";
 
 type props = {
@@ -11,11 +9,9 @@ type props = {
 } & SelectProps;
 export const SubjectField = ({ register, ...props }: props) => {
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
-      <Suspense fallback={<LoadingField />}>
-        <Field register={register} {...props} />
-      </Suspense>
-    </ErrorBoundary>
+    <Suspense fallback={<LoadingField />}>
+      <Field register={register} {...props} />
+    </Suspense>
   );
 };
 
