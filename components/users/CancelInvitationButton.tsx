@@ -21,6 +21,7 @@ import { useRouter } from "next/router";
 import { X } from "phosphor-react";
 import { FC, useState } from "react";
 import { useDeleteInvitation } from "../../hooks/Invitation";
+import { isSmartPhoneScreen } from "../../styles/Responsive";
 import { Invitation } from "../../types/Invitation";
 
 type props = {
@@ -58,7 +59,7 @@ export const CancelInvitationButtton: FC<props> = ({ invitation }) => {
         icon={<X />}
         aria-label="削除"
         rounded="full"
-        size="sm"
+        size={isSmartPhoneScreen() ? "xs" : "sm"}
         onClick={onOpen}
       />
 

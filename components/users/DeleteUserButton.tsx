@@ -21,6 +21,7 @@ import { useRouter } from "next/router";
 import { X } from "phosphor-react";
 import { FC, useState } from "react";
 import { useDeleteUser } from "../../hooks/User";
+import { isSmartPhoneScreen } from "../../styles/Responsive";
 import { User } from "../../types/User";
 
 type props = {
@@ -58,7 +59,7 @@ export const DeleteUserButtton: FC<props> = ({ user }) => {
         icon={<X />}
         aria-label="削除"
         rounded="full"
-        size="sm"
+        size={isSmartPhoneScreen() ? "xs" : "sm"}
         onClick={onOpen}
       />
 

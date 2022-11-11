@@ -24,6 +24,7 @@ import { EnvelopeSimple, UserPlus } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useCreateInvitation } from "../../hooks/Invitation";
+import { isSmartPhoneScreen } from "../../styles/Responsive";
 
 export const InviteButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -66,7 +67,12 @@ export const InviteButton = () => {
 
   return (
     <>
-      <Button variant="responsive" leftIcon={<UserPlus />} onClick={onOpen}>
+      <Button
+        variant="responsive"
+        leftIcon={<UserPlus />}
+        onClick={onOpen}
+        size={isSmartPhoneScreen() ? "xs" : "sm"}
+      >
         招待する
       </Button>
 

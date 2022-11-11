@@ -1,4 +1,4 @@
-import { AspectRatio } from "@chakra-ui/react";
+import { AspectRatio, Box } from "@chakra-ui/react";
 import { FC } from "react";
 import { Schedule } from "../../types/Schedule";
 import { Tooltip } from "@chakra-ui/react";
@@ -14,22 +14,24 @@ export const ScheduleItem: FC<props> = ({ schedule }) => {
   if (schedule) {
     return (
       <Tooltip label="出欠を登録する" placement="top" hasArrow>
-        <AspectRatio
-          ratio={1}
-          cursor="pointer"
-          _hover={{ bg: "gray.50" }}
-          rounded="lg"
-          color="teal.500"
-          onClick={() =>
-            Router.push(
-              `/attendances/create?courseId=${schedule.course.id}&period=${
-                schedule.period
-              }&date=${calculateDate(schedule)}`
-            )
-          }
-        >
-          <ScheduleItemContent schedule={schedule} />
-        </AspectRatio>
+        <Box p={2}>
+          <AspectRatio
+            ratio={1}
+            cursor="pointer"
+            _hover={{ bg: "gray.50" }}
+            rounded="lg"
+            color="teal.500"
+            onClick={() =>
+              Router.push(
+                `/attendances/create?courseId=${schedule.course.id}&period=${
+                  schedule.period
+                }&date=${calculateDate(schedule)}`
+              )
+            }
+          >
+            <ScheduleItemContent schedule={schedule} />
+          </AspectRatio>
+        </Box>
       </Tooltip>
     );
   } else {

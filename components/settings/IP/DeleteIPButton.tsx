@@ -22,6 +22,7 @@ import { useRouter } from "next/router";
 import { Tag, WifiHigh, X } from "phosphor-react";
 import { FC, useState } from "react";
 import { useDeleteIPAddress } from "../../../hooks/IPAddress";
+import { isSmartPhoneScreen } from "../../../styles/Responsive";
 import { IPAddress } from "../../../types/IPAddress";
 
 type props = {
@@ -60,7 +61,7 @@ export const DeleteIPButtton: FC<props> = ({ IPAddress }) => {
         icon={<X />}
         aria-label="削除"
         rounded="full"
-        size="sm"
+        size={isSmartPhoneScreen() ? "xs" : "sm"}
         onClick={onOpen}
       />
 
