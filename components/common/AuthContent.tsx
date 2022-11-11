@@ -10,7 +10,6 @@ type props = {
 export const AuthContent: FC<props> = ({ children }) => {
   const { user, isLoading } = useCurrentUser();
   const router = useRouter();
-  const toast = useToast();
 
   useEffect(() => {
     if (isLoading) return;

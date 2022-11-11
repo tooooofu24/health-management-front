@@ -6,24 +6,25 @@ import { getRequest, postRequest } from "../utils/apiClient";
 import { fetcher } from "../utils/fetcher";
 
 export const useClassrooms = () => {
-  const { data } = useSWR(["/classrooms"], fetcher, { suspense: true });
+  const { data, mutate: refetch } = useSWR(["/classrooms"], fetcher, {
+    suspense: true,
+  });
   const classrooms: Classroom[] = data?.results;
   return {
     classrooms,
+    refetch,
   };
 };
 
-export const useClassroom = () => {
-  const [classroom, setClassroom] = useState<Classroom | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const getClassroom = async (id: number | string) => {
-    setIsLoading(true);
-    const response = await getRequest("/classrooms/" + id).finally(() => {
-      setIsLoading(false);
-    });
-    setClassroom(response.result);
+export const useClassroom = (id: number | string) => {
+  const { data, mutate: refetch } = useSWR([`/classrooms/${id}`], fetcher, {
+    suspense: true,
+  });
+  const classroom: Classroom = data?.result;
+  return {
+    classroom,
+    refetch,
   };
-  return { classroom, getClassroom, isLoading };
 };
 
 export const useCreateClassroom = () => {

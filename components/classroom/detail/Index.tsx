@@ -16,7 +16,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { Classroom } from "../../../types/Classroom";
 import { formatDate } from "../../../utils/time";
 import { CommonError } from "../../common/error/CommonError";
@@ -56,8 +56,8 @@ export const ClassroomDetail: FC<props> = ({ classroom }) => {
               </Thead>
               <Tbody>
                 <Tr>
-                  <Td>{classroom?.teacher}</Td>
-                  <Td>{classroom?.studentsCount}人</Td>
+                  <Td>{classroom.teacher}</Td>
+                  <Td>{classroom.studentsCount}人</Td>
                   <Td>
                     <Flex gap="10px">
                       {!classroom.courses?.length && <>なし</>}
@@ -66,7 +66,7 @@ export const ClassroomDetail: FC<props> = ({ classroom }) => {
                       ))}
                     </Flex>
                   </Td>
-                  <Td>{formatDate(classroom?.lastLessonDate) || "なし"}</Td>
+                  <Td>{formatDate(classroom.lastLessonDate) || "なし"}</Td>
                 </Tr>
               </Tbody>
             </Table>
