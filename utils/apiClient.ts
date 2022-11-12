@@ -23,7 +23,7 @@ export const getRequest = async (uri: string, query?: {}) => {
   });
   const json = await res.json();
   if (json.error) {
-    throw new APIError(json, json.message);
+    throw new APIError(json, json.displayMessage);
   }
   return json;
 };
@@ -37,7 +37,7 @@ export const postRequest = async (uri: string, body: {}, query?: {}) => {
   });
   const json = await res.json();
   if (json.error) {
-    throw new APIError(json, json.message);
+    throw new APIError(json, json.displayMessage);
   }
   return json;
 };
@@ -50,6 +50,6 @@ export const deleteRequest = async (uri: string, query?: {}) => {
   });
   const json = await res.json();
   if (json?.error) {
-    throw new APIError(json, json.message);
+    throw new APIError(json, json.displayMessage);
   }
 };

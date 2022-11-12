@@ -2,7 +2,7 @@ import { useState } from "react";
 import useSWR from "swr";
 import { CreateClassroomForm } from "../components/classroom/create/Index";
 import { Classroom } from "../types/Classroom";
-import { getRequest, postRequest } from "../utils/apiClient";
+import { postRequest } from "../utils/apiClient";
 import { fetcher } from "../utils/fetcher";
 
 export const useClassrooms = () => {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useSWR from "swr";
 import { Invitation } from "../types/Invitation";
-import { deleteRequest, getRequest, postRequest } from "../utils/apiClient";
+import { deleteRequest, postRequest } from "../utils/apiClient";
 import { fetcher } from "../utils/fetcher";
 
 export const useInvitations = () => {

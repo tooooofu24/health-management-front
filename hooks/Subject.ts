@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { Subject } from "../types/Subject";
-import { getRequest } from "../utils/apiClient";
 import { fetcher } from "../utils/fetcher";
 
 export const useSubjects = () => {

@@ -3,7 +3,7 @@ import useSWR from "swr";
 import { Day } from "../types/Day";
 import { Period } from "../types/Period";
 import { Schedule } from "../types/Schedule";
-import { deleteRequest, getRequest, postRequest } from "../utils/apiClient";
+import { deleteRequest, postRequest } from "../utils/apiClient";
 import { fetcher } from "../utils/fetcher";
 
 export const useSchedules = () => {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { IPAddress } from "../types/IPAddress";
-import { deleteRequest, getRequest, postRequest } from "../utils/apiClient";
+import { deleteRequest, postRequest } from "../utils/apiClient";
 import { fetcher } from "../utils/fetcher";
 
 export const useIPAddresses = () => {

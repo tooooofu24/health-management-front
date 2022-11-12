@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useSWR from "swr";
 import { User } from "../types/User";
-import { deleteRequest, getRequest } from "../utils/apiClient";
+import { deleteRequest } from "../utils/apiClient";
 import { fetcher } from "../utils/fetcher";
 
 export const useUsers = () => {

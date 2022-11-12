@@ -1,7 +1,5 @@
-import { useState } from "react";
 import useSWR from "swr";
 import { Course } from "../types/Course";
-import { getRequest } from "../utils/apiClient";
 import { fetcher } from "../utils/fetcher";
 
 export const useCourses = () => {
@@ -15,15 +13,13 @@ export const useCourses = () => {
   };
 };
 
-export const useCourse = () => {
-  const [course, setCourse] = useState<Course | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const getCourse = async (id: number | string) => {
-    setIsLoading(true);
-    const response = await getRequest("/courses/" + id).finally(() => {
-      setIsLoading(false);
-    });
-    setCourse(response.result);
+export const useCourse = (id: string | number) => {
+  const { data, mutate: refetch } = useSWR([`/courses/${id}`], fetcher, {
+    suspense: true,
+  });
+  const course: Course = data?.result;
+  return {
+    course,
+    refetch,
   };
-  return { course, getCourse, isLoading };
 };

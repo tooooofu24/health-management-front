@@ -10,7 +10,7 @@ export const fetcher = async (uri: string, query?: {}) => {
 
   if (!res.ok) {
     const json = await res.json();
-    throw new APIError(json, json.message);
+    throw new APIError(json, json.displayMessage);
   }
 
   return res.json();
