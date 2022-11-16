@@ -46,10 +46,6 @@ export const CustomComponents = {
           th: {
             color: "teal.500",
             textAlign: "center",
-            whiteSpace: "nowrap",
-            textOverflow: "ellipsis",
-            maxWidth: 0,
-            overflow: "hidden",
           },
           td: {
             textAlign: "center",
