@@ -27,7 +27,7 @@ import { Invitation } from "../../types/Invitation";
 type props = {
   invitation: Invitation;
 };
-export const CancelInvitationButtton: FC<props> = ({ invitation }) => {
+export const CancelInvitationButton: FC<props> = ({ invitation }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [error, setError] = useState("");
   const { deleteInvitation } = useDeleteInvitation();

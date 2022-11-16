@@ -22,8 +22,8 @@ import { formatDate } from "../../utils/time";
 import { CommonError } from "../common/error/CommonError";
 import { PageTitle } from "../common/PageTitle";
 import { Tile, TilesWrapper } from "../common/Tile";
-import { CancelInvitationButtton } from "./CancelInvitationButton";
-import { DeleteUserButtton } from "./DeleteUserButton";
+import { CancelInvitationButton } from "./CancelInvitationButton";
+import { DeleteUserButton } from "./DeleteUserButton";
 
 export const UserList = () => {
   const { users, refetch: refetchUsers } = useUsers();
@@ -117,7 +117,7 @@ const UserRow: FC<UserRowProps> = ({ user }) => {
       <Td>{user.email}</Td>
       <Td>{formatDate(user.lastAuthenticatedAt)}</Td>
       <Td>
-        <DeleteUserButtton user={user} />
+        <DeleteUserButton user={user} />
       </Td>
     </Tr>
   );
@@ -141,7 +141,7 @@ const InvitationRow: FC<InvitationRowProps> = ({ invitation }) => {
       <Td>{invitation.createdBy.name}</Td>
       <Td>{formatDate(invitation?.createdAt)}</Td>
       <Td>
-        <CancelInvitationButtton invitation={invitation} />
+        <CancelInvitationButton invitation={invitation} />
       </Td>
     </Tr>
   );

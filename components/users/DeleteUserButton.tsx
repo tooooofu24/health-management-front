@@ -27,7 +27,7 @@ import { User } from "../../types/User";
 type props = {
   user: User;
 };
-export const DeleteUserButtton: FC<props> = ({ user }) => {
+export const DeleteUserButton: FC<props> = ({ user }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { deleteUser, isLoading } = useDeleteUser();
   const [error, setError] = useState("");
