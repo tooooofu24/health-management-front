@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  name         String
+  email        String
+  type         String
+  HealthChecks HealthCheck[]
+}
+
+model Student {
+  id          Int       @id @default(autoincrement())
+  name        String
+  number      Int
+  classroomId Int
+  clubId      Int
+  classroom   Classroom @relation(fields: [classroomId], references: [id])
+  club        Club      @relation(fields: [clubId], references: [id])
+}
+
+model Classroom {
+  id       Int       @id @default(autoincrement())
+  grade    Int
+  name     String
+  Students Student[]
+}
+
+model Club {
+  id       Int       @id @default(autoincrement())
+  name     String
+  Students Student[]
+}
+
+model HealthCheck {
+  id            Int      @id @default(autoincrement())
+  studentId     Int
+  date          DateTime
+  wakeUpTime    DateTime
+  bedTime       DateTime
+  nightTemp     Float
+  morningTemp   Float
+  cough         Boolean // 咳
+  stuffiness    Boolean // 息苦しさ
+  languor       Boolean // だるさ
+  lessAppetite  Boolean // 食欲の減退
+  goHospital    Boolean // 通院
+  comment       String   @default("")
+  checkedUserId Int?
+  checkedUser   User?    @relation(fields: [checkedUserId], references: [id])
+}
