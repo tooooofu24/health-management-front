@@ -8,6 +8,6 @@ export const CustomTheme = extendTheme(
   CustomStyle,
   BreakPoints,
   withDefaultColorScheme({
-    colorScheme: "teal",
+    colorScheme: "telegram",
   })
 );

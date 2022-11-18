@@ -1,8 +1,8 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import Link from "next/link";
-import { DrawerButton } from "../navbar/DrawerButton";
-import { Icon } from "./Icon";
+import { DrawerButton } from "./DrawerButton";
+import { Icon } from "../Icon";
 
 export const NavBar = () => {
   return (

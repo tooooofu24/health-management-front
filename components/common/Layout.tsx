@@ -1,8 +1,8 @@
 import { Box } from "@chakra-ui/react";
 import { FC, ReactNode } from "react";
 import { isSmartPhoneScreen } from "../../styles/Responsive";
-import { NavBar } from "./NavBar";
-import { SideBar } from "./SideBar";
+import { NavBar } from "./Navbar/NavBar";
+import { SideBar } from "./Navbar/SideBar";
 
 export const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   if (isSmartPhoneScreen()) {

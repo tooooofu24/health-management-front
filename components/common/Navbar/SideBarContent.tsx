@@ -9,8 +9,8 @@ import {
   Users,
 } from "phosphor-react";
 import { FC, ReactNode } from "react";
-import { Icon } from "./Icon";
-import { LogoutModal } from "./LogoutModal";
+import { Icon } from "../Icon";
+import { LogoutModal } from "../LogoutModal";
 
 export const SidebarContent = () => {
   const router = useRouter();

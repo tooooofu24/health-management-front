@@ -12,7 +12,7 @@ import {
 import Router, { useRouter } from "next/router";
 import { House, List, UserPlus } from "phosphor-react";
 import React, { FC, ReactNode, useEffect } from "react";
-import { SidebarContent } from "../common/SideBarContent";
+import { SidebarContent } from "./SideBarContent";
 
 export const DrawerButton = () => {
   const router = useRouter();
