@@ -1,17 +1,11 @@
-import { Box, BoxProps, Flex, FlexProps } from "@chakra-ui/react";
+import { Card, CardBody, CardProps, Flex, FlexProps } from "@chakra-ui/react";
 import { FC } from "react";
 
-export const Tile: FC<BoxProps> = (props) => {
+export const Tile: FC<CardProps> = (props) => {
   return (
-    <Box
-      p={["12px", "16px"]}
-      bg="white"
-      borderRadius="10px"
-      boxShadow="base"
-      {...props}
-    >
-      <Box overflow="scroll">{props.children}</Box>
-    </Box>
+    <Card {...props} bg="white">
+      <CardBody>{props.children}</CardBody>
+    </Card>
   );
 };
 

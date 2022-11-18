@@ -7,18 +7,21 @@ import { PageTitle } from "../../components/common/PageTitle";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallbackTile } from "../../components/common/error/ErrorFallbackTile";
 import { LoadingTile } from "../../components/common/loading/LoadingTile";
+import { ClassroomPage } from "../../components/classroom/index/Index";
 
 const Page: NextPage = () => {
   return (
     <AuthContent>
       <Layout>
         <PageTitle
-          title="部活動一覧"
+          title="クラス一覧"
           icon={<GraduationCap />}
           iconUrl="/clubs"
         />
         <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
-          <Suspense fallback={<LoadingTile />}>{/* <Text /> */}</Suspense>
+          <Suspense fallback={<LoadingTile />}>
+            <ClassroomPage />
+          </Suspense>
         </ErrorBoundary>
       </Layout>
     </AuthContent>
