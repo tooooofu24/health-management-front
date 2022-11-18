@@ -2,14 +2,18 @@ import { Box, BoxProps, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {
+  Baseball,
   CalendarCheck,
+  FaceMask,
   Gear,
   GraduationCap,
+  House,
   SignOut,
   Users,
 } from "phosphor-react";
 import { FC, ReactNode } from "react";
 import { Icon } from "../Icon";
+import { Logo } from "../Logo";
 import { LogoutModal } from "../LogoutModal";
 
 export const SidebarContent = () => {
@@ -22,12 +26,7 @@ export const SidebarContent = () => {
       <Box mb="20px">
         <Link href="/">
           <a>
-            <Flex alignItems="center" px="16px" gap="15px" height="75px">
-              <Icon width={30} height={30} />
-              <Text fontWeight="bold" fontSize="20px" color="teal.500">
-                出席くん
-              </Text>
-            </Flex>
+            <Logo />
           </a>
         </Link>
       </Box>
@@ -35,8 +34,8 @@ export const SidebarContent = () => {
       <Link href="/">
         <a>
           <Item
-            icon={<CalendarCheck />}
-            title="時間割"
+            icon={<House />}
+            title="ホーム"
             isActive={router.pathname == "/"}
           />
         </a>
@@ -50,21 +49,21 @@ export const SidebarContent = () => {
           />
         </a>
       </Link>
+      <Link href="/clubs">
+        <a>
+          <Item
+            icon={<Baseball />}
+            title="部活一覧"
+            isActive={router.pathname == "/clubs"}
+          />
+        </a>
+      </Link>
       <Link href="/users">
         <a>
           <Item
             icon={<Users />}
-            title="ユーザー一覧"
+            title="教員一覧"
             isActive={router.pathname == "/users"}
-          />
-        </a>
-      </Link>
-      <Link href="/settings">
-        <a>
-          <Item
-            icon={<Gear />}
-            title="設定"
-            isActive={router.pathname == "/settings"}
           />
         </a>
       </Link>
@@ -92,11 +91,11 @@ const Item: FC<props> = ({ isActive, icon, title, ...props }) => {
       width="full"
       p="16px"
       bg="white"
-      textColor="teal.500"
+      textColor="telegram.500"
       fontWeight="bold"
       cursor="pointer"
-      _hover={{ bg: "teal.500", textColor: "white" }}
-      {...(isActive && { bg: "teal.500", textColor: "white" })}
+      _hover={{ bg: "telegram.500", textColor: "white" }}
+      {...(isActive && { bg: "telegram.500", textColor: "white" })}
       {...props}
       __css={{
         svg: {

@@ -44,7 +44,7 @@ export const CustomComponents = {
       variants: {
         simple: {
           th: {
-            color: "teal.500",
+            color: "telegram.500",
             textAlign: "center",
           },
           td: {

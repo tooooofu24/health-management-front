@@ -12,6 +12,7 @@ import { GoogleLogo } from "phosphor-react";
 import { useState } from "react";
 import { login } from "../../utils/auth";
 import { Icon } from "../common/Icon";
+import { Logo } from "../common/Logo";
 import { Tile } from "../common/Tile";
 
 export const Login = () => {
@@ -42,18 +43,7 @@ export const Login = () => {
 
   return (
     <Tile maxW="85vw" width="350px">
-      <Flex
-        alignItems="center"
-        justifyContent="center"
-        px="16px"
-        gap="15px"
-        py="50px"
-      >
-        <Icon width={30} height={30} />
-        <Text fontWeight="bold" fontSize="20px" color="teal.500">
-          出席くん
-        </Text>
-      </Flex>
+      <Logo />
       <Button
         isLoading={isLoading}
         leftIcon={<GoogleLogo />}

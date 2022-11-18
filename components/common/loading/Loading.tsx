@@ -10,7 +10,7 @@ export const Loading: FC<FlexProps> = (props) => {
       justifyContent="center"
       {...props}
     >
-      <Spinner size="lg" color="teal.500" />
+      <Spinner size="lg" color="telegram.500" />
     </Flex>
   );
 };

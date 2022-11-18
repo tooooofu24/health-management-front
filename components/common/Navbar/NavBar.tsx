@@ -19,8 +19,8 @@ export const NavBar = () => {
           <a>
             <Flex alignItems="center" gap="15px">
               <Icon width={30} height={30} />
-              <Text fontWeight="bold" color="teal.500">
-                出席くん
+              <Text fontWeight="bold" color="telegram.500">
+                原中学校
               </Text>
             </Flex>
           </a>

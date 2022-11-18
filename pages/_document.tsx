@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html>
       <Head>
-        <title>出席くん</title>
+        <title>原中学校</title>
       </Head>
       <body>
         <Main />

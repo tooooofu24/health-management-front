@@ -58,11 +58,11 @@ const Item: FC<props> = ({ children, onClose, href, icon }) => {
       px="20px"
       py="20px"
       bg="white"
-      textColor="teal.500"
+      textColor="telegram.500"
       fontWeight="bold"
       cursor="pointer"
-      _hover={{ bg: "teal.500", textColor: "white" }}
-      {...(isActive && { bg: "teal.500", textColor: "white" })}
+      _hover={{ bg: "telegram.500", textColor: "white" }}
+      {...(isActive && { bg: "telegram.500", textColor: "white" })}
       onClick={onClick}
     >
       <Flex alignItems="center" gap="20px">

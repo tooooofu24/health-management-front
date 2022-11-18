@@ -15,7 +15,7 @@ export const PageTitle: FC<props> = memo(
       return (
         <Flex
           fontWeight="bold"
-          textColor="teal.500"
+          textColor="telegram.500"
           marginBottom="10px"
           alignItems="center"
           gap="15px"
@@ -41,7 +41,7 @@ export const PageTitle: FC<props> = memo(
       return (
         <Flex
           fontWeight="bold"
-          textColor="teal.500"
+          textColor="telegram.500"
           marginBottom="10px"
           alignItems="center"
           gap="10px"
