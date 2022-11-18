@@ -7,12 +7,12 @@ export const useCurrentUser = () => {
   const [isLoading, setIsLoading] = useState(true);
   const auth = getAuth(app);
   useEffect(() => {
-    const unlisten = onAuthStateChanged(auth, (user) => {
+    const unListen = onAuthStateChanged(auth, (user) => {
       setUser(user);
       setIsLoading(false);
     });
     return () => {
-      unlisten();
+      unListen();
     };
   }, []);
   return { user, isLoading };

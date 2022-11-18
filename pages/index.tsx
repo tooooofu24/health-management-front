@@ -2,7 +2,6 @@ import { Button } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { CalendarCheck } from "phosphor-react";
 import { PageTitle } from "../components/common/PageTitle";
-import { Schedule } from "../components/schedules/Index";
 import Router from "next/router";
 import { Pencil } from "phosphor-react";
 import { Layout } from "../components/common/Layout";
@@ -31,9 +30,7 @@ const TopPage: NextPage = () => {
           }
         />
         <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
-          <Suspense fallback={<LoadingTile />}>
-            <Schedule />
-          </Suspense>
+          <Suspense fallback={<LoadingTile />}></Suspense>
         </ErrorBoundary>
       </Layout>
     </AuthContent>

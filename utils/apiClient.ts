@@ -1,5 +1,4 @@
 import { getAuth } from "firebase/auth";
-import { APIError } from "../types/APIErrorResponse";
 
 export const createURL = (uri: string, query?: {}) => {
   const queryString = query ? "?" + new URLSearchParams(query).toString() : "";
@@ -15,41 +14,41 @@ export const headers = async (): Promise<HeadersInit> => {
   };
 };
 
-export const getRequest = async (uri: string, query?: {}) => {
-  const url = createURL(uri, query);
-  const res = await fetch(url, {
-    method: "GET",
-    headers: await headers(),
-  });
-  const json = await res.json();
-  if (json.error) {
-    throw new APIError(json, json.displayMessage);
-  }
-  return json;
-};
+// export const getRequest = async (uri: string, query?: {}) => {
+//   const url = createURL(uri, query);
+//   const res = await fetch(url, {
+//     method: "GET",
+//     headers: await headers(),
+//   });
+//   const json = await res.json();
+//   if (json.error) {
+//     throw new APIError(json, json.displayMessage);
+//   }
+//   return json;
+// };
 
-export const postRequest = async (uri: string, body: {}, query?: {}) => {
-  const url = createURL(uri, query);
-  const res = await fetch(url, {
-    method: "POST",
-    body: JSON.stringify(body),
-    headers: await headers(),
-  });
-  const json = await res.json();
-  if (json.error) {
-    throw new APIError(json, json.displayMessage);
-  }
-  return json;
-};
+// export const postRequest = async (uri: string, body: {}, query?: {}) => {
+//   const url = createURL(uri, query);
+//   const res = await fetch(url, {
+//     method: "POST",
+//     body: JSON.stringify(body),
+//     headers: await headers(),
+//   });
+//   const json = await res.json();
+//   if (json.error) {
+//     throw new APIError(json, json.displayMessage);
+//   }
+//   return json;
+// };
 
-export const deleteRequest = async (uri: string, query?: {}) => {
-  const url = createURL(uri, query);
-  const res = await fetch(url, {
-    method: "DELETE",
-    headers: await headers(),
-  });
-  const json = await res.json();
-  if (json?.error) {
-    throw new APIError(json, json.displayMessage);
-  }
-};
+// export const deleteRequest = async (uri: string, query?: {}) => {
+//   const url = createURL(uri, query);
+//   const res = await fetch(url, {
+//     method: "DELETE",
+//     headers: await headers(),
+//   });
+//   const json = await res.json();
+//   if (json?.error) {
+//     throw new APIError(json, json.displayMessage);
+//   }
+// };

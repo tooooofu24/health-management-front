@@ -10,7 +10,6 @@ import {
 import Router, { useRouter } from "next/router";
 import { GoogleLogo } from "phosphor-react";
 import { useState } from "react";
-import { useCheckUser } from "../../hooks/Auth";
 import { login } from "../../utils/auth";
 import { Icon } from "../common/Icon";
 import { Tile } from "../common/Tile";
