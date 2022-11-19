@@ -43,7 +43,9 @@ export const Login = () => {
 
   return (
     <Tile maxW="85vw" width="350px">
-      <Logo />
+      <Flex justifyContent="center">
+        <Logo mb={3} />
+      </Flex>
       <Button
         isLoading={isLoading}
         leftIcon={<GoogleLogo />}
