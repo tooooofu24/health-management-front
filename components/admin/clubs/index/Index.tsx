@@ -1,4 +1,4 @@
-import { Tile } from "../../common/Tile";
+import { Tile } from "../../../common/Tile";
 import {
   Table,
   Thead,
@@ -11,28 +11,28 @@ import {
   Tag,
 } from "@chakra-ui/react";
 import { CaretRight } from "phosphor-react";
-import { Classroom } from "@prisma/client";
+import { Classroom, Club } from "@prisma/client";
 import { useRouter } from "next/router";
-import { useClassrooms } from "../../../hooks/Classroom";
+import { useClubs } from "../../../../hooks/Clubs";
 
-export const ClassroomPage = () => {
-  const { classrooms } = useClassrooms();
+export const ClubPage = () => {
+  const { clubs } = useClubs();
   return (
     <Tile>
       <TableContainer>
         <Table variant="simple">
           <Thead>
             <Tr>
-              <Th>クラス</Th>
-              <Th>担任</Th>
+              <Th>部活名</Th>
+              <Th>顧問</Th>
               <Th>人数</Th>
               <Th>未読</Th>
               <Th></Th>
             </Tr>
           </Thead>
           <Tbody>
-            {classrooms.map((classroom) => (
-              <Row key={classroom.id} classroom={classroom} />
+            {clubs.map((club) => (
+              <Row key={club.id} club={club} />
             ))}
           </Tbody>
         </Table>
@@ -40,17 +40,15 @@ export const ClassroomPage = () => {
     </Tile>
   );
 };
-const Row = ({ classroom }: { classroom: Classroom }) => {
+const Row = ({ club }: { club: Club }) => {
   const router = useRouter();
   return (
     <Tr
       _hover={{ bg: "gray.50" }}
       cursor="pointer"
-      onClick={() => router.push("/classrooms/" + classroom.id)}
+      onClick={() => router.push("/clubs/" + club.id)}
     >
-      <Td>
-        {classroom.grade}年{classroom.name}組
-      </Td>
+      <Td>{club.name}</Td>
       <Td>千葉陶也</Td>
       <Td>{36}人</Td>
       <Td>

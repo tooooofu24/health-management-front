@@ -7,7 +7,7 @@ import { PageTitle } from "../../../components/common/PageTitle";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallbackTile } from "../../../components/common/error/ErrorFallbackTile";
 import { LoadingTile } from "../../../components/common/loading/LoadingTile";
-import { ClubPage } from "../../../components/clubs/index/Index";
+import { ClubPage } from "../../../components/admin/clubs/index/Index";
 
 const Page: NextPage = () => {
   return (

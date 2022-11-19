@@ -19,9 +19,9 @@ import {
   PaperPlaneTilt,
 } from "phosphor-react";
 import { useForm } from "react-hook-form";
-import { BooleanField } from "../common/form/BooleanField";
-import { TempField } from "../common/form/TempField";
-import { Tile } from "../common/Tile";
+import { BooleanField } from "../../common/form/BooleanField";
+import { TempField } from "../../common/form/TempField";
+import { Tile } from "../../common/Tile";
 
 export const RegisterPage = () => {
   const {
