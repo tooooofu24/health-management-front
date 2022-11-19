@@ -12,7 +12,8 @@ import {
 import Router, { useRouter } from "next/router";
 import { House, List, UserPlus } from "phosphor-react";
 import React, { FC, ReactNode, useEffect } from "react";
-import { SidebarContent } from "./SideBarContent";
+import { SidebarContentStudent } from "./SideBarContentStudent";
+import { SidebarContent } from "./SideBarContentTeacher";
 
 export const DrawerButton = () => {
   const router = useRouter();
@@ -32,7 +33,8 @@ export const DrawerButton = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerBody p={0}>
-            <SidebarContent />
+            <SidebarContentStudent />
+            {/* <SidebarContent /> */}
           </DrawerBody>
         </DrawerContent>
       </Drawer>

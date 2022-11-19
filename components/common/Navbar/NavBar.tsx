@@ -2,7 +2,6 @@ import { Box, Flex } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import Link from "next/link";
 import { DrawerButton } from "./DrawerButton";
-import { Icon } from "../Icon";
 
 export const NavBar = () => {
   return (
@@ -18,7 +17,6 @@ export const NavBar = () => {
         <Link href="/">
           <a>
             <Flex alignItems="center" gap="15px">
-              <Icon width={30} height={30} />
               <Text fontWeight="bold" color="telegram.500">
                 原中学校
               </Text>

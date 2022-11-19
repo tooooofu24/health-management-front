@@ -4,14 +4,12 @@ import {
   AlertIcon,
   Button,
   Flex,
-  Text,
   useToast,
 } from "@chakra-ui/react";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { GoogleLogo } from "phosphor-react";
 import { useState } from "react";
 import { login } from "../../utils/auth";
-import { Icon } from "../common/Icon";
 import { Logo } from "../common/Logo";
 import { Tile } from "../common/Tile";
 

@@ -1,18 +1,8 @@
 import { Box, BoxProps, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import {
-  Baseball,
-  CalendarCheck,
-  FaceMask,
-  Gear,
-  GraduationCap,
-  House,
-  SignOut,
-  Users,
-} from "phosphor-react";
+import { Baseball, GraduationCap, House, SignOut } from "phosphor-react";
 import { FC, ReactNode } from "react";
-import { Icon } from "../Icon";
 import { Logo } from "../Logo";
 import { LogoutModal } from "../LogoutModal";
 
@@ -33,7 +23,7 @@ export const SidebarContent = () => {
       {/* ロゴ部分終了 */}
       <Link href="/">
         <a>
-          <Item
+          <SidebarItem
             icon={<House />}
             title="ホーム"
             isActive={router.pathname == "/"}
@@ -42,7 +32,7 @@ export const SidebarContent = () => {
       </Link>
       <Link href="/classrooms">
         <a>
-          <Item
+          <SidebarItem
             icon={<GraduationCap />}
             title="クラス一覧"
             isActive={router.pathname == "/classrooms"}
@@ -51,24 +41,15 @@ export const SidebarContent = () => {
       </Link>
       <Link href="/clubs">
         <a>
-          <Item
+          <SidebarItem
             icon={<Baseball />}
             title="部活一覧"
             isActive={router.pathname == "/clubs"}
           />
         </a>
       </Link>
-      <Link href="/users">
-        <a>
-          <Item
-            icon={<Users />}
-            title="教員一覧"
-            isActive={router.pathname == "/users"}
-          />
-        </a>
-      </Link>
       <Box mt="auto">
-        <Item
+        <SidebarItem
           icon={<SignOut />}
           isActive={isOpen}
           title="ログアウト"
@@ -85,7 +66,7 @@ type props = {
   title: string;
   isActive: boolean;
 } & BoxProps;
-const Item: FC<props> = ({ isActive, icon, title, ...props }) => {
+export const SidebarItem: FC<props> = ({ isActive, icon, title, ...props }) => {
   return (
     <Box
       width="full"

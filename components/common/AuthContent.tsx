@@ -1,13 +1,13 @@
 import { useRouter } from "next/router";
 import { FC, ReactNode, useEffect, useState } from "react";
-import { useCurrentUser } from "../../hooks/CurrentUser";
+import { useFirebaseUser } from "../../hooks/CurrentUser";
 import { logout } from "../../utils/auth";
 
 type props = {
   children: ReactNode;
 };
 export const AuthContent: FC<props> = ({ children }) => {
-  const { user, isLoading } = useCurrentUser();
+  const { user, isLoading } = useFirebaseUser();
   const router = useRouter();
 
   useEffect(() => {
