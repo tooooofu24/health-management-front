@@ -6,7 +6,7 @@ import { FC, ReactNode } from "react";
 import { Logo } from "../Logo";
 import { LogoutModal } from "../LogoutModal";
 
-export const SidebarContent = () => {
+export const SidebarContentTeacher = () => {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
 

@@ -13,7 +13,7 @@ import Router, { useRouter } from "next/router";
 import { House, List, UserPlus } from "phosphor-react";
 import React, { FC, ReactNode, useEffect } from "react";
 import { SidebarContentStudent } from "./SideBarContentStudent";
-import { SidebarContent } from "./SideBarContentTeacher";
+import { SidebarContentTeacher } from "./SideBarContentTeacher";
 
 export const DrawerButton = () => {
   const router = useRouter();

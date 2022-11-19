@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
 import { SidebarContentStudent } from "./SideBarContentStudent";
-import { SidebarContent } from "./SideBarContentTeacher";
+import { SidebarContentTeacher } from "./SideBarContentTeacher";
 
 export const SideBar = () => {
   return (
