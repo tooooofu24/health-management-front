@@ -3,8 +3,9 @@ CREATE TABLE `User` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
-    `type` VARCHAR(191) NOT NULL,
+    `role` ENUM('Teacher', 'Student') NOT NULL,
 
+    UNIQUE INDEX `User_email_key`(`email`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -13,8 +14,17 @@ CREATE TABLE `Student` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `number` INTEGER NOT NULL,
+    `userId` INTEGER NOT NULL,
     `classroomId` INTEGER NOT NULL,
     `clubId` INTEGER NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Teacher` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `userId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -39,7 +49,6 @@ CREATE TABLE `Club` (
 -- CreateTable
 CREATE TABLE `HealthCheck` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `studentId` INTEGER NOT NULL,
     `date` DATETIME(3) NOT NULL,
     `wakeUpTime` DATETIME(3) NOT NULL,
     `bedTime` DATETIME(3) NOT NULL,
@@ -51,7 +60,11 @@ CREATE TABLE `HealthCheck` (
     `lessAppetite` BOOLEAN NOT NULL,
     `goHospital` BOOLEAN NOT NULL,
     `comment` VARCHAR(191) NOT NULL DEFAULT '',
-    `checkedUserId` INTEGER NULL,
+    `studentId` INTEGER NOT NULL,
+    `checkedTeacherId` INTEGER NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+    `userId` INTEGER NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

@@ -7,6 +7,7 @@ import {
   Input,
   Text,
 } from "@chakra-ui/react";
+import { format, parse } from "date-fns";
 import {
   Calendar,
   FaceMask,
@@ -19,6 +20,10 @@ import {
   PaperPlaneTilt,
 } from "phosphor-react";
 import { useForm } from "react-hook-form";
+import {
+  HealthCheckFormProps,
+  useRegisterHealthCheck,
+} from "../../../hooks/HealthCheck";
 import { BooleanField } from "../../common/form/BooleanField";
 import { TempField } from "../../common/form/TempField";
 import { Tile } from "../../common/Tile";
@@ -36,7 +41,7 @@ export const RegisterPage = () => {
   } = useForm<form>({
     mode: "onBlur",
     defaultValues: {
-      date: "2022-11-01",
+      date: format(new Date(), "yyyy-MM-dd"),
       cough: 0,
       stuffiness: 0,
       languor: 0,
@@ -46,8 +51,32 @@ export const RegisterPage = () => {
     },
   });
 
-  const onSubmit = (data: form) => {
-    console.log(data);
+  const { registerHealthCheck, isLoading } = useRegisterHealthCheck();
+
+  const onSubmit = async (data: form) => {
+    const {
+      date,
+      bedTime,
+      wakeUpTime,
+      cough,
+      stuffiness,
+      languor,
+      lessAppetite,
+      goHospital,
+      ...others
+    } = data;
+    const submitData: HealthCheckFormProps = {
+      ...others,
+      date: parse(date, "yyyy-MM-dd", new Date()),
+      bedTime: parse(bedTime, "HH:mm", new Date()),
+      wakeUpTime: parse(wakeUpTime, "HH:mm", new Date()),
+      cough: Boolean(cough),
+      stuffiness: Boolean(cough),
+      languor: Boolean(cough),
+      lessAppetite: Boolean(cough),
+      goHospital: Boolean(cough),
+    };
+    await registerHealthCheck(submitData);
   };
   return (
     <Tile>
@@ -194,7 +223,13 @@ export const RegisterPage = () => {
             <FormErrorMessage>{errors.goHospital?.message}</FormErrorMessage>
           </FormControl>
         </Flex>
-        <Button leftIcon={<PaperPlaneTilt />} mt={8} w="full" type="submit">
+        <Button
+          leftIcon={<PaperPlaneTilt />}
+          mt={8}
+          w="full"
+          type="submit"
+          isLoading={isLoading}
+        >
           送信
         </Button>
       </form>

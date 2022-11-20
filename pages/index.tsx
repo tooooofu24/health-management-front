@@ -1,9 +1,6 @@
-import { Button } from "@chakra-ui/react";
 import type { NextPage } from "next";
-import { Bell, CalendarCheck } from "phosphor-react";
+import { Bell } from "phosphor-react";
 import { PageTitle } from "../components/common/PageTitle";
-import Router from "next/router";
-import { Pencil } from "phosphor-react";
 import { Layout } from "../components/common/Layout";
 import { AuthContent } from "../components/common/AuthContent";
 import { ErrorBoundary } from "react-error-boundary";

@@ -12,22 +12,39 @@ datasource db {
   referentialIntegrity = "prisma"
 }
 
+enum Role {
+  Teacher
+  Student
+}
+
 model User {
   id           Int           @id @default(autoincrement())
   name         String
-  email        String
-  type         String
+  email        String        @unique
+  role         Role
   HealthChecks HealthCheck[]
+  Student      Student[]
+  Teacher      Teacher[]
 }
 
 model Student {
-  id          Int       @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   name        String
   number      Int
+  userId      Int
+  user        User          @relation(fields: [userId], references: [id])
   classroomId Int
-  clubId      Int
-  classroom   Classroom @relation(fields: [classroomId], references: [id])
-  club        Club      @relation(fields: [clubId], references: [id])
+  classroom   Classroom     @relation(fields: [classroomId], references: [id])
+  clubId      Int?
+  club        Club?         @relation(fields: [clubId], references: [id])
+  HealthCheck HealthCheck[]
+}
+
+model Teacher {
+  id          Int           @id @default(autoincrement())
+  userId      Int
+  user        User          @relation(fields: [userId], references: [id])
+  HealthCheck HealthCheck[]
 }
 
 model Classroom {
@@ -44,19 +61,24 @@ model Club {
 }
 
 model HealthCheck {
-  id            Int      @id @default(autoincrement())
-  studentId     Int
-  date          DateTime
-  wakeUpTime    DateTime
-  bedTime       DateTime
-  nightTemp     Float
-  morningTemp   Float
-  cough         Boolean // 咳
-  stuffiness    Boolean // 息苦しさ
-  languor       Boolean // だるさ
-  lessAppetite  Boolean // 食欲の減退
-  goHospital    Boolean // 通院
-  comment       String   @default("")
-  checkedUserId Int?
-  checkedUser   User?    @relation(fields: [checkedUserId], references: [id])
+  id               Int      @id @default(autoincrement())
+  date             DateTime
+  wakeUpTime       DateTime
+  bedTime          DateTime
+  nightTemp        Float
+  morningTemp      Float
+  cough            Boolean // 咳
+  stuffiness       Boolean // 息苦しさ
+  languor          Boolean // だるさ
+  lessAppetite     Boolean // 食欲の減退
+  goHospital       Boolean // 通院
+  comment          String   @default("")
+  studentId        Int
+  student          Student  @relation(fields: [studentId], references: [id])
+  checkedTeacherId Int?
+  checkedTeacher   Teacher? @relation(fields: [checkedTeacherId], references: [id])
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  User             User?    @relation(fields: [userId], references: [id])
+  userId           Int?
 }

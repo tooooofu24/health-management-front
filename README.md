@@ -15,7 +15,7 @@ git push
 マイグレーション
 
 ```
-npx prisma db push
+npx prisma migrate dev
 ```
 
 ローカルで DB 確認
