@@ -18,6 +18,12 @@ git push
 npx prisma migrate dev
 ```
 
+シード
+
+```
+npx prisma db seed
+```
+
 ローカルで DB 確認
 
 ```
