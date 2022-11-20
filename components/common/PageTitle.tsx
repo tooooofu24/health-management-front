@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import { FC, memo, ReactNode } from "react";
-import { isPCScreen } from "../../styles/Responsive";
+import { isSmartPhoneScreen } from "../../styles/Responsive";
 
 type props = {
   iconUrl: string;
@@ -11,7 +11,7 @@ type props = {
 };
 export const PageTitle: FC<props> = memo(
   ({ iconUrl, icon, title, rightItem }) => {
-    if (isPCScreen()) {
+    if (!isSmartPhoneScreen()) {
       return (
         <Flex
           fontWeight="bold"
