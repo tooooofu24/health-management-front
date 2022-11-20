@@ -13,7 +13,7 @@ const Page: NextPage = () => {
   return (
     <AuthContent>
       <Layout>
-        <PageTitle title="部活動一覧" icon={<Baseball />} iconUrl="/clubs" />
+        <PageTitle title="部活動一覧" icon={<Baseball />} iconUrl="" />
         <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
           <Suspense fallback={<LoadingTile />}>
             <ClubPage />
