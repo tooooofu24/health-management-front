@@ -23,41 +23,47 @@ model User {
   email        String        @unique
   role         Role
   HealthChecks HealthCheck[]
-  Student      Student[]
-  Teacher      Teacher[]
+  Students     Student[]
+  Teachers     Teacher[]
 }
 
 model Student {
-  id          Int           @id @default(autoincrement())
-  name        String
-  number      Int
-  userId      Int
-  user        User          @relation(fields: [userId], references: [id])
-  classroomId Int
-  classroom   Classroom     @relation(fields: [classroomId], references: [id])
-  clubId      Int?
-  club        Club?         @relation(fields: [clubId], references: [id])
-  HealthCheck HealthCheck[]
+  id           Int           @id @default(autoincrement())
+  name         String
+  number       Int
+  userId       Int
+  User         User          @relation(fields: [userId], references: [id])
+  classroomId  Int
+  Classroom    Classroom     @relation(fields: [classroomId], references: [id])
+  clubId       Int?
+  Club         Club?         @relation(fields: [clubId], references: [id])
+  HealthChecks HealthCheck[]
 }
 
 model Teacher {
-  id          Int           @id @default(autoincrement())
-  userId      Int
-  user        User          @relation(fields: [userId], references: [id])
-  HealthCheck HealthCheck[]
+  id           Int           @id @default(autoincrement())
+  userId       Int
+  User         User          @relation(fields: [userId], references: [id])
+  HealthChecks HealthCheck[]
+  Classrooms   Classroom[]
+  Club         Club[]
 }
 
 model Classroom {
-  id       Int       @id @default(autoincrement())
-  grade    Int
-  name     String
-  Students Student[]
+  id        Int       @id @default(autoincrement())
+  grade     Int
+  name      String
+  teacherId Int
+  Teacher   Teacher   @relation(fields: [teacherId], references: [id])
+  Students  Student[]
 }
 
 model Club {
-  id       Int       @id @default(autoincrement())
-  name     String
-  Students Student[]
+  id        Int       @id @default(autoincrement())
+  name      String
+  teacherId Int
+  Teacher   Teacher   @relation(fields: [teacherId], references: [id])
+  Students  Student[]
 }
 
 model HealthCheck {
@@ -74,11 +80,11 @@ model HealthCheck {
   goHospital       Boolean // 通院
   comment          String   @default("")
   studentId        Int
-  student          Student  @relation(fields: [studentId], references: [id])
+  Student          Student  @relation(fields: [studentId], references: [id])
   checkedTeacherId Int?
-  checkedTeacher   Teacher? @relation(fields: [checkedTeacherId], references: [id])
+  CheckedTeacher   Teacher? @relation(fields: [checkedTeacherId], references: [id])
+  userId           Int?
+  User             User?    @relation(fields: [userId], references: [id])
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
-  User             User?    @relation(fields: [userId], references: [id])
-  userId           Int?
 }

@@ -16,7 +16,7 @@ CREATE TABLE `Student` (
     `number` INTEGER NOT NULL,
     `userId` INTEGER NOT NULL,
     `classroomId` INTEGER NOT NULL,
-    `clubId` INTEGER NOT NULL,
+    `clubId` INTEGER NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -34,6 +34,7 @@ CREATE TABLE `Classroom` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `grade` INTEGER NOT NULL,
     `name` VARCHAR(191) NOT NULL,
+    `teacherId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -42,6 +43,7 @@ CREATE TABLE `Classroom` (
 CREATE TABLE `Club` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
+    `teacherId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -62,9 +64,9 @@ CREATE TABLE `HealthCheck` (
     `comment` VARCHAR(191) NOT NULL DEFAULT '',
     `studentId` INTEGER NOT NULL,
     `checkedTeacherId` INTEGER NULL,
+    `userId` INTEGER NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
-    `userId` INTEGER NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

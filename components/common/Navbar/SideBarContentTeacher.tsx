@@ -14,37 +14,37 @@ export const SidebarContentTeacher = () => {
     <Flex flexDirection="column" h="full" py="20px">
       {/* ロゴ部分 */}
       <Box mb="20px">
-        <Link href="/">
+        <Link href="/admin/">
           <a>
             <Logo />
           </a>
         </Link>
       </Box>
       {/* ロゴ部分終了 */}
-      <Link href="/">
+      <Link href="/admin">
         <a>
           <SidebarItem
             icon={<House />}
             title="ホーム"
-            isActive={router.pathname == "/"}
+            isActive={router.pathname == "/admin"}
           />
         </a>
       </Link>
-      <Link href="/classrooms">
+      <Link href="/admin/classrooms">
         <a>
           <SidebarItem
             icon={<GraduationCap />}
             title="クラス一覧"
-            isActive={router.pathname == "/classrooms"}
+            isActive={router.pathname == "/admin/classrooms"}
           />
         </a>
       </Link>
-      <Link href="/clubs">
+      <Link href="/admin/clubs">
         <a>
           <SidebarItem
             icon={<Baseball />}
             title="部活一覧"
-            isActive={router.pathname == "/clubs"}
+            isActive={router.pathname == "/admin/clubs"}
           />
         </a>
       </Link>
