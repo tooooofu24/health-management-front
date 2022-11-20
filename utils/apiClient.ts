@@ -9,18 +9,17 @@ export const headers = async (): Promise<HeadersInit> => {
   };
 };
 
-// export const getRequest = async (uri: string, query?: {}) => {
-//   const url = createURL(uri, query);
-//   const res = await fetch(url, {
-//     method: "GET",
-//     headers: await headers(),
-//   });
-//   const json = await res.json();
-//   if (json.error) {
-//     throw new APIError(json, json.displayMessage);
-//   }
-//   return json;
-// };
+export const getRequest = async (uri: string, query?: {}) => {
+  const res = await fetch(uri, {
+    method: "GET",
+    headers: await headers(),
+  });
+  const json = await res.json();
+  if (!res.ok) {
+    throw new Error(json.message);
+  }
+  return json;
+};
 
 export const postRequest = async (uri: string, body: {}, query?: {}) => {
   const res = await fetch(uri, {
@@ -30,10 +29,8 @@ export const postRequest = async (uri: string, body: {}, query?: {}) => {
   });
   const json = await res.json();
   if (!res.ok) {
-    console.log(json);
     throw new Error(json.message);
   }
-  console.log(json);
 
   return json;
 };

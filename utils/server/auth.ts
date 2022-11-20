@@ -23,18 +23,17 @@ export const getFirebaseUser = async (
 ): Promise<UserRecord> => {
   initializeFirebase();
   const token = req.headers.authorization?.replace("Bearer ", "");
-  const decodedIdToken = await getAuth().verifyIdToken(token ?? "");
-
+  const decodedIdToken = await getAuth().verifyIdToken(token || "");
   const user = getAuth().getUser(decodedIdToken.uid);
   return user;
 };
 
 export const isAuthenticated = async (
   req: NextApiRequest,
-  role: Role
+  role?: Role
 ): Promise<User> => {
   const firebaseUser = await getFirebaseUser(req);
   const user = await findUser(firebaseUser);
-  if (user.role !== role) throw new APIError("権限がありません！", 403);
+  if (role && user.role !== role) throw new APIError("権限がありません！", 403);
   return user;
 };

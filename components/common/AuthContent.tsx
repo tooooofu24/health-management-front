@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { FC, ReactNode, useEffect, useState } from "react";
 import { useFirebaseUser } from "../../hooks/CurrentUser";
+import { useFetchCurrentUser } from "../../jotai/user";
 import { logout } from "../../utils/auth";
 
 type props = {
@@ -20,5 +21,15 @@ export const AuthContent: FC<props> = ({ children }) => {
     })();
   }, [user, isLoading]);
 
-  return user ? <>{children}</> : null;
+  return user ? <FetchCurrentUser>{children}</FetchCurrentUser> : null;
+};
+
+const FetchCurrentUser: FC<props> = ({ children }) => {
+  const { fetchCurrentUser } = useFetchCurrentUser();
+
+  useEffect(() => {
+    fetchCurrentUser();
+  }, []);
+
+  return <>{children}</>;
 };

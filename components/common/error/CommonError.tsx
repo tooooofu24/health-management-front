@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Img, Square, Text } from "@chakra-ui/react";
-import { FC, memo } from "react";
+import { FC, memo, useState } from "react";
 
 type props = {
   message?: string;
