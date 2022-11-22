@@ -9,7 +9,11 @@ const getHandler = async (
   res: NextApiResponse<Classroom[]>
 ) => {
   /* 著者リストを取得 */
-  const classrooms = await prisma.classroom.findMany();
+  const classrooms = await prisma.classroom.findMany({
+    include: {
+      Teacher: true,
+    },
+  });
   res.status(200).json(classrooms);
 };
 

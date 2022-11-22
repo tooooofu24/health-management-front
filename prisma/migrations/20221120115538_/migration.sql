@@ -24,6 +24,7 @@ CREATE TABLE `Student` (
 -- CreateTable
 CREATE TABLE `Teacher` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(191) NOT NULL,
     `userId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)

@@ -11,7 +11,7 @@ import {
   Tag,
 } from "@chakra-ui/react";
 import { CaretRight } from "phosphor-react";
-import { Classroom } from "@prisma/client";
+import { Classroom, Teacher } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useClassrooms } from "../../../../hooks/Classroom";
 
@@ -40,7 +40,11 @@ export const ClassroomPage = () => {
     </Tile>
   );
 };
-const Row = ({ classroom }: { classroom: Classroom }) => {
+const Row = ({
+  classroom,
+}: {
+  classroom: Classroom & { Teacher: Teacher };
+}) => {
   const router = useRouter();
   return (
     <Tr
@@ -51,7 +55,7 @@ const Row = ({ classroom }: { classroom: Classroom }) => {
       <Td>
         {classroom.grade}年{classroom.name}組
       </Td>
-      <Td>千葉陶也</Td>
+      <Td>{classroom.Teacher.name}</Td>
       <Td>{36}人</Td>
       <Td>
         <Tag>5</Tag>
