@@ -22,9 +22,9 @@ model User {
   name         String
   email        String        @unique
   role         Role
-  HealthChecks HealthCheck[]
-  Students     Student[]
-  Teachers     Teacher[]
+  healthChecks HealthCheck[]
+  students     Student[]
+  teachers     Teacher[]
 }
 
 model Student {
@@ -32,22 +32,22 @@ model Student {
   name         String
   number       Int
   userId       Int
-  User         User          @relation(fields: [userId], references: [id])
+  user         User          @relation(fields: [userId], references: [id])
   classroomId  Int
-  Classroom    Classroom     @relation(fields: [classroomId], references: [id])
+  classroom    Classroom     @relation(fields: [classroomId], references: [id])
   clubId       Int?
-  Club         Club?         @relation(fields: [clubId], references: [id])
-  HealthChecks HealthCheck[]
+  club         Club?         @relation(fields: [clubId], references: [id])
+  healthChecks HealthCheck[]
 }
 
 model Teacher {
   id           Int           @id @default(autoincrement())
   name         String
   userId       Int
-  User         User          @relation(fields: [userId], references: [id])
-  HealthChecks HealthCheck[]
-  Classrooms   Classroom[]
-  Club         Club[]
+  user         User          @relation(fields: [userId], references: [id])
+  healthChecks HealthCheck[]
+  classrooms   Classroom[]
+  clubs        Club[]
 }
 
 model Classroom {
@@ -55,16 +55,16 @@ model Classroom {
   grade     Int
   name      String
   teacherId Int
-  Teacher   Teacher   @relation(fields: [teacherId], references: [id])
-  Students  Student[]
+  teacher   Teacher   @relation(fields: [teacherId], references: [id])
+  students  Student[]
 }
 
 model Club {
   id        Int       @id @default(autoincrement())
   name      String
   teacherId Int
-  Teacher   Teacher   @relation(fields: [teacherId], references: [id])
-  Students  Student[]
+  teacher   Teacher   @relation(fields: [teacherId], references: [id])
+  students  Student[]
 }
 
 model HealthCheck {
@@ -81,11 +81,11 @@ model HealthCheck {
   goHospital       Boolean // 通院
   comment          String   @default("")
   studentId        Int
-  Student          Student  @relation(fields: [studentId], references: [id])
+  student          Student  @relation(fields: [studentId], references: [id])
   checkedTeacherId Int?
-  CheckedTeacher   Teacher? @relation(fields: [checkedTeacherId], references: [id])
+  checkedTeacher   Teacher? @relation(fields: [checkedTeacherId], references: [id])
   userId           Int?
-  User             User?    @relation(fields: [userId], references: [id])
+  user             User?    @relation(fields: [userId], references: [id])
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 }

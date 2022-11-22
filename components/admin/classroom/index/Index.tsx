@@ -43,7 +43,7 @@ export const ClassroomPage = () => {
 const Row = ({
   classroom,
 }: {
-  classroom: Classroom & { Teacher: Teacher };
+  classroom: Classroom & { teacher: Teacher };
 }) => {
   const router = useRouter();
   return (
@@ -51,11 +51,12 @@ const Row = ({
       _hover={{ bg: "gray.50" }}
       cursor="pointer"
       onClick={() => router.push("/classrooms/" + classroom.id)}
+      role="button"
     >
       <Td>
         {classroom.grade}年{classroom.name}組
       </Td>
-      <Td>{classroom.Teacher.name}</Td>
+      <Td>{classroom.teacher.name}</Td>
       <Td>{36}人</Td>
       <Td>
         <Tag>5</Tag>

@@ -6,7 +6,7 @@ export const useClassrooms = () => {
   const { data, mutate: refetch } = useSWR(["/api/classrooms"], fetcher, {
     suspense: true,
   });
-  const classrooms: (Classroom & { Teacher: Teacher })[] = data;
+  const classrooms: (Classroom & { teacher: Teacher })[] = data;
   return {
     classrooms,
     refetch,

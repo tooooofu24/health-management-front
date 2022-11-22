@@ -11,7 +11,7 @@ const getHandler = async (
   /* 著者リストを取得 */
   const classrooms = await prisma.classroom.findMany({
     include: {
-      Teacher: true,
+      teacher: true,
     },
   });
   res.status(200).json(classrooms);
