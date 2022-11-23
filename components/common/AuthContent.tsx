@@ -2,7 +2,6 @@ import { useAtom } from "jotai";
 import { useRouter } from "next/router";
 import { FC, ReactNode, useEffect } from "react";
 import { useFirebaseUser } from "../../hooks/CurrentUser";
-import { useFetchCurrentUser } from "../../jotai/user";
 import { logout } from "../../utils/auth";
 import { userAtom } from "../../jotai/user";
 
@@ -27,12 +26,7 @@ export const AuthContent: FC<props> = ({ children }) => {
 };
 
 const FetchCurrentUser: FC<props> = ({ children }) => {
-  const { fetchCurrentUser } = useFetchCurrentUser();
   const [user] = useAtom(userAtom);
-
-  useEffect(() => {
-    fetchCurrentUser();
-  }, []);
 
   return user?.id ? <>{children}</> : null;
 };

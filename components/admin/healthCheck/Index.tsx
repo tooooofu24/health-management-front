@@ -91,7 +91,7 @@ export const HealthChecksPage = () => {
       <HealthCheckList />
       <Flex justifyContent="space-between">
         <Button
-          disabled={!page || page == 1}
+          disabled={!page || Number(page) == 1}
           onClick={backPage}
           leftIcon={<CaretLeft />}
         >

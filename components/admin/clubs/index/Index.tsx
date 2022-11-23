@@ -46,7 +46,7 @@ const Row = ({ club }: { club: Club }) => {
     <Tr
       _hover={{ bg: "gray.50" }}
       cursor="pointer"
-      onClick={() => router.push("/admin/clubs/" + club.id)}
+      onClick={() => router.push("/admin/health-checks/?clubId=" + club.id)}
     >
       <Td>{club.name}</Td>
       <Td>千葉陶也</Td>
