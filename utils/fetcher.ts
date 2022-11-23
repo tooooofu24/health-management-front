@@ -1,14 +1,16 @@
 import { headers } from "./apiClient";
 
 export const fetcher = async (uri: string, query?: {}) => {
-  const res = await fetch(uri, {
+  const queryString = query ? "?" + new URLSearchParams(query).toString() : "";
+  const res = await fetch(uri + queryString, {
     method: "GET",
     headers: await headers(),
   });
 
+  const json = await res.json();
   if (!res.ok) {
-    throw new Error("APIの取得に失敗しました");
+    throw new Error(json.message);
   }
 
-  return res.json();
+  return json;
 };

@@ -1,9 +1,9 @@
-import { HealthCheck } from "@prisma/client";
-import { format } from "date-fns";
+import { HealthCheck, Student } from "@prisma/client";
 import { useState } from "react";
 import useSWR from "swr";
 import { postRequest } from "../utils/apiClient";
 import { fetcher } from "../utils/fetcher";
+import { filterProps } from "../utils/server/healthCheck";
 
 export type HealthCheckFormProps = {
   date: Date;
@@ -30,11 +30,15 @@ export const useRegisterHealthCheck = () => {
   return { isLoading, registerHealthCheck };
 };
 
-export const useHealthChecks = () => {
-  const { data, mutate: refetch } = useSWR(["/api/health-checks"], fetcher, {
-    suspense: true,
-  });
-  const healthChecks: HealthCheck[] = data.data;
+export const useHealthChecks = (props: filterProps) => {
+  const { data, mutate: refetch } = useSWR(
+    ["/api/health-checks", props],
+    fetcher,
+    {
+      suspense: true,
+    }
+  );
+  const healthChecks: (HealthCheck & { student: Student })[] = data.data;
   return {
     healthChecks,
     refetch,

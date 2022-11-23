@@ -1,4 +1,4 @@
-import { HealthCheck } from "@prisma/client";
+import { HealthCheck, Student } from "@prisma/client";
 import { FC } from "react";
 import {
   Table,
@@ -14,7 +14,7 @@ import ja from "date-fns/locale/ja";
 import { format } from "date-fns";
 
 type props = {
-  healthChecks: HealthCheck[];
+  healthChecks: (HealthCheck & { student: Student })[];
 };
 export const HealthCheckTable: FC<props> = ({ healthChecks }) => {
   return (
@@ -25,8 +25,8 @@ export const HealthCheckTable: FC<props> = ({ healthChecks }) => {
             <Th>氏名</Th>
             <Th>起床時間</Th>
             <Th>就寝時間</Th>
-            <Th>体温（夜）</Th>
-            <Th>体温（朝）</Th>
+            <Th>体温(夜)</Th>
+            <Th>体温(朝)</Th>
             <Th>咳</Th>
             <Th>息苦しさ</Th>
             <Th>だるさ</Th>
@@ -40,7 +40,8 @@ export const HealthCheckTable: FC<props> = ({ healthChecks }) => {
           {healthChecks.map((healthCheck) => {
             return (
               <Tr key={healthCheck.id}>
-                <Td>{healthCheck.studentId}</Td>
+                {/* <Td>{healthCheck.student.name}</Td> */}
+                <Td>********</Td>
                 <Td>
                   {format(new Date(healthCheck.wakeUpTime), "HH:mm", {
                     locale: ja,
