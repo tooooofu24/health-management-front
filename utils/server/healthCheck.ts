@@ -1,5 +1,13 @@
-import { HealthCheck, PrismaClient, Student, User } from "@prisma/client";
+import { async } from "@firebase/util";
+import {
+  HealthCheck,
+  PrismaClient,
+  Student,
+  Teacher,
+  User,
+} from "@prisma/client";
 import { NextApiRequest } from "next";
+import { isTeacher } from "./user";
 
 const prisma = new PrismaClient();
 
@@ -40,4 +48,16 @@ export const getHealthChecks = async (
     },
   });
   return healthChecks;
+};
+
+export const checkHealthCheck = async (id: number, teacher: Teacher) => {
+  const healthCheck = await prisma.healthCheck.update({
+    where: {
+      id,
+    },
+    data: {
+      checkedTeacherId: teacher.id,
+    },
+  });
+  return healthCheck;
 };

@@ -44,3 +44,15 @@ export const useHealthChecks = (props: filterProps) => {
     refetch,
   };
 };
+
+export const useCheckHealthCheck = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const checkHealthCheck = async (id: number) => {
+    setIsLoading(true);
+    await postRequest("/api/health-checks/check", { id }).finally(() => {
+      setIsLoading(false);
+    });
+  };
+  return { isLoading, checkHealthCheck };
+};

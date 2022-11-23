@@ -77,12 +77,13 @@ export const HealthChecksPage = () => {
 
 const HealthCheckList = () => {
   const router = useRouter();
-  const { healthChecks } = useHealthChecks(router.query);
+  const { healthChecks, refetch } = useHealthChecks(router.query);
+
   return (
     <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
       <Suspense fallback={<LoadingTile />}>
         <Tile>
-          <HealthCheckTable healthChecks={healthChecks} />
+          <HealthCheckTable healthChecks={healthChecks} refetch={refetch} />
         </Tile>
       </Suspense>
     </ErrorBoundary>
