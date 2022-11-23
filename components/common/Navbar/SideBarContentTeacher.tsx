@@ -1,7 +1,13 @@
 import { Box, BoxProps, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Baseball, GraduationCap, House, SignOut } from "phosphor-react";
+import {
+  Baseball,
+  GraduationCap,
+  House,
+  MagnifyingGlass,
+  SignOut,
+} from "phosphor-react";
 import { FC, ReactNode } from "react";
 import { Logo } from "../Logo";
 import { LogoutModal } from "../LogoutModal";
@@ -45,6 +51,15 @@ export const SidebarContentTeacher = () => {
             icon={<Baseball />}
             title="部活一覧"
             isActive={router.pathname == "/admin/clubs"}
+          />
+        </a>
+      </Link>
+      <Link href="/admin/health-checks">
+        <a>
+          <SidebarItem
+            icon={<MagnifyingGlass />}
+            title="回答検索"
+            isActive={router.pathname == "/admin/health-checks"}
           />
         </a>
       </Link>

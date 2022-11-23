@@ -16,7 +16,25 @@ export const registerHealthCheck = async (
   return healthCheck;
 };
 
-export const getHealthChecks = async (): Promise<HealthCheck[]> => {
-  const healthChecks = await prisma.healthCheck.findMany({});
+type filterProps = {
+  date?: string;
+  classroomId?: number;
+  studentId?: number;
+  clubId?: number;
+};
+export const getHealthChecks = async (
+  props: filterProps
+): Promise<HealthCheck[]> => {
+  const { date, classroomId, studentId, clubId } = props;
+  const healthChecks = await prisma.healthCheck.findMany({
+    take: 30,
+    where: {
+      studentId,
+      student: {
+        classroomId,
+        clubId,
+      },
+    },
+  });
   return healthChecks;
 };
