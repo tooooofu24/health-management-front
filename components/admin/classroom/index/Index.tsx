@@ -50,7 +50,7 @@ const Row = ({
     <Tr
       _hover={{ bg: "gray.50" }}
       cursor="pointer"
-      onClick={() => router.push("/classrooms/" + classroom.id)}
+      onClick={() => router.push("/admin/classrooms/" + classroom.id)}
       role="button"
     >
       <Td>

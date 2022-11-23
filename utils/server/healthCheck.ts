@@ -15,3 +15,8 @@ export const registerHealthCheck = async (
   });
   return healthCheck;
 };
+
+export const getHealthChecks = async (): Promise<HealthCheck[]> => {
+  const healthChecks = await prisma.healthCheck.findMany({});
+  return healthChecks;
+};

@@ -1,22 +1,24 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { response } from "../../../utils/server/response";
 import { isAuthenticated } from "../../../utils/server/auth";
-import { registerHealthCheck } from "../../../utils/server/healthCheck";
+import {
+  getHealthChecks,
+  registerHealthCheck,
+} from "../../../utils/server/healthCheck";
 import { findStudent } from "../../../utils/server/student";
 import { APIError } from "../../../utils/server/error";
 
-const postHandler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
-  const user = await isAuthenticated(req, "Student");
-  const student = await findStudent(user);
-  await registerHealthCheck(req, student);
-  res.status(200).json(response("success"));
+const getHandler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
+  // const user = await isAuthenticated(req);
+  const students = await getHealthChecks();
+  res.status(200).json(response("success", students));
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     switch (req.method) {
-      case "POST":
-        await postHandler(req, res);
+      case "GET":
+        await getHandler(req, res);
         break;
       default:
         throw new APIError(`Method ${req.method} Not Allowed`, 405);

@@ -4,12 +4,17 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-const getHandler = async (
-  req: NextApiRequest,
-  res: NextApiResponse<Student[]>
-) => {
+const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   /* 著者リストを取得 */
-  const students = await prisma.student.findMany();
+  const students = await prisma.student.findMany({
+    select: {
+      name: true,
+      number: true,
+      userId: true,
+      classroomId: true,
+      clubId: true,
+    },
+  });
   res.status(200).json(students);
 };
 

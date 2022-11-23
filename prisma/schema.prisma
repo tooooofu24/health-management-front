@@ -18,13 +18,12 @@ enum Role {
 }
 
 model User {
-  id           Int           @id @default(autoincrement())
-  name         String
-  email        String        @unique
-  role         Role
-  healthChecks HealthCheck[]
-  students     Student[]
-  teachers     Teacher[]
+  id       Int       @id @default(autoincrement())
+  name     String
+  email    String    @unique
+  role     Role
+  students Student[]
+  teachers Teacher[]
 }
 
 model Student {
@@ -84,8 +83,6 @@ model HealthCheck {
   student          Student  @relation(fields: [studentId], references: [id])
   checkedTeacherId Int?
   checkedTeacher   Teacher? @relation(fields: [checkedTeacherId], references: [id])
-  userId           Int?
-  user             User?    @relation(fields: [userId], references: [id])
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 }
