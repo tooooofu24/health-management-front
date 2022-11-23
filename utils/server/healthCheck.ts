@@ -29,13 +29,17 @@ export type filterProps = {
   classroomId?: number;
   studentId?: number;
   clubId?: number;
+  page?: number;
 };
 export const getHealthChecks = async (
   props: filterProps
 ): Promise<(HealthCheck & { student: Student })[]> => {
-  const { date, classroomId, studentId, clubId } = props;
+  const { date, classroomId, studentId, clubId, page } = props;
+  const take = 20;
+  const currentPage = page ? Number(page) : 1;
   const healthChecks = await prisma.healthCheck.findMany({
-    take: 20,
+    take,
+    skip: (currentPage - 1) * take,
     where: {
       studentId: studentId ? Number(studentId) : undefined,
       student: {

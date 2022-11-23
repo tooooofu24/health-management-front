@@ -1,4 +1,6 @@
 import {
+  Button,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -7,8 +9,14 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { Baseball, Calendar, GraduationCap } from "phosphor-react";
-import { Suspense, useEffect } from "react";
+import {
+  Baseball,
+  Calendar,
+  GraduationCap,
+  CaretRight,
+  CaretLeft,
+} from "phosphor-react";
+import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useForm } from "react-hook-form";
 import { useHealthChecks } from "../../../hooks/HealthCheck";
@@ -22,11 +30,13 @@ import { Tile, TilesWrapper } from "../../common/Tile";
 
 export const HealthChecksPage = () => {
   const router = useRouter();
+  const { page } = router.query;
   const {
     register,
     watch,
     formState: { errors },
     control,
+    setValue,
   } = useForm<filterProps>({
     mode: "onBlur",
     defaultValues: router.query,
@@ -39,6 +49,14 @@ export const HealthChecksPage = () => {
       query: { ...router.query, [key]: value },
     });
   });
+
+  const addPage = () => {
+    setValue("page", page ? Number(page) + 1 : 2);
+  };
+
+  const backPage = () => {
+    setValue("page", page ? Number(page) - 1 : 1);
+  };
 
   return (
     <TilesWrapper>
@@ -71,6 +89,18 @@ export const HealthChecksPage = () => {
         </SimpleGrid>
       </Tile>
       <HealthCheckList />
+      <Flex justifyContent="space-between">
+        <Button
+          disabled={!page || page == 1}
+          onClick={backPage}
+          leftIcon={<CaretLeft />}
+        >
+          戻る
+        </Button>
+        <Button onClick={addPage} rightIcon={<CaretRight />}>
+          次へ
+        </Button>
+      </Flex>
     </TilesWrapper>
   );
 };

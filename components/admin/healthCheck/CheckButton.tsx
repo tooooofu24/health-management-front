@@ -1,6 +1,5 @@
 import { IconButton } from "@chakra-ui/react";
 import { HealthCheck } from "@prisma/client";
-import { useRouter } from "next/router";
 import { Check } from "phosphor-react";
 import { FC, useEffect, useState } from "react";
 import { KeyedMutator } from "swr";
