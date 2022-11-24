@@ -8,6 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { format, parse } from "date-fns";
+import { useRouter } from "next/router";
 import {
   Calendar,
   FaceMask,
@@ -18,12 +19,16 @@ import {
   SmileySad,
   Sun,
   PaperPlaneTilt,
+  User,
 } from "phosphor-react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   HealthCheckFormProps,
   useRegisterHealthCheck,
 } from "../../../hooks/HealthCheck";
+import { useCustomToast } from "../../../hooks/Toast";
+import { ErrorAlert } from "../../common/error/ErrorAlert";
 import { BooleanField } from "../../common/form/BooleanField";
 import { TempField } from "../../common/form/TempField";
 import { Tile } from "../../common/Tile";
@@ -32,12 +37,7 @@ export const RegisterPage = () => {
   const {
     register,
     handleSubmit,
-    watch,
-    setValue,
-    setError,
-    clearErrors,
     formState: { errors },
-    control,
   } = useForm<form>({
     mode: "onBlur",
     defaultValues: {
@@ -51,7 +51,11 @@ export const RegisterPage = () => {
     },
   });
 
+  const { showToast } = useCustomToast();
+  const router = useRouter();
+
   const { registerHealthCheck, isLoading } = useRegisterHealthCheck();
+  const [error, setError] = useState("");
 
   const onSubmit = async (data: form) => {
     const {
@@ -76,12 +80,26 @@ export const RegisterPage = () => {
       lessAppetite: Boolean(cough),
       goHospital: Boolean(cough),
     };
-    await registerHealthCheck(submitData);
+    await registerHealthCheck(submitData)
+      .then(() => {
+        showToast("登録しました！", "info");
+        router.push("/");
+      })
+      .catch((e) => {
+        setError(e.message);
+      });
   };
   return (
     <Tile>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Flex flexDirection="column" gap="1.5rem">
+          <FormControl>
+            <FormLabel>
+              <User />
+              <Text>氏名</Text>
+            </FormLabel>
+            <Input value="千葉陶也" readOnly />
+          </FormControl>
           <FormControl isInvalid={Boolean(errors.date)}>
             <FormLabel>
               <Calendar />
@@ -232,6 +250,7 @@ export const RegisterPage = () => {
         >
           送信
         </Button>
+        <ErrorAlert message={error} mt={3} />
       </form>
     </Tile>
   );

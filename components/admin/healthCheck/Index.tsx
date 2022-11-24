@@ -88,7 +88,11 @@ export const HealthChecksPage = () => {
           </FormControl>
         </SimpleGrid>
       </Tile>
-      <HealthCheckList />
+      <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
+        <Suspense fallback={<LoadingTile />}>
+          <HealthCheckList />
+        </Suspense>
+      </ErrorBoundary>
       <Flex justifyContent="space-between">
         <Button
           disabled={!page || Number(page) == 1}
@@ -110,12 +114,8 @@ const HealthCheckList = () => {
   const { healthChecks, refetch } = useHealthChecks(router.query);
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
-      <Suspense fallback={<LoadingTile />}>
-        <Tile>
-          <HealthCheckTable healthChecks={healthChecks} refetch={refetch} />
-        </Tile>
-      </Suspense>
-    </ErrorBoundary>
+    <Tile>
+      <HealthCheckTable healthChecks={healthChecks} refetch={refetch} />
+    </Tile>
   );
 };

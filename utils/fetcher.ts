@@ -12,5 +12,5 @@ export const fetcher = async (uri: string, query?: {}) => {
     throw new Error(json.message);
   }
 
-  return json;
+  return json.data;
 };

@@ -38,7 +38,7 @@ export const useHealthChecks = (props: filterProps) => {
       suspense: true,
     }
   );
-  const healthChecks: (HealthCheck & { student: Student })[] = data.data;
+  const healthChecks: (HealthCheck & { student: Student })[] = data;
   return {
     healthChecks,
     refetch,
