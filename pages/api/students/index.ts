@@ -1,7 +1,7 @@
-import { Student } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { PrismaClient } from "@prisma/client";
+import { response } from "../../../utils/server/response";
 const prisma = new PrismaClient();
 
 const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -15,7 +15,7 @@ const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       clubId: true,
     },
   });
-  res.status(200).json(students);
+  res.status(200).json(response("success", students));
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

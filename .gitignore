@@ -38,3 +38,4 @@ next-env.d.ts
 
 # seed data
 prisma/seed.ts
+prisma/*Seed.ts

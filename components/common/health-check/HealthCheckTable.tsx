@@ -16,12 +16,16 @@ import ja from "date-fns/locale/ja";
 import { format } from "date-fns";
 import { CheckButton } from "../../admin/healthCheck/CheckButton";
 import { KeyedMutator } from "swr";
+import { CommonError } from "../error/CommonError";
 
 type props = {
   healthChecks: (HealthCheck & { student: Student })[];
   refetch: KeyedMutator<any>;
 };
 export const HealthCheckTable: FC<props> = ({ healthChecks, refetch }) => {
+  if (!healthChecks.length) {
+    return <CommonError message="データがありません" />;
+  }
   return (
     <Box position="relative">
       <TableContainer pr="4rem">
