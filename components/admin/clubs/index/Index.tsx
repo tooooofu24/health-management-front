@@ -44,7 +44,7 @@ export const ClubPage = () => {
 const Row = ({
   club,
 }: {
-  club: Club & { teacher: Teacher; students: Student[] };
+  club: Club & { teachers: Teacher[]; students: Student[] };
 }) => {
   const router = useRouter();
   return (
@@ -54,7 +54,7 @@ const Row = ({
       onClick={() => router.push("/admin/health-checks/?clubId=" + club.id)}
     >
       <Td>{club.name}</Td>
-      <Td>{club.teacher.name}</Td>
+      <Td></Td>
       <Td>{club.students.length}人</Td>
       <Td>
         <Tag>5</Tag>

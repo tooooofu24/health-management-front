@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
 const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   await isAuthenticated(req, "Teacher");
   const clubs = await prisma.club.findMany({
-    include: { teacher: true, students: true },
+    include: { teachers: true, students: true },
   });
   res.status(200).json(response("success", clubs));
 };

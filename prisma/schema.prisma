@@ -45,7 +45,9 @@ model Teacher {
   userId       Int
   user         User          @relation(fields: [userId], references: [id])
   classroomId  Int?
+  classroom    Classroom?    @relation(fields: [classroomId], references: [id])
   clubId       Int?
+  club         Club?         @relation(fields: [clubId], references: [id])
   healthChecks HealthCheck[]
 }
 
@@ -54,12 +56,14 @@ model Classroom {
   grade    Int
   name     String
   students Student[]
+  teachers Teacher[]
 }
 
 model Club {
   id       Int       @id @default(autoincrement())
   name     String
   students Student[]
+  teachers Teacher[]
 }
 
 model HealthCheck {

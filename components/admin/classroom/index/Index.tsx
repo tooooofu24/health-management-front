@@ -43,7 +43,7 @@ export const ClassroomPage = () => {
 const Row = ({
   classroom,
 }: {
-  classroom: Classroom & { teacher: Teacher; students: Student[] };
+  classroom: Classroom & { teachers: Teacher[]; students: Student[] };
 }) => {
   const router = useRouter();
   return (
@@ -58,7 +58,7 @@ const Row = ({
       <Td>
         {classroom.grade}年{classroom.name}組
       </Td>
-      <Td>{classroom.teacher.name}</Td>
+      <Td></Td>
       <Td>{classroom.students.length}人</Td>
       <Td>
         <Tag>5</Tag>

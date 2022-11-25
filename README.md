@@ -18,6 +18,12 @@ git push
 npx prisma migrate dev
 ```
 
+データリセット
+
+```
+npx prisma migrate reset
+```
+
 シード
 
 ```
