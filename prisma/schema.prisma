@@ -44,26 +44,22 @@ model Teacher {
   name         String
   userId       Int
   user         User          @relation(fields: [userId], references: [id])
+  classroomId  Int?
+  clubId       Int?
   healthChecks HealthCheck[]
-  classrooms   Classroom[]
-  clubs        Club[]
 }
 
 model Classroom {
-  id        Int       @id @default(autoincrement())
-  grade     Int
-  name      String
-  teacherId Int
-  teacher   Teacher   @relation(fields: [teacherId], references: [id])
-  students  Student[]
+  id       Int       @id @default(autoincrement())
+  grade    Int
+  name     String
+  students Student[]
 }
 
 model Club {
-  id        Int       @id @default(autoincrement())
-  name      String
-  teacherId Int
-  teacher   Teacher   @relation(fields: [teacherId], references: [id])
-  students  Student[]
+  id       Int       @id @default(autoincrement())
+  name     String
+  students Student[]
 }
 
 model HealthCheck {

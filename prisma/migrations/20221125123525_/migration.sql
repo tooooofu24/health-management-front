@@ -26,6 +26,8 @@ CREATE TABLE `Teacher` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `userId` INTEGER NOT NULL,
+    `classroomId` INTEGER NULL,
+    `clubId` INTEGER NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -35,7 +37,6 @@ CREATE TABLE `Classroom` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `grade` INTEGER NOT NULL,
     `name` VARCHAR(191) NOT NULL,
-    `teacherId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -44,7 +45,6 @@ CREATE TABLE `Classroom` (
 CREATE TABLE `Club` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
-    `teacherId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
