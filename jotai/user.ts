@@ -3,14 +3,9 @@ import { atom, useAtom } from "jotai";
 import { getCurrentUser } from "../hooks/CurrentUser";
 
 // Create your atoms and derivatives
-export const userAtom = atom<User | null>(null);
+export const userAtom = atom<Promise<User | null> | null>(null);
 
 userAtom.onMount = (setAtom) => {
-  getCurrentUser()
-    .then((user) => {
-      setAtom(user);
-    })
-    .catch(() => {
-      setAtom(null);
-    });
+  setAtom(getCurrentUser());
+  return;
 };
