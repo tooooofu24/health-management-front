@@ -11,9 +11,10 @@ import {
   Tag,
 } from "@chakra-ui/react";
 import { CaretRight } from "phosphor-react";
-import { Classroom, Club } from "@prisma/client";
+import { Club, Student, Teacher } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useClubs } from "../../../../hooks/Clubs";
+import { count } from "console";
 
 export const ClubPage = () => {
   const { clubs } = useClubs();
@@ -40,7 +41,11 @@ export const ClubPage = () => {
     </Tile>
   );
 };
-const Row = ({ club }: { club: Club }) => {
+const Row = ({
+  club,
+}: {
+  club: Club & { teacher: Teacher; students: Student[] };
+}) => {
   const router = useRouter();
   return (
     <Tr
@@ -49,8 +54,8 @@ const Row = ({ club }: { club: Club }) => {
       onClick={() => router.push("/admin/health-checks/?clubId=" + club.id)}
     >
       <Td>{club.name}</Td>
-      <Td>千葉陶也</Td>
-      <Td>{36}人</Td>
+      <Td>{club.teacher.name}</Td>
+      <Td>{club.students.length}人</Td>
       <Td>
         <Tag>5</Tag>
       </Td>

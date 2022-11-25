@@ -10,6 +10,7 @@ const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const classrooms = await prisma.classroom.findMany({
     include: {
       teacher: true,
+      students: true,
     },
   });
   res.status(200).json(response("success", classrooms));
