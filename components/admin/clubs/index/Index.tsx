@@ -14,7 +14,6 @@ import { CaretRight } from "phosphor-react";
 import { Club, Student, Teacher } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useClubs } from "../../../../hooks/Clubs";
-import { count } from "console";
 
 export const ClubPage = () => {
   const { clubs } = useClubs();
