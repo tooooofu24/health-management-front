@@ -3,9 +3,13 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
 import { response } from "../../../utils/server/response";
 import { isAuthenticated } from "../../../utils/server/auth";
+import { ClassroomResponse } from "../../../types/APIResponse";
 const prisma = new PrismaClient();
 
-const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const getHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<{ message: string; data: ClassroomResponse[] }>
+) => {
   await isAuthenticated(req, "Teacher");
   const classrooms = await prisma.classroom.findMany({
     include: {
@@ -13,7 +17,7 @@ const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       students: true,
     },
   });
-  res.status(200).json(response("success", classrooms));
+  res.status(200).json({ message: "success", data: classrooms });
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
