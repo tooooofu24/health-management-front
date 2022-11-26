@@ -1,6 +1,7 @@
 import { HealthCheck, Student } from "@prisma/client";
 import { useState } from "react";
 import useSWR from "swr";
+import { HealthCheckResponse } from "../types/APIResponse";
 import { postRequest } from "../utils/apiClient";
 import { fetcher } from "../utils/fetcher";
 import { filterProps } from "../utils/server/healthCheck";
@@ -39,6 +40,21 @@ export const useHealthChecks = (props: filterProps) => {
     }
   );
   const healthChecks: (HealthCheck & { student: Student })[] = data;
+  return {
+    healthChecks,
+    refetch,
+  };
+};
+
+export const useUnreadHealthChecks = () => {
+  const { data, mutate: refetch } = useSWR(
+    ["/api/health-checks/unread"],
+    fetcher,
+    {
+      suspense: true,
+    }
+  );
+  const healthChecks: HealthCheckResponse[] = data;
   return {
     healthChecks,
     refetch,
