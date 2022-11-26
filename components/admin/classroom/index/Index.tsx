@@ -43,6 +43,10 @@ export const ClassroomPage = () => {
   );
 };
 const Row = ({ classroom }: { classroom: ClassroomResponse }) => {
+  const unreadHealthChecks = classroom.students.flatMap((student) => {
+    return student.healthChecks;
+  });
+
   const router = useRouter();
   return (
     <Tr
@@ -65,7 +69,7 @@ const Row = ({ classroom }: { classroom: ClassroomResponse }) => {
       </Td>
       <Td>{classroom.students.length}人</Td>
       <Td>
-        <Tag>5</Tag>
+        <Tag>{unreadHealthChecks.length}</Tag>
       </Td>
       <Td>
         <Flex justifyContent="end" alignItems="center">

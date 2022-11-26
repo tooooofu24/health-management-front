@@ -26,9 +26,12 @@ import { Classroom, Club } from "@prisma/client";
 import { FC } from "react";
 import { PageTitle } from "../../common/PageTitle";
 import { Bell } from "phosphor-react";
+import { CommonError } from "../../common/error/CommonError";
+import Link from "next/link";
 
 export const AdminMyPage = () => {
   const { teacher } = useCurrentTeacher();
+  const { healthChecks } = useUnreadHealthChecks();
   return (
     <TilesWrapper>
       <Tile>
@@ -68,13 +71,17 @@ export const AdminMyPage = () => {
       <Box>
         <PageTitle iconUrl="" icon={<Bell />} title="通知" />
         <Tile>
-          <Flex flexDir="column" gap={4}>
-            {teacher.classroom ? (
-              <ClassroomAlert classroom={teacher.classroom} />
-            ) : null}
-            {teacher.club ? <ClubAlert club={teacher.club} /> : null}
-            <DangerAlert />
-          </Flex>
+          {healthChecks.length ? (
+            <Flex flexDir="column" gap={4}>
+              {teacher.classroom ? (
+                <ClassroomAlert classroom={teacher.classroom} />
+              ) : null}
+              {teacher.club ? <ClubAlert club={teacher.club} /> : null}
+              <DangerAlert />
+            </Flex>
+          ) : (
+            <CommonError message="通知はありません" />
+          )}
         </Tile>
       </Box>
     </TilesWrapper>
@@ -89,21 +96,28 @@ const ClassroomAlert: FC<ClassroomAlertProps> = ({ classroom }) => {
     classroomId: classroom.id,
     isUnread: 1,
   });
+  if (!healthChecks.length) return null;
+
   return (
     <Alert status="info">
       <AlertIcon />
       <SimpleGrid spacing={3} w="full" alignItems="center" columns={[1, 2, 2]}>
         <Box>
           <AlertTitle>
-            {classroom.grade}年{classroom.name}組に新着の回答があります！
+            {classroom.grade}年{classroom.name}組に未読の回答があります！
           </AlertTitle>
           <AlertDescription>
-            まだチェックをつけていない生徒の回答が{healthChecks.length}
-            件あります！
+            チェックしていない生徒の回答が{healthChecks.length}件あります！
           </AlertDescription>
         </Box>
         <Flex justifyContent="end">
-          <Button w="auto">確認する</Button>
+          <Link
+            href={`/admin/health-checks?isUnread=1&classroomId=${classroom.id}`}
+          >
+            <a>
+              <Button w="auto">確認する</Button>
+            </a>
+          </Link>{" "}
         </Flex>
       </SimpleGrid>
     </Alert>
@@ -119,19 +133,23 @@ const ClubAlert: FC<ClubAlertProps> = ({ club }) => {
     clubId: club.id,
     isUnread: 1,
   });
+  if (!healthChecks.length) return null;
   return (
     <Alert status="info">
       <AlertIcon />
       <SimpleGrid spacing={3} w="full" alignItems="center" columns={[1, 2, 2]}>
         <Box>
-          <AlertTitle>{club.name}に新着の回答があります！</AlertTitle>
+          <AlertTitle>{club.name}に未読の回答があります！</AlertTitle>
           <AlertDescription>
-            まだチェックをつけていない生徒の回答が{healthChecks.length}
-            件あります！
+            チェックしていない生徒の回答が{healthChecks.length}件あります！
           </AlertDescription>
         </Box>
         <Flex justifyContent="end">
-          <Button w="auto">確認する</Button>
+          <Link href={`/admin/health-checks?isUnread=1&clubId=${club.id}`}>
+            <a>
+              <Button w="auto">確認する</Button>
+            </a>
+          </Link>
         </Flex>
       </SimpleGrid>
     </Alert>
@@ -143,21 +161,25 @@ const DangerAlert = () => {
     isUnread: 1,
     isDanger: 1,
   });
+  if (!healthChecks.length) return null;
   return (
     <Alert status="error">
       <AlertIcon />
       <SimpleGrid spacing={3} w="full" alignItems="center" columns={[1, 2, 2]}>
         <Box>
-          <AlertTitle>未読の体調不良生徒がいます</AlertTitle>
+          <AlertTitle>未読の体調不良生徒がいます！</AlertTitle>
           <AlertDescription>
-            体調不良生徒の生徒が{healthChecks.length}
-            人います！
+            体調不良生徒の生徒が{healthChecks.length}人います！
           </AlertDescription>
         </Box>
         <Flex justifyContent="end">
-          <Button colorScheme="red" w="auto">
-            確認する
-          </Button>
+          <Link href={`/admin/health-checks?isUnread=1&isDanger=1`}>
+            <a>
+              <Button colorScheme="red" w="auto">
+                確認する
+              </Button>
+            </a>
+          </Link>
         </Flex>
       </SimpleGrid>
     </Alert>

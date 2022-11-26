@@ -25,12 +25,12 @@ export type TeacherResponse = {
 } & Teacher;
 
 export type ClassroomResponse = {
-  students: Student[];
+  students: (Student & { healthChecks: HealthCheck[] })[];
   teachers: Teacher[];
 } & Classroom;
 
 export type ClubResponse = {
-  students: Student[];
+  students: (Student & { healthChecks: HealthCheck[] })[];
   teachers: Teacher[];
 } & Club;
 

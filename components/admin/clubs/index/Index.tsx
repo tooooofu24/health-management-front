@@ -15,6 +15,7 @@ import { CaretRight } from "phosphor-react";
 import { Club, Student, Teacher } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useClubs } from "../../../../hooks/Clubs";
+import { ClubResponse } from "../../../../types/APIResponse";
 
 export const ClubPage = () => {
   const { clubs } = useClubs();
@@ -41,11 +42,10 @@ export const ClubPage = () => {
     </Tile>
   );
 };
-const Row = ({
-  club,
-}: {
-  club: Club & { teachers: Teacher[]; students: Student[] };
-}) => {
+const Row = ({ club }: { club: ClubResponse }) => {
+  const unreadHealthChecks = club.students.flatMap((student) => {
+    return student.healthChecks;
+  });
   const router = useRouter();
   return (
     <Tr
@@ -63,7 +63,7 @@ const Row = ({
       </Td>
       <Td>{club.students.length}人</Td>
       <Td>
-        <Tag>5</Tag>
+        <Tag>{unreadHealthChecks.length}</Tag>
       </Td>
       <Td>
         <Flex justifyContent="end" alignItems="center">
