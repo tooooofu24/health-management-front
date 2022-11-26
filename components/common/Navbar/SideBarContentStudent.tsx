@@ -1,7 +1,7 @@
 import { Box, BoxProps, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { House, Notepad, Pencil, SignOut } from "phosphor-react";
+import { House, Notepad, Pencil, SignOut, User } from "phosphor-react";
 import { Logo } from "../Logo";
 import { LogoutModal } from "../LogoutModal";
 import { SidebarItem } from "./SideBarContentTeacher";
@@ -39,12 +39,12 @@ export const SidebarContentStudent = () => {
           />
         </a>
       </Link>
-      <Link href="/health-checks">
+      <Link href="/my-page">
         <a>
           <SidebarItem
-            icon={<Notepad />}
-            title="過去のデータ"
-            isActive={router.pathname == "/health-checks"}
+            icon={<User />}
+            title="マイページ"
+            isActive={router.pathname == "/my-page"}
           />
         </a>
       </Link>

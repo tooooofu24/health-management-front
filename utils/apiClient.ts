@@ -35,6 +35,20 @@ export const postRequest = async (uri: string, body: {}, query?: {}) => {
   return json;
 };
 
+export const putRequest = async (uri: string, body: {}, query?: {}) => {
+  const res = await fetch(uri, {
+    method: "PUT",
+    body: JSON.stringify(body),
+    headers: await headers(),
+  });
+  const json = await res.json();
+  if (!res.ok) {
+    throw new Error(json.message);
+  }
+
+  return json;
+};
+
 // export const deleteRequest = async (uri: string, query?: {}) => {
 //   const url = createURL(uri, query);
 //   const res = await fetch(url, {

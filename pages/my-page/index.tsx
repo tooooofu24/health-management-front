@@ -1,25 +1,28 @@
 import type { NextPage } from "next";
-import { ErrorBoundary } from "react-error-boundary";
+import { Baseball, Pencil, User } from "phosphor-react";
 import { Suspense } from "react";
 import { AuthContent } from "../../components/common/AuthContent";
+import { Layout } from "../../components/common/Layout";
 import { PageTitle } from "../../components/common/PageTitle";
+import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallbackTile } from "../../components/common/error/ErrorFallbackTile";
 import { LoadingTile } from "../../components/common/loading/LoadingTile";
-import { CommonError } from "../../components/common/error/CommonError";
-import { Tile } from "../../components/common/Tile";
-import { Layout } from "../../components/common/Layout";
-import { Notepad } from "phosphor-react";
+import { MyPage } from "../../components/student/mypage";
+import { MyPageEditButton } from "../../components/student/mypage/MyPageEditButton";
 
-const TopPage: NextPage = () => {
+const Page: NextPage = () => {
   return (
     <AuthContent>
       <Layout role="Student">
-        <PageTitle title="過去のデータ" icon={<Notepad />} iconUrl="" />
+        <PageTitle
+          title="マイページ"
+          rightItem={<MyPageEditButton />}
+          icon={<User />}
+          iconUrl=""
+        />
         <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
           <Suspense fallback={<LoadingTile />}>
-            <Tile>
-              <CommonError message="実装中です..." />
-            </Tile>
+            <MyPage />
           </Suspense>
         </ErrorBoundary>
       </Layout>
@@ -27,4 +30,4 @@ const TopPage: NextPage = () => {
   );
 };
 
-export default TopPage;
+export default Page;
