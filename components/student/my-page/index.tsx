@@ -3,17 +3,12 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
   Avatar,
 } from "@chakra-ui/react";
-import { userAtom } from "../../../jotai/user";
-import { useAtom } from "jotai";
-import { useState } from "react";
 import { useCurrentStudent } from "../../../hooks/Student";
 
 export const MyPage = () => {

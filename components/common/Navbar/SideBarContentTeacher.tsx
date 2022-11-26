@@ -31,8 +31,8 @@ export const SidebarContentTeacher = () => {
       <Link href="/admin">
         <a>
           <SidebarItem
-            icon={<House />}
-            title="ホーム"
+            icon={<MagnifyingGlass />}
+            title="回答検索"
             isActive={router.pathname == "/admin"}
           />
         </a>
@@ -52,15 +52,6 @@ export const SidebarContentTeacher = () => {
             icon={<Baseball />}
             title="部活一覧"
             isActive={router.pathname == "/admin/clubs"}
-          />
-        </a>
-      </Link>
-      <Link href="/admin/health-checks">
-        <a>
-          <SidebarItem
-            icon={<MagnifyingGlass />}
-            title="回答検索"
-            isActive={router.pathname == "/admin/health-checks"}
           />
         </a>
       </Link>

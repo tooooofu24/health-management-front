@@ -19,10 +19,7 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { useAtom } from "jotai";
-import { userAtom } from "../../../jotai/user";
 import { ClubField } from "../../common/form/ClubField";
-import { useUpdateStudent } from "../../../hooks/Student";
 import { useCurrentTeacher, useUpdateTeacher } from "../../../hooks/Teacher";
 import { ClassroomField } from "../../common/form/ClassroomField";
 
@@ -40,7 +37,6 @@ export const MyPageEditButton = () => {
       clubId: teacher.clubId,
     },
   });
-  const [user] = useAtom(userAtom);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const onSubmit = (data: form) => {
     updateTeacher({ id: teacher.id, ...data }).then(() => {
