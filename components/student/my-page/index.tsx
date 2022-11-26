@@ -14,8 +14,10 @@ import {
 import { userAtom } from "../../../jotai/user";
 import { useAtom } from "jotai";
 import { useState } from "react";
+import { useCurrentStudent } from "../../../hooks/Student";
 
 export const MyPage = () => {
+  const { student } = useCurrentStudent();
   return (
     <TilesWrapper>
       <Tile>
@@ -34,9 +36,13 @@ export const MyPage = () => {
                 <Td>
                   <Avatar />
                 </Td>
-                <Td>千葉陶也</Td>
-                <Td>1-1</Td>
-                <Td>バスケ部</Td>
+                <Td>{student.name}</Td>
+                <Td>
+                  {student.classroom.grade}年{student.classroom.name}組
+                </Td>
+                <Td>
+                  {student.clubId ? <>{student.club?.name}</> : <>なし</>}
+                </Td>
               </Tr>
             </Tbody>
           </Table>

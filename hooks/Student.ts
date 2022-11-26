@@ -1,12 +1,15 @@
 import { useState } from "react";
+import useSWR from "swr";
+import { StudentResponse } from "../types/APIResponse";
 import { putRequest } from "../utils/apiClient";
+import { fetcher } from "../utils/fetcher";
 
 export const useUpdateStudent = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   type props = {
     id: number;
-    clubId?: number;
+    clubId: number | null;
     classroomId: number;
   };
   const updateStudent = async ({ id, ...props }: props) => {
@@ -16,4 +19,15 @@ export const useUpdateStudent = () => {
     });
   };
   return { isLoading, updateStudent };
+};
+
+export const useCurrentStudent = () => {
+  const { data, mutate: refetch } = useSWR(["/api/students/me"], fetcher, {
+    suspense: true,
+  });
+  const student: StudentResponse = data;
+  return {
+    student,
+    refetch,
+  };
 };

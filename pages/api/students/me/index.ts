@@ -10,7 +10,7 @@ const getHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string; data: StudentResponse }>
 ) => {
-  const user = await isAuthenticated(req, "Student");
+  const user = await isAuthenticated(req);
   const student = await findStudent(user);
   res.status(200).json({ message: "success", data: student });
 };
@@ -19,7 +19,7 @@ const putHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string }>
 ) => {
-  const user = await isAuthenticated(req, "Student");
+  const user = await isAuthenticated(req);
   const student = await findStudent(user);
   await prisma.student.update({
     where: {

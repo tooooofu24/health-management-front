@@ -10,7 +10,7 @@ const getHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string; data: HealthCheckResponse[] }>
 ) => {
-  const user = await isAuthenticated(req, "Student");
+  const user = await isAuthenticated(req);
   const student = await findStudent(user);
   const healthChecks = await prisma.healthCheck.findMany({
     where: {

@@ -19,24 +19,30 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { useAtom } from "jotai";
-import { userAtom } from "../../../jotai/user";
 import { ClubField } from "../../common/form/ClubField";
-import { useUpdateStudent } from "../../../hooks/Student";
+import { useCurrentStudent, useUpdateStudent } from "../../../hooks/Student";
+import { ClassroomField } from "../../common/form/ClassroomField";
 
 export const MyPageEditButton = () => {
   const { updateStudent, isLoading } = useUpdateStudent();
+  const { student, refetch } = useCurrentStudent();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<form>({
     mode: "onBlur",
+    defaultValues: {
+      clubId: student.clubId,
+      classroomId: student.classroomId,
+    },
   });
-  const [user] = useAtom(userAtom);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const onSubmit = (data: form) => {
-    // updateStudent({ id: student?.id, ...data });
+    updateStudent({ id: student.id, ...data }).then(() => {
+      refetch();
+      onClose();
+    });
   };
   return (
     <>
@@ -56,14 +62,14 @@ export const MyPageEditButton = () => {
                     <User />
                     <Text>氏名</Text>
                   </FormLabel>
-                  <Input value={user?.name} readOnly />
+                  <Input value={student.name} readOnly />
                 </FormControl>
                 <FormControl isInvalid={Boolean(errors.classroomId)}>
                   <FormLabel>
                     <GraduationCap />
                     <Text>クラス</Text>
                   </FormLabel>
-                  <ClubField
+                  <ClassroomField
                     register={register("classroomId", {
                       required: "必須項目です！",
                     })}
@@ -99,6 +105,6 @@ export const MyPageEditButton = () => {
 };
 
 type form = {
-  clubId?: number;
+  clubId: number | null;
   classroomId: number;
 };
