@@ -9,11 +9,13 @@ import {
   TableContainer,
   Flex,
   Tag,
+  Text,
 } from "@chakra-ui/react";
 import { CaretRight } from "phosphor-react";
 import { Classroom, Student, Teacher } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useClassrooms } from "../../../../hooks/Classroom";
+import { ClassroomResponse } from "../../../../types/APIResponse";
 
 export const ClassroomPage = () => {
   const { classrooms } = useClassrooms();
@@ -40,11 +42,7 @@ export const ClassroomPage = () => {
     </Tile>
   );
 };
-const Row = ({
-  classroom,
-}: {
-  classroom: Classroom & { teachers: Teacher[]; students: Student[] };
-}) => {
+const Row = ({ classroom }: { classroom: ClassroomResponse }) => {
   const router = useRouter();
   return (
     <Tr
@@ -58,7 +56,13 @@ const Row = ({
       <Td>
         {classroom.grade}年{classroom.name}組
       </Td>
-      <Td></Td>
+      <Td>
+        <Flex justifyContent="center" gap={3}>
+          {classroom.teachers.map((teacher) => {
+            return <Text key={teacher.id}>{teacher.name}</Text>;
+          })}
+        </Flex>
+      </Td>
       <Td>{classroom.students.length}人</Td>
       <Td>
         <Tag>5</Tag>

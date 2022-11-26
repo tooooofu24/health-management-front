@@ -9,6 +9,7 @@ import {
   TableContainer,
   Flex,
   Tag,
+  Text,
 } from "@chakra-ui/react";
 import { CaretRight } from "phosphor-react";
 import { Club, Student, Teacher } from "@prisma/client";
@@ -53,7 +54,13 @@ const Row = ({
       onClick={() => router.push("/admin/health-checks/?clubId=" + club.id)}
     >
       <Td>{club.name}</Td>
-      <Td></Td>
+      <Td>
+        <Flex justifyContent="center" gap={3}>
+          {club.teachers.map((teacher) => {
+            return <Text key={teacher.id}>{teacher.name}</Text>;
+          })}
+        </Flex>
+      </Td>
       <Td>{club.students.length}人</Td>
       <Td>
         <Tag>5</Tag>
