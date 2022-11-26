@@ -32,16 +32,20 @@ const getHandler = async (
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  switch (req.method) {
-    case "GET":
-      await getHandler(req, res);
-      break;
-    default:
-      res.status(405).json({
-        error: {
-          message: `Method ${req.method} Not Allowed`,
-          statusCode: 405,
-        },
-      });
+  try {
+    switch (req.method) {
+      case "GET":
+        await getHandler(req, res);
+        break;
+      default:
+        res.status(405).json({
+          error: {
+            message: `Method ${req.method} Not Allowed`,
+            statusCode: 405,
+          },
+        });
+    }
+  } catch (e: any) {
+    res.status(e.code || 500).json(response(e.message || "不明なエラーです"));
   }
 };
