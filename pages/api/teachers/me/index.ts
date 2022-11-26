@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client";
 import { TeacherResponse } from "../../../../types/APIResponse";
 import { isAuthenticated } from "../../../../utils/server/auth";
 import { findStudent } from "../../../../utils/server/student";
+import { findTeacher } from "../../../../utils/server/teacher";
 
 const prisma = new PrismaClient();
 
@@ -11,7 +12,7 @@ const getHandler = async (
   res: NextApiResponse<{ message: string; data: TeacherResponse }>
 ) => {
   const user = await isAuthenticated(req, "Teacher");
-  const teacher = await findStudent(user);
+  const teacher = await findTeacher(user);
   res.status(200).json({ message: "success", data: teacher });
 };
 
@@ -20,7 +21,7 @@ const putHandler = async (
   res: NextApiResponse<{ message: string }>
 ) => {
   const user = await isAuthenticated(req, "Teacher");
-  const teacher = await findStudent(user);
+  const teacher = await findTeacher(user);
   await prisma.teacher.update({
     where: {
       id: teacher.id,

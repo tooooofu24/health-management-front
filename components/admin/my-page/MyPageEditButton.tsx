@@ -23,20 +23,30 @@ import { useAtom } from "jotai";
 import { userAtom } from "../../../jotai/user";
 import { ClubField } from "../../common/form/ClubField";
 import { useUpdateStudent } from "../../../hooks/Student";
+import { useCurrentTeacher, useUpdateTeacher } from "../../../hooks/Teacher";
+import { ClassroomField } from "../../common/form/ClassroomField";
 
 export const MyPageEditButton = () => {
-  const { updateStudent, isLoading } = useUpdateStudent();
+  const { teacher, refetch } = useCurrentTeacher();
+  const { updateTeacher, isLoading } = useUpdateTeacher();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<form>({
     mode: "onBlur",
+    defaultValues: {
+      classroomId: teacher.classroomId,
+      clubId: teacher.clubId,
+    },
   });
   const [user] = useAtom(userAtom);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const onSubmit = (data: form) => {
-    // updateStudent({ id: student?.id, ...data });
+    updateTeacher({ id: teacher.id, ...data }).then(() => {
+      onClose();
+      refetch();
+    });
   };
   return (
     <>
@@ -56,18 +66,14 @@ export const MyPageEditButton = () => {
                     <User />
                     <Text>氏名</Text>
                   </FormLabel>
-                  <Input value={user?.name} readOnly />
+                  <Input value={teacher?.name} readOnly />
                 </FormControl>
                 <FormControl isInvalid={Boolean(errors.classroomId)}>
                   <FormLabel>
                     <GraduationCap />
-                    <Text>クラス</Text>
+                    <Text>担任</Text>
                   </FormLabel>
-                  <ClubField
-                    register={register("classroomId", {
-                      required: "必須項目です！",
-                    })}
-                  />
+                  <ClassroomField register={register("classroomId")} />
                   <FormErrorMessage>
                     {errors.classroomId?.message}
                   </FormErrorMessage>
@@ -75,7 +81,7 @@ export const MyPageEditButton = () => {
                 <FormControl isInvalid={Boolean(errors.clubId)}>
                   <FormLabel>
                     <Baseball />
-                    <Text>部活動</Text>
+                    <Text>顧問</Text>
                   </FormLabel>
                   <ClubField register={register("clubId")} />
                   <FormErrorMessage>{errors.clubId?.message}</FormErrorMessage>
@@ -99,6 +105,6 @@ export const MyPageEditButton = () => {
 };
 
 type form = {
-  clubId?: number;
-  classroomId: number;
+  clubId: number | null;
+  classroomId: number | null;
 };
