@@ -12,7 +12,7 @@ import { ClubPage } from "../../../components/admin/clubs/index/Index";
 const Page: NextPage = () => {
   return (
     <AuthContent>
-      <Layout>
+      <Layout role="Teacher">
         <PageTitle title="部活動一覧" icon={<Baseball />} iconUrl="" />
         <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
           <Suspense fallback={<LoadingTile />}>

@@ -13,7 +13,7 @@ import { House } from "phosphor-react";
 const TopPage: NextPage = () => {
   return (
     <AuthContent>
-      <Layout>
+      <Layout role="Teacher">
         <PageTitle title="ホーム" icon={<House />} iconUrl="" />
         <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
           <Suspense fallback={<LoadingTile />}>

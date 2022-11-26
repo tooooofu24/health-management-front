@@ -1,31 +1,17 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { useAtom } from "jotai";
-import React from "react";
-import { userAtom } from "../../../jotai/user";
-import { Loading } from "../loading/Loading";
+import { Role } from "@prisma/client";
+import React, { FC } from "react";
 import { SidebarContentStudent } from "./SideBarContentStudent";
 import { SidebarContentTeacher } from "./SideBarContentTeacher";
 
-export const SideBar = () => {
-  const [user] = useAtom(userAtom);
-
+type props = {
+  role: Role;
+};
+export const SideBar: FC<props> = ({ role }) => {
   return (
     <Box bg="white" h="full" w="200px" position="fixed" boxShadow="base">
-      {user?.role === "Student" ? (
-        <SidebarContentStudent />
-      ) : user?.role === "Teacher" ? (
-        <SidebarContentTeacher />
-      ) : (
-        <LoadingContent />
-      )}
+      {role === "Student" ? <SidebarContentStudent /> : null}
+      {role === "Teacher" ? <SidebarContentTeacher /> : null}
     </Box>
-  );
-};
-
-const LoadingContent = () => {
-  return (
-    <Flex h="full" justifyContent="center" alignItems="center">
-      <Loading />
-    </Flex>
   );
 };

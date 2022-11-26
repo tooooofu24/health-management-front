@@ -13,7 +13,7 @@ import { Notepad } from "phosphor-react";
 const TopPage: NextPage = () => {
   return (
     <AuthContent>
-      <Layout>
+      <Layout role="Student">
         <PageTitle title="過去のデータ" icon={<Notepad />} iconUrl="" />
         <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
           <Suspense fallback={<LoadingTile />}>

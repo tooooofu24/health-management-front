@@ -12,7 +12,7 @@ import { HomePage } from "../components/student/home/Index";
 const TopPage: NextPage = () => {
   return (
     <AuthContent>
-      <Layout>
+      <Layout role="Student">
         <PageTitle title="お知らせ" icon={<Bell />} iconUrl="/" />
         <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
           <Suspense fallback={<LoadingTile />}>

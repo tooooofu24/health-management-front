@@ -12,7 +12,7 @@ import { HealthChecksPage } from "../../../components/admin/healthCheck/Index";
 const Page: NextPage = () => {
   return (
     <AuthContent>
-      <Layout>
+      <Layout role="Teacher">
         <PageTitle title="回答検索" icon={<MagnifyingGlass />} iconUrl="" />
         <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
           <Suspense fallback={<LoadingTile />}>

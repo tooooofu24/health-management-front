@@ -1,10 +1,15 @@
 import { Box } from "@chakra-ui/react";
+import { Role } from "@prisma/client";
 import { FC, ReactNode } from "react";
 import { isSmartPhoneScreen } from "../../styles/Responsive";
 import { NavBar } from "./Navbar/NavBar";
 import { SideBar } from "./Navbar/SideBar";
 
-export const Layout: FC<{ children: ReactNode }> = ({ children }) => {
+type props = {
+  role: Role;
+  children: ReactNode;
+};
+export const Layout: FC<props> = ({ role, children }) => {
   if (isSmartPhoneScreen()) {
     return (
       <Box sx={{ "@media screen and (min-width: 900px)": { display: "none" } }}>
@@ -17,7 +22,7 @@ export const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   } else {
     return (
       <Box sx={{ "@media screen and (max-width: 900px)": { display: "none" } }}>
-        <SideBar />
+        <SideBar role={role} />
         <Box pl="200px">
           <Box p="30px">{children}</Box>
         </Box>

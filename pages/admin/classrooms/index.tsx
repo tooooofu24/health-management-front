@@ -12,7 +12,7 @@ import { ClassroomPage } from "../../../components/admin/classroom/index/Index";
 const Page: NextPage = () => {
   return (
     <AuthContent>
-      <Layout>
+      <Layout role="Teacher">
         <PageTitle title="クラス一覧" icon={<GraduationCap />} iconUrl="" />
         <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
           <Suspense fallback={<LoadingTile />}>

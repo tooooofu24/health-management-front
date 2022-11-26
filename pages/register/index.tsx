@@ -12,7 +12,7 @@ import { RegisterPage } from "../../components/student/register";
 const Page: NextPage = () => {
   return (
     <AuthContent>
-      <Layout>
+      <Layout role="Student">
         <PageTitle title="データ登録" icon={<Pencil />} iconUrl="/register" />
         <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
           <Suspense fallback={<LoadingTile />}>
