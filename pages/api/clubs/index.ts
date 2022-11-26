@@ -4,14 +4,18 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
 import { response } from "../../../utils/server/response";
 import { isAuthenticated } from "../../../utils/server/auth";
+import { ClubResponse } from "../../../types/APIResponse";
 const prisma = new PrismaClient();
 
-const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const getHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<{ message: string; data: ClubResponse[] }>
+) => {
   await isAuthenticated(req, "Teacher");
   const clubs = await prisma.club.findMany({
     include: { teachers: true, students: true },
   });
-  res.status(200).json(response("success", clubs));
+  res.status(200).json({ message: "success", data: clubs });
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
