@@ -36,4 +36,5 @@ export type ClubResponse = {
 
 export type HealthCheckResponse = {
   checkedTeacher?: Teacher;
+  student: Student;
 } & HealthCheck;
