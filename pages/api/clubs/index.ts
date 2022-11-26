@@ -12,7 +12,7 @@ const getHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string; data: ClubResponse[] }>
 ) => {
-  await isAuthenticated(req, "Teacher");
+  await isAuthenticated(req);
   const clubs = await prisma.club.findMany({
     include: {
       teachers: true,

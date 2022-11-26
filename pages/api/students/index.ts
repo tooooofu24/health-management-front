@@ -3,12 +3,14 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
 import { response } from "../../../utils/server/response";
 import { StudentResponse } from "../../../types/APIResponse";
+import { isAuthenticated } from "../../../utils/server/auth";
 const prisma = new PrismaClient();
 
 const getHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string; data: StudentResponse[] }>
 ) => {
+  const user = await isAuthenticated(req, "Teacher");
   const { classroomId, clubId, name, email } = req.query;
   /* 著者リストを取得 */
   const students = await prisma.student.findMany({
