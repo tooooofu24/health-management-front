@@ -12,6 +12,8 @@ git pull origin main
 
 ```
 # 数字はissueのidに対応させる
+git checkout main
+git pull origin main
 git checkout -b feature/12345
 ```
 

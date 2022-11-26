@@ -42,13 +42,13 @@ const deleteHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case "GET":
-      getHandler(req, res);
+      await getHandler(req, res);
       break;
     case "PUT":
-      putHandler(req, res);
+      await putHandler(req, res);
       break;
     case "DELETE":
-      deleteHandler(req, res);
+      await deleteHandler(req, res);
       break;
     default:
       res.status(405).json({
