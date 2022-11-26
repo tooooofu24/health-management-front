@@ -21,10 +21,10 @@ const putHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       id: id,
     },
     data: {
-      name: req.body.name,
-      number: Number(req.body.number),
-      classroomId: Number(req.body.classroomId),
-      clubId: Number(req.body.clubId),
+      name: req.body.name || undefined,
+      number: Number(req.body.number) || undefined,
+      classroomId: Number(req.body.classroomId) || undefined,
+      clubId: Number(req.body.clubId) || undefined,
     },
   });
   res.status(200).json(response("success", student));

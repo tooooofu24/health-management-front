@@ -1,11 +1,5 @@
 # Git
 
-### ローカルを更新
-
-```
-git pull origin main
-```
-
 ### 新しい作業を開始
 
 [GitHub](https://github.com/tooooofu24/health-management-front)で作業内容の issue を作成
@@ -24,6 +18,8 @@ git add .
 git commit -m "作業内容"
 git push
 ```
+
+プルリクエストを作成
 
 # ローカル開発
 
