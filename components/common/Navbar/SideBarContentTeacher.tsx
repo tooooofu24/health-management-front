@@ -1,4 +1,14 @@
-import { Box, BoxProps, Flex, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertIcon,
+  Badge,
+  Box,
+  BoxProps,
+  Flex,
+  Tag,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {
@@ -9,12 +19,15 @@ import {
   SignOut,
   User,
   UsersThree,
+  WarningCircle,
 } from "phosphor-react";
 import { FC, ReactNode } from "react";
+import { useUnreadHealthChecks } from "../../../hooks/HealthCheck";
 import { Logo } from "../Logo";
 import { LogoutModal } from "../LogoutModal";
 
 export const SidebarContentTeacher = () => {
+  const { healthChecks } = useUnreadHealthChecks();
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -31,11 +44,24 @@ export const SidebarContentTeacher = () => {
       {/* ロゴ部分終了 */}
       <Link href="/admin">
         <a>
-          <SidebarItem
-            icon={<House />}
-            title="ホーム"
-            isActive={router.pathname == "/admin"}
-          />
+          <Box position="relative">
+            <SidebarItem
+              icon={<House />}
+              title="ホーム"
+              isActive={router.pathname == "/admin"}
+            />
+            {healthChecks.length ? (
+              <Flex
+                right="1rem"
+                top="0"
+                position="absolute"
+                alignItems="center"
+                h="full"
+              >
+                <Badge>NEW</Badge>
+              </Flex>
+            ) : null}
+          </Box>
         </a>
       </Link>
       <Link href="/admin/health-checks">
