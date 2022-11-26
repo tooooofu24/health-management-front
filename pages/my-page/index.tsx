@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { Baseball, Pencil, User } from "phosphor-react";
+import { User } from "phosphor-react";
 import { Suspense } from "react";
 import { AuthContent } from "../../components/common/AuthContent";
 import { Layout } from "../../components/common/Layout";

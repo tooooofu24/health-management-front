@@ -5,6 +5,7 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
+  Select,
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
@@ -15,6 +16,8 @@ import {
   GraduationCap,
   CaretRight,
   CaretLeft,
+  CheckCircle,
+  SmileySad,
 } from "phosphor-react";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
@@ -85,6 +88,28 @@ export const HealthChecksPage = () => {
             </FormLabel>
             <Input disabled type="date" {...register("date")} />
             <FormErrorMessage>{errors.date?.message}</FormErrorMessage>
+          </FormControl>
+          <FormControl isInvalid={Boolean(errors.isUnread)}>
+            <FormLabel>
+              <CheckCircle />
+              <Text>未読に絞る</Text>
+            </FormLabel>
+            <Select placeholder="選択して下さい" {...register("isUnread")}>
+              <option value={0}>絞り込まない</option>
+              <option value={1}>絞り込む</option>
+            </Select>
+            <FormErrorMessage>{errors.isUnread?.message}</FormErrorMessage>
+          </FormControl>
+          <FormControl isInvalid={Boolean(errors.isDanger)}>
+            <FormLabel>
+              <SmileySad />
+              <Text>体調不良に絞る</Text>
+            </FormLabel>
+            <Select placeholder="選択して下さい" {...register("isDanger")}>
+              <option value={0}>絞り込まない</option>
+              <option value={1}>絞り込む</option>
+            </Select>
+            <FormErrorMessage>{errors.isDanger?.message}</FormErrorMessage>
           </FormControl>
         </SimpleGrid>
       </Tile>

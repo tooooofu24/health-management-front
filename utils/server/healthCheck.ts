@@ -29,6 +29,8 @@ export type filterProps = {
   classroomId?: number;
   studentId?: number;
   clubId?: number;
+  isUnread?: 0 | 1;
+  isDanger?: 0 | 1;
   page?: number;
 };
 export const getHealthChecks = async (
