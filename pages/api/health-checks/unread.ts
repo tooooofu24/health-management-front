@@ -5,9 +5,13 @@ import { response } from "../../../utils/server/response";
 import healthChecks from ".";
 import { isAuthenticated } from "../../../utils/server/auth";
 import { findTeacher } from "../../../utils/server/teacher";
+import { HealthCheckResponse } from "../../../types/APIResponse";
 const prisma = new PrismaClient();
 
-const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const getHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<{ message: string; data: HealthCheckResponse[] }>
+) => {
   const user = await isAuthenticated(req, "Teacher");
   const teacher = await findTeacher(user);
   const healthChecks = await prisma.healthCheck.findMany({
@@ -24,7 +28,7 @@ const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       student: true,
     },
   });
-  res.status(200).json(response("success", healthChecks));
+  res.status(200).json({ message: "success", data: healthChecks });
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

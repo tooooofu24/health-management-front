@@ -8,11 +8,14 @@ import {
 import { APIError } from "../../../utils/server/error";
 import { findStudent } from "../../../utils/server/student";
 import { PrismaClient } from "@prisma/client";
+import { HealthCheckResponse } from "../../../types/APIResponse";
 
 const prisma = new PrismaClient();
 
-const getHandler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
-  // await isAuthenticated(req);
+const getHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<{ message: string; data: HealthCheckResponse[] }>
+) => {
   const { date, classroomId, studentId, clubId, page, isUnread, isDanger } =
     req.query;
   const take = 20;
@@ -43,7 +46,7 @@ const getHandler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
       student: true,
     },
   });
-  res.status(200).json(response("success", healthChecks));
+  res.status(200).json({ message: "success", data: healthChecks });
 };
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
