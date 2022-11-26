@@ -16,6 +16,7 @@ const getHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string; data: HealthCheckResponse[] }>
 ) => {
+  const user = await isAuthenticated(req, "Teacher");
   const { date, classroomId, studentId, clubId, page, isUnread, isDanger } =
     req.query;
   const take = 20;
@@ -50,7 +51,7 @@ const getHandler = async (
 };
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
-  const user = await isAuthenticated(req, "Student");
+  const user = await isAuthenticated(req);
   const student = await findStudent(user);
   await registerHealthCheck(req, student);
   res.status(200).json(response("success"));

@@ -10,7 +10,7 @@ const getHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string; data: ClassroomResponse[] }>
 ) => {
-  await isAuthenticated(req, "Teacher");
+  await isAuthenticated(req);
   const classrooms = await prisma.classroom.findMany({
     include: {
       teachers: true,

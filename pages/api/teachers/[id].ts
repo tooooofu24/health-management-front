@@ -3,12 +3,14 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
 import { response } from "../../../utils/server/response";
 import { TeacherResponse } from "../../../types/APIResponse";
+import { isAuthenticated } from "../../../utils/server/auth";
 const prisma = new PrismaClient();
 
 const getHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string; data: TeacherResponse }>
 ) => {
+  const user = await isAuthenticated(req, "Teacher");
   const id: number = Number(req.query.id);
   const teacher = await prisma.teacher.findFirstOrThrow({
     where: {
@@ -27,6 +29,7 @@ const putHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string }>
 ) => {
+  const user = await isAuthenticated(req, "Teacher");
   const id = Number(req.query.id);
   const teacher = await prisma.teacher.update({
     where: {
@@ -45,6 +48,7 @@ const deleteHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string }>
 ) => {
+  const user = await isAuthenticated(req, "Teacher");
   const id = Number(req.query.id);
   const teacher = await prisma.teacher.delete({
     where: {
