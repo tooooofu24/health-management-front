@@ -14,7 +14,15 @@ const getHandler = async (
   const classrooms = await prisma.classroom.findMany({
     include: {
       teachers: true,
-      students: true,
+      students: {
+        include: {
+          healthChecks: {
+            where: {
+              checkedTeacherId: null,
+            },
+          },
+        },
+      },
     },
   });
   res.status(200).json({ message: "success", data: classrooms });

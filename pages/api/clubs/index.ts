@@ -5,6 +5,7 @@ import { PrismaClient } from "@prisma/client";
 import { response } from "../../../utils/server/response";
 import { isAuthenticated } from "../../../utils/server/auth";
 import { ClubResponse } from "../../../types/APIResponse";
+import healthChecks from "../health-checks";
 const prisma = new PrismaClient();
 
 const getHandler = async (
@@ -13,7 +14,18 @@ const getHandler = async (
 ) => {
   await isAuthenticated(req, "Teacher");
   const clubs = await prisma.club.findMany({
-    include: { teachers: true, students: true },
+    include: {
+      teachers: true,
+      students: {
+        include: {
+          healthChecks: {
+            where: {
+              checkedTeacherId: null,
+            },
+          },
+        },
+      },
+    },
   });
   res.status(200).json({ message: "success", data: clubs });
 };
