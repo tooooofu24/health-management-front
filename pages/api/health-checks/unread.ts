@@ -6,6 +6,8 @@ import healthChecks from ".";
 import { isAuthenticated } from "../../../utils/server/auth";
 import { findTeacher } from "../../../utils/server/teacher";
 import { HealthCheckResponse } from "../../../types/APIResponse";
+import students from "../students";
+import { Student } from "phosphor-react";
 const prisma = new PrismaClient();
 
 const getHandler = async (
@@ -17,12 +19,21 @@ const getHandler = async (
   const healthChecks = await prisma.healthCheck.findMany({
     where: {
       checkedTeacherId: null,
-      student: {
-        OR: [
-          { classroomId: teacher.classroomId || undefined },
-          { clubId: teacher.clubId || undefined },
-        ],
-      },
+      OR: [
+        { nightTemp: { gte: 37.5 } },
+        { morningTemp: { gte: 37.5 } },
+        { cough: true },
+        { stuffiness: true },
+        { languor: true },
+        { lessAppetite: true },
+        { goHospital: true },
+        {
+          student: { classroomId: teacher.classroomId || undefined },
+        },
+        {
+          student: { clubId: teacher.clubId || undefined },
+        },
+      ],
     },
     include: {
       student: true,
