@@ -2,10 +2,14 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { response } from "../../../utils/server/response";
 import { isAuthenticated } from "../../../utils/server/auth";
 import { APIError } from "../../../utils/server/error";
+import { UserResponse } from "../../../types/APIResponse";
 
-const getHandler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
+const getHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<{ message: string; data: UserResponse }>
+) => {
   const user = await isAuthenticated(req);
-  res.status(200).json(response("success", user));
+  res.status(200).json({ message: "success", data: user });
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

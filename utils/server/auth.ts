@@ -5,6 +5,7 @@ import admin from "firebase-admin";
 import { Role, User } from "@prisma/client";
 import { findUser } from "./user";
 import { APIError } from "./error";
+import { UserResponse } from "../../types/APIResponse";
 
 const initializeFirebase = () => {
   if (!getApps()?.length) {
@@ -31,7 +32,7 @@ export const getFirebaseUser = async (
 export const isAuthenticated = async (
   req: NextApiRequest,
   role?: Role
-): Promise<User> => {
+): Promise<UserResponse> => {
   const firebaseUser = await getFirebaseUser(req);
   const user = await findUser(firebaseUser);
   if (role && user.role !== role) throw new APIError("権限がありません！", 403);

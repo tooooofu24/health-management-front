@@ -2,7 +2,7 @@ import { UserRecord } from "firebase-admin/auth";
 import { PrismaClient, User } from "@prisma/client";
 const prisma = new PrismaClient();
 
-export const findUser = async (firebaseUser: UserRecord): Promise<User> => {
+export const findUser = async (firebaseUser: UserRecord) => {
   const user = await prisma.user.findFirstOrThrow({
     where: {
       email: firebaseUser.email,

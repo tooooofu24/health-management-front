@@ -22,16 +22,18 @@ const getHandler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
     skip: (currentPage - 1) * take,
     where: {
       studentId: Number(studentId) || undefined,
-      checkedTeacherId: Boolean(isUnread) ? null : undefined,
-      OR: [
-        { nightTemp: Boolean(isDanger) ? { gte: 37.5 } : undefined },
-        { morningTemp: Boolean(isDanger) ? { gte: 37.5 } : undefined },
-        { cough: Boolean(isDanger) ? true : undefined },
-        { stuffiness: Boolean(isDanger) ? true : undefined },
-        { languor: Boolean(isDanger) ? true : undefined },
-        { lessAppetite: Boolean(isDanger) ? true : undefined },
-        { goHospital: Boolean(isDanger) ? true : undefined },
-      ],
+      checkedTeacherId: Boolean(Number(isUnread)) ? null : undefined,
+      OR: Boolean(Number(isDanger))
+        ? [
+            { nightTemp: { gte: 37.5 } },
+            { morningTemp: { gte: 37.5 } },
+            { cough: true },
+            { stuffiness: true },
+            { languor: true },
+            { lessAppetite: true },
+            { goHospital: true },
+          ]
+        : undefined,
       student: {
         classroomId: Number(classroomId) || undefined,
         clubId: Number(clubId) || undefined,
@@ -41,19 +43,9 @@ const getHandler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
       student: true,
     },
   });
-
   res.status(200).json(response("success", healthChecks));
-
-  // res.status(200).json(response("success", healthChecks));
 };
 
-// nightTemp        Float
-// morningTemp      Float
-// cough            Boolean // 咳
-// stuffiness       Boolean // 息苦しさ
-// languor          Boolean // だるさ
-// lessAppetite     Boolean // 食欲の減退
-// goHospital       Boolean // 通院
 const postHandler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
   const user = await isAuthenticated(req, "Student");
   const student = await findStudent(user);
