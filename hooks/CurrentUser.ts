@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { getRequest } from "../utils/apiClient";
 import { app } from "../utils/firebase";
 import { User } from "@prisma/client";
+import { UserResponse } from "../types/APIResponse";
 
 export const useFirebaseUser = () => {
   const [user, setUser] = useState<FirebaseUser | null>(null);
@@ -24,7 +25,7 @@ export const useFirebaseUser = () => {
   return { user, isLoading };
 };
 
-export const getCurrentUser = async (): Promise<User> => {
+export const getCurrentUser = async (): Promise<UserResponse> => {
   const res = await getRequest("/api/current-user");
   return res.data;
 };

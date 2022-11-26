@@ -95,7 +95,6 @@ export const HealthChecksPage = () => {
               <Text>未読に絞る</Text>
             </FormLabel>
             <Select placeholder="選択して下さい" {...register("isUnread")}>
-              <option value={0}>絞り込まない</option>
               <option value={1}>絞り込む</option>
             </Select>
             <FormErrorMessage>{errors.isUnread?.message}</FormErrorMessage>
@@ -106,7 +105,6 @@ export const HealthChecksPage = () => {
               <Text>体調不良に絞る</Text>
             </FormLabel>
             <Select placeholder="選択して下さい" {...register("isDanger")}>
-              <option value={0}>絞り込まない</option>
               <option value={1}>絞り込む</option>
             </Select>
             <FormErrorMessage>{errors.isDanger?.message}</FormErrorMessage>

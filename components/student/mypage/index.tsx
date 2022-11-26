@@ -11,6 +11,9 @@ import {
   TableContainer,
   Avatar,
 } from "@chakra-ui/react";
+import { userAtom } from "../../../jotai/user";
+import { useAtom } from "jotai";
+import { useState } from "react";
 
 export const MyPage = () => {
   return (

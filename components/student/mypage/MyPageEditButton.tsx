@@ -36,7 +36,7 @@ export const MyPageEditButton = () => {
   const [user] = useAtom(userAtom);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const onSubmit = (data: form) => {
-    updateStudent({ id: 1, ...data });
+    // updateStudent({ id: student?.id, ...data });
   };
   return (
     <>
