@@ -21,6 +21,7 @@ model User {
   id       Int       @id @default(autoincrement())
   name     String
   email    String    @unique
+  imageUrl String?
   role     Role
   students Student[]
   teachers Teacher[]
@@ -30,7 +31,8 @@ model Student {
   id           Int           @id @default(autoincrement())
   name         String
   number       Int
-  userId       Int
+  imageUrl     String?
+  userId       Int           @unique
   user         User          @relation(fields: [userId], references: [id])
   classroomId  Int
   classroom    Classroom     @relation(fields: [classroomId], references: [id])
@@ -42,7 +44,8 @@ model Student {
 model Teacher {
   id           Int           @id @default(autoincrement())
   name         String
-  userId       Int
+  imageUrl     String?
+  userId       Int           @unique
   user         User          @relation(fields: [userId], references: [id])
   classroomId  Int?
   classroom    Classroom?    @relation(fields: [classroomId], references: [id])
