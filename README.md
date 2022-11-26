@@ -14,6 +14,7 @@ git checkout -b feature/12345
 ### 作業を反映
 
 ```
+npm run tsc
 git add .
 git commit -m "作業内容"
 git push

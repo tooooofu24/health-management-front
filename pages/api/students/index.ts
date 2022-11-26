@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { response } from "../../../utils/server/response";
 import { StudentResponse } from "../../../types/APIResponse";
 import { isAuthenticated } from "../../../utils/server/auth";
+import classrooms from "../classrooms";
 const prisma = new PrismaClient();
 
 const getHandler = async (
@@ -31,11 +32,39 @@ const getHandler = async (
   res.status(200).json({ message: "success", data: students });
 };
 
+const postHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<{ message: string }>
+) => {
+  const { name, email, clubId, classroomId, number } = req.body;
+  const user = await prisma.user.create({
+    data: {
+      name: String(name),
+      email: String(email),
+      role: "Student",
+    },
+  });
+
+  const student = await prisma.student.create({
+    data: {
+      name: String(name),
+      clubId: Number(clubId),
+      classroomId: Number(classroomId),
+      number: Number(number),
+      userId: Number(user.id),
+    },
+  });
+  res.status(200).json({ message: "success" });
+};
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     switch (req.method) {
       case "GET":
         await getHandler(req, res);
+        break;
+      case "POST":
+        await postHandler(req, res);
         break;
       default:
         res.status(405).json({
@@ -46,6 +75,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         });
     }
   } catch (e: any) {
-    res.status(e.code || 500).json(response(e.message || "不明なエラーです"));
+    res
+      .status(Number(e.code) || 500)
+      .json(response(e.message || "不明なエラーです"));
   }
 };

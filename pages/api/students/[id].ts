@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Role } from "@prisma/client";
 import { response } from "../../../utils/server/response";
-import { StudentResponse } from "../../../types/APIResponse";
+import { StudentResponse, UserResponse } from "../../../types/APIResponse";
 import { isAuthenticated } from "../../../utils/server/auth";
 const prisma = new PrismaClient();
 
@@ -80,6 +80,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         });
     }
   } catch (e: any) {
-    res.status(e.code || 500).json(response(e.message || "不明なエラーです"));
+    res
+      .status(Number(e.code) || 500)
+      .json(response(e.message || "不明なエラーです"));
   }
 };

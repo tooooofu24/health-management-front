@@ -54,6 +54,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         });
     }
   } catch (e: any) {
-    res.status(e.code || 500).json(response(e.message || "不明なエラーです"));
+    res
+      .status(Number(e.code) || 500)
+      .json(response(e.message || "不明なエラーです"));
   }
 };
