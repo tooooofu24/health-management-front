@@ -9,8 +9,17 @@ const getHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string; data: StudentResponse[] }>
 ) => {
+  const { classroomId, clubId, name, email } = req.query;
   /* 著者リストを取得 */
   const students = await prisma.student.findMany({
+    where: {
+      classroomId: Number(classroomId) || undefined,
+      clubId: Number(clubId) || undefined,
+      name: { contains: String(name || "") },
+      user: {
+        email: { contains: String(email || "") },
+      },
+    },
     include: {
       classroom: true,
       user: true,
