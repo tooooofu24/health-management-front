@@ -1,0 +1,54 @@
+import type { NextApiRequest, NextApiResponse } from "next";
+
+import { PrismaClient } from "@prisma/client";
+import { StudentResponse } from "../../../../types/APIResponse";
+import { isAuthenticated } from "../../../../utils/server/auth";
+import { findStudent } from "../../../../utils/server/student";
+const prisma = new PrismaClient();
+
+const getHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<{ message: string; data: StudentResponse }>
+) => {
+  const user = await isAuthenticated(req, "Student");
+  const student = await findStudent(user);
+  res.status(200).json({ message: "success", data: student });
+};
+
+const putHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<{ message: string }>
+) => {
+  const user = await isAuthenticated(req, "Student");
+  const student = await findStudent(user);
+  await prisma.student.update({
+    where: {
+      id: student.id,
+    },
+    data: {
+      name: req.body.name || undefined,
+      number: Number(req.body.number) || undefined,
+      classroomId: Number(req.body.classroomId) || undefined,
+      clubId: Number(req.body.clubId) || undefined,
+    },
+  });
+  res.status(200).json({ message: "success" });
+};
+
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  switch (req.method) {
+    case "GET":
+      await getHandler(req, res);
+      break;
+    case "PUT":
+      await putHandler(req, res);
+      break;
+    default:
+      res.status(405).json({
+        error: {
+          message: `Method ${req.method} Not Allowed`,
+          statusCode: 405,
+        },
+      });
+  }
+};

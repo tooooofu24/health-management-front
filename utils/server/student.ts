@@ -7,6 +7,11 @@ export const findStudent = async (user: User) => {
     where: {
       userId: user.id,
     },
+    include: {
+      user: true,
+      classroom: true,
+      club: true,
+    },
   });
   return student;
 };
