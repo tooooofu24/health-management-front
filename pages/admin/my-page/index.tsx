@@ -9,12 +9,18 @@ import { ErrorFallbackTile } from "../../../components/common/error/ErrorFallbac
 import { LoadingTile } from "../../../components/common/loading/LoadingTile";
 import { HealthChecksPage } from "../../../components/admin/healthCheck/Index";
 import { AdminMyPage } from "../../../components/admin/my-page";
+import { MyPageEditButton } from "../../../components/student/my-page/MyPageEditButton";
 
 const Page: NextPage = () => {
   return (
     <AuthContent>
       <Layout role="Teacher">
-        <PageTitle title="マイページ" icon={<User />} iconUrl="" />
+        <PageTitle
+          title="マイページ"
+          rightItem={<MyPageEditButton />}
+          icon={<User />}
+          iconUrl=""
+        />
         <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
           <Suspense fallback={<LoadingTile />}>
             <AdminMyPage />
