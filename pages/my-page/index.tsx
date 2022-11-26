@@ -7,8 +7,8 @@ import { PageTitle } from "../../components/common/PageTitle";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallbackTile } from "../../components/common/error/ErrorFallbackTile";
 import { LoadingTile } from "../../components/common/loading/LoadingTile";
-import { MyPage } from "../../components/student/mypage";
-import { MyPageEditButton } from "../../components/student/mypage/MyPageEditButton";
+import { MyPage } from "../../components/student/my-page";
+import { MyPageEditButton } from "../../components/student/my-page/MyPageEditButton";
 
 const Page: NextPage = () => {
   return (

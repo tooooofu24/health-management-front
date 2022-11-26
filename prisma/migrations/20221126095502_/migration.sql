@@ -3,6 +3,7 @@ CREATE TABLE `User` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
+    `imageUrl` VARCHAR(191) NULL,
     `role` ENUM('Teacher', 'Student') NOT NULL,
 
     UNIQUE INDEX `User_email_key`(`email`),
@@ -14,10 +15,12 @@ CREATE TABLE `Student` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `number` INTEGER NOT NULL,
+    `imageUrl` VARCHAR(191) NULL,
     `userId` INTEGER NOT NULL,
     `classroomId` INTEGER NOT NULL,
     `clubId` INTEGER NULL,
 
+    UNIQUE INDEX `Student_userId_key`(`userId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -25,10 +28,12 @@ CREATE TABLE `Student` (
 CREATE TABLE `Teacher` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
+    `imageUrl` VARCHAR(191) NULL,
     `userId` INTEGER NOT NULL,
     `classroomId` INTEGER NULL,
     `clubId` INTEGER NULL,
 
+    UNIQUE INDEX `Teacher_userId_key`(`userId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
