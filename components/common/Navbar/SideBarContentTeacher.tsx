@@ -7,6 +7,7 @@ import {
   House,
   MagnifyingGlass,
   SignOut,
+  User,
 } from "phosphor-react";
 import { FC, ReactNode } from "react";
 import { Logo } from "../Logo";
@@ -60,6 +61,15 @@ export const SidebarContentTeacher = () => {
             icon={<MagnifyingGlass />}
             title="回答検索"
             isActive={router.pathname == "/admin/health-checks"}
+          />
+        </a>
+      </Link>
+      <Link href="/admin/my-page">
+        <a>
+          <SidebarItem
+            icon={<User />}
+            title="マイページ"
+            isActive={router.pathname == "/admin/my-page"}
           />
         </a>
       </Link>
