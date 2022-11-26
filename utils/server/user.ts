@@ -7,6 +7,10 @@ export const findUser = async (firebaseUser: UserRecord): Promise<User> => {
     where: {
       email: firebaseUser.email,
     },
+    include: {
+      students: true,
+      teachers: true,
+    },
   });
   return user;
 };
