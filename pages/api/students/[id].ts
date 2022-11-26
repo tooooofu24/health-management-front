@@ -2,19 +2,31 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { PrismaClient } from "@prisma/client";
 import { response } from "../../../utils/server/response";
+import { StudentResponse } from "../../../types/APIResponse";
 const prisma = new PrismaClient();
 
-const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const getHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<{ message: string; data: StudentResponse }>
+) => {
   const id: number = Number(req.query.id);
-  const student = await prisma.student.findFirst({
+  const student = await prisma.student.findFirstOrThrow({
     where: {
       id: id,
     },
+    include: {
+      classroom: true,
+      user: true,
+      club: true,
+    },
   });
-  res.status(200).json(student);
+  res.status(200).json({ message: "success", data: student });
 };
 
-const putHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const putHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<{ message: string }>
+) => {
   const id = Number(req.query.id);
   const student = await prisma.student.update({
     where: {
@@ -27,17 +39,20 @@ const putHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       clubId: Number(req.body.clubId) || undefined,
     },
   });
-  res.status(200).json(response("success", student));
+  res.status(200).json({ message: "success" });
 };
 
-const deleteHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const deleteHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<{ message: string }>
+) => {
   const id = Number(req.query.id);
   const student = await prisma.student.delete({
     where: {
       id: id,
     },
   });
-  res.status(200).json(response("success", student));
+  res.status(200).json({ message: "success" });
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

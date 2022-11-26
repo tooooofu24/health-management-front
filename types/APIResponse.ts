@@ -14,16 +14,14 @@ export type UserResponse = {
 
 export type StudentResponse = {
   user: User;
-  classroom?: Classroom;
-  club?: Club;
-  healthChecks: HealthCheck[];
+  classroom: Classroom;
+  club: Club | null;
 } & Student;
 
 export type TeacherResponse = {
   user: User;
-  classroom?: Classroom;
-  club?: Club;
-  healthChecks: HealthCheck[];
+  classroom: Classroom | null;
+  club: Club | null;
 } & Teacher;
 
 export type ClassroomResponse = {

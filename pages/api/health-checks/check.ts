@@ -5,11 +5,14 @@ import { checkHealthCheck } from "../../../utils/server/healthCheck";
 import { APIError } from "../../../utils/server/error";
 import { findTeacher } from "../../../utils/server/teacher";
 
-const postHandler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
+const postHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<{ message: string }>
+) => {
   const user = await isAuthenticated(req, "Teacher");
   const teacher = await findTeacher(user);
   await checkHealthCheck(req.body.id, teacher);
-  res.status(200).json(response("success"));
+  res.status(200).json({ message: "success" });
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

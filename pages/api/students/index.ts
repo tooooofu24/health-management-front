@@ -2,20 +2,22 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { PrismaClient } from "@prisma/client";
 import { response } from "../../../utils/server/response";
+import { StudentResponse } from "../../../types/APIResponse";
 const prisma = new PrismaClient();
 
-const getHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const getHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<{ message: string; data: StudentResponse[] }>
+) => {
   /* 著者リストを取得 */
   const students = await prisma.student.findMany({
-    select: {
-      name: true,
-      number: true,
-      userId: true,
-      classroomId: true,
-      clubId: true,
+    include: {
+      classroom: true,
+      user: true,
+      club: true,
     },
   });
-  res.status(200).json(response("success", students));
+  res.status(200).json({ message: "success", data: students });
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
