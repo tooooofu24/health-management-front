@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client";
 import { StudentResponse } from "../../../../types/APIResponse";
 import { isAuthenticated } from "../../../../utils/server/auth";
 import { findStudent } from "../../../../utils/server/student";
+import { response } from "../../../../utils/server/response";
 const prisma = new PrismaClient();
 
 const getHandler = async (
@@ -36,19 +37,23 @@ const putHandler = async (
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  switch (req.method) {
-    case "GET":
-      await getHandler(req, res);
-      break;
-    case "PUT":
-      await putHandler(req, res);
-      break;
-    default:
-      res.status(405).json({
-        error: {
-          message: `Method ${req.method} Not Allowed`,
-          statusCode: 405,
-        },
-      });
+  try {
+    switch (req.method) {
+      case "GET":
+        await getHandler(req, res);
+        break;
+      case "PUT":
+        await putHandler(req, res);
+        break;
+      default:
+        res.status(405).json({
+          error: {
+            message: `Method ${req.method} Not Allowed`,
+            statusCode: 405,
+          },
+        });
+    }
+  } catch (e: any) {
+    res.status(e.code || 500).json(response(e.message || "不明なエラーです"));
   }
 };
