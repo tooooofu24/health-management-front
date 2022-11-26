@@ -31,3 +31,20 @@ export const useCurrentStudent = () => {
     refetch,
   };
 };
+export type studentsProps = {
+  classroomId?: number;
+  clubId?: number;
+  name?: string;
+  email?: string;
+};
+
+export const useStudents = (props: studentsProps) => {
+  const { data, mutate: refetch } = useSWR(["/api/students", props], fetcher, {
+    suspense: true,
+  });
+  const students: StudentResponse[] = data;
+  return {
+    students,
+    refetch,
+  };
+};

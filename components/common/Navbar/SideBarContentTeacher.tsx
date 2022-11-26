@@ -8,6 +8,7 @@ import {
   MagnifyingGlass,
   SignOut,
   User,
+  UsersThree,
 } from "phosphor-react";
 import { FC, ReactNode } from "react";
 import { Logo } from "../Logo";
@@ -31,9 +32,27 @@ export const SidebarContentTeacher = () => {
       <Link href="/admin">
         <a>
           <SidebarItem
+            icon={<House />}
+            title="ホーム"
+            isActive={router.pathname == "/admin"}
+          />
+        </a>
+      </Link>
+      <Link href="/admin/health-checks">
+        <a>
+          <SidebarItem
             icon={<MagnifyingGlass />}
             title="回答検索"
-            isActive={router.pathname == "/admin"}
+            isActive={router.pathname == "/admin/health-checks"}
+          />
+        </a>
+      </Link>
+      <Link href="/admin/students">
+        <a>
+          <SidebarItem
+            icon={<UsersThree />}
+            title="生徒検索"
+            isActive={router.pathname == "/admin/students"}
           />
         </a>
       </Link>
@@ -52,15 +71,6 @@ export const SidebarContentTeacher = () => {
             icon={<Baseball />}
             title="部活一覧"
             isActive={router.pathname == "/admin/clubs"}
-          />
-        </a>
-      </Link>
-      <Link href="/admin/my-page">
-        <a>
-          <SidebarItem
-            icon={<User />}
-            title="マイページ"
-            isActive={router.pathname == "/admin/my-page"}
           />
         </a>
       </Link>
