@@ -36,9 +36,13 @@ const TeacherCheck = ({ children }: { children: ReactNode }) => {
     return <>{children}</>;
   }
 
-  if (isStudent && isAdminRoute) {
-    router.push("/");
-    return null;
+  if (isStudent) {
+    if (isAdminRoute) {
+      router.push("/");
+      return null;
+    } else {
+      return <>{children}</>;
+    }
   }
 
   return null;
