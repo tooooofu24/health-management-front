@@ -16,6 +16,7 @@ export type StudentResponse = {
   user: User;
   classroom: Classroom;
   club: Club | null;
+  healthChecks?: HealthCheck[];
 } & Student;
 
 export type TeacherResponse = {
