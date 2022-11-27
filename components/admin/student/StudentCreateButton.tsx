@@ -17,14 +17,18 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { UserPlus } from "phosphor-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRegisterStudent } from "../../../hooks/Student";
 import { useCustomToast } from "../../../hooks/Toast";
+import { ErrorAlert } from "../../common/error/ErrorAlert";
 import { StudentForm } from "./StudentForm";
 export const StudentCreateButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { registerStudent, isLoading } = useRegisterStudent();
   const { showToast } = useCustomToast();
+  const [error, setError] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -39,8 +43,8 @@ export const StudentCreateButton = () => {
         onClose();
         showToast("登録しました！", "info");
       })
-      .catch((e: Error) => {
-        showToast("登録に失敗しました", "error");
+      .catch((e: any) => {
+        setError(e.message);
       });
   };
 
@@ -65,6 +69,8 @@ export const StudentCreateButton = () => {
               <StudentForm register={register} errors={errors} />
             </ModalBody>
             <ModalFooter>
+              {error && <ErrorAlert mb={2} message={error} />}
+
               <Button variant="ghost" mr={3} onClick={onClose}>
                 閉じる
               </Button>

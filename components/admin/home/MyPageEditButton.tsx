@@ -1,4 +1,7 @@
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
   Button,
   Flex,
   FormControl,
@@ -22,10 +25,15 @@ import { useForm } from "react-hook-form";
 import { ClubField } from "../../common/form/ClubField";
 import { useCurrentTeacher, useUpdateTeacher } from "../../../hooks/Teacher";
 import { ClassroomField } from "../../common/form/ClassroomField";
+import { useCustomToast } from "../../../hooks/Toast";
+import { useState } from "react";
+import { ErrorAlert } from "../../common/error/ErrorAlert";
 
 export const MyPageEditButton = () => {
   const { teacher, refetch } = useCurrentTeacher();
   const { updateTeacher, isLoading } = useUpdateTeacher();
+  const { showToast } = useCustomToast();
+  const [error, setError] = useState("");
   const {
     register,
     handleSubmit,
@@ -39,10 +47,15 @@ export const MyPageEditButton = () => {
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const onSubmit = (data: form) => {
-    updateTeacher({ id: teacher.id, ...data }).then(() => {
-      onClose();
-      refetch();
-    });
+    updateTeacher({ id: teacher.id, ...data })
+      .then(() => {
+        onClose();
+        refetch();
+        showToast("更新しました！", "info");
+      })
+      .catch((e: any) => {
+        setError(e.message);
+      });
   };
   return (
     <>
@@ -86,6 +99,8 @@ export const MyPageEditButton = () => {
             </ModalBody>
 
             <ModalFooter>
+              {error && <ErrorAlert mb={2} message={error} />}
+
               <Button variant="ghost" mr={3} onClick={onClose}>
                 閉じる
               </Button>
