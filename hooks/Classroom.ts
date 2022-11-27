@@ -13,3 +13,14 @@ export const useClassrooms = () => {
     refetch,
   };
 };
+
+export const useClassroom = (id: number) => {
+  const { data, mutate: refetch } = useSWR([`/api/classrooms/${id}`], fetcher, {
+    suspense: true,
+  });
+  const classroom: ClassroomResponse = data;
+  return {
+    classroom,
+    refetch,
+  };
+};

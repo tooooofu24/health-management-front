@@ -17,13 +17,18 @@ import { format } from "date-fns";
 import { CheckButton } from "../../admin/healthCheck/CheckButton";
 import { KeyedMutator } from "swr";
 import { CommonError } from "../error/CommonError";
+import { convertBoolean, convertNumber } from "./HealthCheckTable";
+import { StudentResponse } from "../../../types/APIResponse";
 
 type props = {
-  healthChecks: (HealthCheck & { student: Student })[];
+  students: StudentResponse[];
   refetch: KeyedMutator<any>;
 };
-export const HealthCheckTable: FC<props> = ({ healthChecks, refetch }) => {
-  if (!healthChecks.length) {
+export const HealthCheckTableForStudentList: FC<props> = ({
+  students,
+  refetch,
+}) => {
+  if (!students.length) {
     return <CommonError message="データがありません" />;
   }
   return (
@@ -43,14 +48,32 @@ export const HealthCheckTable: FC<props> = ({ healthChecks, refetch }) => {
               <Th>食欲不振</Th>
               <Th>通院</Th>
               <Th>コメント</Th>
-              <Th>日付</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {healthChecks.map((healthCheck) => {
+            {students.map((student) => {
+              const healthCheck = student.healthChecks?.[0];
+              if (!healthCheck) {
+                return (
+                  <Tr key={student.id}>
+                    <Td>{student.name}</Td>
+                    <Td></Td>
+                    <Td></Td>
+                    <Td></Td>
+                    <Td></Td>
+                    <Td></Td>
+                    <Td></Td>
+                    <Td></Td>
+                    <Td></Td>
+                    <Td></Td>
+                    <Td></Td>
+                    <Td></Td>
+                  </Tr>
+                );
+              }
               return (
-                <Tr key={healthCheck.id}>
-                  <Td>{healthCheck.student.name}</Td>
+                <Tr key={student.id}>
+                  <Td>{student.name}</Td>
                   <Td>
                     {format(new Date(healthCheck.wakeUpTime), "HH:mm", {
                       locale: ja,
@@ -88,7 +111,9 @@ export const HealthCheckTable: FC<props> = ({ healthChecks, refetch }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {healthChecks.map((healthCheck) => {
+            {students.map((student) => {
+              const healthCheck = student.healthChecks?.[0];
+              if (!healthCheck) return null;
               return (
                 <Tr key={healthCheck.id}>
                   <Td>
@@ -107,28 +132,4 @@ export const HealthCheckTable: FC<props> = ({ healthChecks, refetch }) => {
       </TableContainer>
     </Box>
   );
-};
-
-export const convertBoolean = (value: boolean) => {
-  if (value) {
-    return (
-      <Tag size="sm" colorScheme="red">
-        あり
-      </Tag>
-    );
-  } else {
-    return "なし";
-  }
-};
-
-export const convertNumber = (value: number) => {
-  if (value >= 37.5) {
-    return (
-      <Tag size="sm" colorScheme="red">
-        {value.toFixed(1)}
-      </Tag>
-    );
-  } else {
-    return <>{value.toFixed(1)}</>;
-  }
 };
