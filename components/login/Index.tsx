@@ -23,9 +23,8 @@ export const Login = () => {
 
   const onClick = () => {
     setIsLoading(true);
-    login()
+    login(router)
       .then(() => {
-        router.push("/admin");
         toast({
           title: "",
           description: "ログインしました！",
