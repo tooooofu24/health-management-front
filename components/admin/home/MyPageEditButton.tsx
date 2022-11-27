@@ -53,7 +53,7 @@ export const MyPageEditButton = () => {
         <ModalOverlay />
         <ModalContent>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <ModalHeader>生徒情報更新</ModalHeader>
+            <ModalHeader>教員情報更新</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <Flex flexDirection="column" gap={5}>

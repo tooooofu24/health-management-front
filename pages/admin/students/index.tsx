@@ -8,12 +8,18 @@ import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallbackTile } from "../../../components/common/error/ErrorFallbackTile";
 import { LoadingTile } from "../../../components/common/loading/LoadingTile";
 import { StudentSearchPage } from "../../../components/admin/student";
+import { StudentCreateButton } from "../../../components/admin/student/StudentCreateButton";
 
 const Page: NextPage = () => {
   return (
     <AuthContent>
       <Layout role="Teacher">
-        <PageTitle title="生徒検索" icon={<UsersThree />} iconUrl="" />
+        <PageTitle
+          title="生徒検索"
+          icon={<UsersThree />}
+          iconUrl=""
+          rightItem={<StudentCreateButton />}
+        />
         <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
           <Suspense fallback={<LoadingTile />}>
             <StudentSearchPage />

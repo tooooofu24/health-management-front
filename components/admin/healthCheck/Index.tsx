@@ -86,7 +86,7 @@ export const HealthChecksPage = () => {
               <Calendar />
               <Text>日付</Text>
             </FormLabel>
-            <Input disabled type="date" {...register("date")} />
+            <Input type="date" {...register("date")} />
             <FormErrorMessage>{errors.date?.message}</FormErrorMessage>
           </FormControl>
           <FormControl isInvalid={Boolean(errors.isUnread)}>

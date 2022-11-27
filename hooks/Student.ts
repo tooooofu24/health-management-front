@@ -1,7 +1,8 @@
 import { useState } from "react";
 import useSWR from "swr";
+import { StudentForm } from "../components/admin/student/StudentForm";
 import { StudentResponse } from "../types/APIResponse";
-import { putRequest } from "../utils/apiClient";
+import { postRequest, putRequest } from "../utils/apiClient";
 import { fetcher } from "../utils/fetcher";
 
 export const useUpdateStudent = () => {
@@ -47,4 +48,15 @@ export const useStudents = (props: studentsProps) => {
     students,
     refetch,
   };
+};
+
+export const useRegisterStudent = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const registerStudent = async (data: StudentForm) => {
+    setIsLoading(true);
+    await postRequest("/api/students", data).finally(() => {
+      setIsLoading(false);
+    });
+  };
+  return { isLoading, registerStudent };
 };
