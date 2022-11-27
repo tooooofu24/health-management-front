@@ -36,6 +36,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res
       .status(Number(e.code) || 500)
       .json(response(e.message || "不明なエラーです"));
-    throw e;
   }
 };
