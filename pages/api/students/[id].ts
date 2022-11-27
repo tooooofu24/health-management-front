@@ -11,10 +11,10 @@ const getHandler = async (
   res: NextApiResponse<{ message: string; data: StudentResponse }>
 ) => {
   const user = await isAuthenticated(req);
-  const id: number = Number(req.query.id);
+  const { id } = req.query;
   const student = await prisma.student.findFirstOrThrow({
     where: {
-      id: id,
+      id: Number(id),
     },
     include: {
       classroom: true,
