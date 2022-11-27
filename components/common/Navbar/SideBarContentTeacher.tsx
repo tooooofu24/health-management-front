@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import {
   Baseball,
+  ChatsCircle,
   GraduationCap,
   House,
   MagnifyingGlass,
@@ -97,6 +98,15 @@ export const SidebarContentTeacher = () => {
             icon={<Baseball />}
             title="部活一覧"
             isActive={router.pathname == "/admin/clubs"}
+          />
+        </a>
+      </Link>
+      <Link href="/admin/contact">
+        <a>
+          <SidebarItem
+            icon={<ChatsCircle />}
+            title="お問い合わせ"
+            isActive={router.pathname == "/admin/contact"}
           />
         </a>
       </Link>
