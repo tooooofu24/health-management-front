@@ -9,34 +9,24 @@ import {
   IconButton,
   useDisclosure,
   Button,
-  FormControl,
-  FormLabel,
-  Text,
-  Input,
-  FormErrorMessage,
-  Flex,
 } from "@chakra-ui/react";
-import { Student } from "@prisma/client";
-import {
-  Baseball,
-  EnvelopeSimple,
-  GraduationCap,
-  ListNumbers,
-  PencilSimple,
-  User,
-} from "phosphor-react";
-import { FC } from "react";
+import { PencilSimple } from "phosphor-react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useUpdateStudent } from "../../../hooks/Student";
+import { useCustomToast } from "../../../hooks/Toast";
 import { StudentResponse } from "../../../types/APIResponse";
-import { ClassroomField } from "../../common/form/ClassroomField";
-import { ClubField } from "../../common/form/ClubField";
-import { NumberField } from "../../common/form/NumberField";
+import { ErrorAlert } from "../../common/error/ErrorAlert";
+import { StudentForm } from "./StudentForm";
 
 type props = {
   student: StudentResponse;
 };
 export const StudentEditButton: FC<props> = ({ student }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { updateStudent, isLoading } = useUpdateStudent();
+  const { showToast } = useCustomToast();
+  const [error, setError] = useState("");
   const {
     register,
     handleSubmit,
@@ -51,7 +41,16 @@ export const StudentEditButton: FC<props> = ({ student }) => {
       number: student.number,
     },
   });
-  const onSubmit = (data: form) => {};
+  const onSubmit = (data: form) => {
+    updateStudent({ id: student.id, ...data })
+      .then(() => {
+        onClose();
+        showToast("登録しました！", "info");
+      })
+      .catch((e: any) => {
+        setError(e.message);
+      });
+  };
   return (
     <>
       <IconButton
@@ -61,78 +60,30 @@ export const StudentEditButton: FC<props> = ({ student }) => {
         onClick={onOpen}
       />
 
-      <Modal isCentered size="lg" isOpen={isOpen} onClose={onClose}>
+      <Modal
+        blockScrollOnMount
+        isCentered
+        size="lg"
+        isOpen={isOpen}
+        onClose={onClose}
+      >
         <ModalOverlay />
-        <ModalContent maxH="80vh" overflowY="scroll">
+        <ModalContent>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <ModalHeader>生徒情報の編集</ModalHeader>
+            <ModalHeader>新規生徒登録</ModalHeader>
             <ModalCloseButton />
-            <ModalBody>
-              <Flex flexDirection="column" gap={5}>
-                <FormControl isInvalid={Boolean(errors.name)}>
-                  <FormLabel>
-                    <User />
-                    <Text>氏名</Text>
-                  </FormLabel>
-                  <Input
-                    placeholder="お名前"
-                    {...register("name", { required: "必須項目です！" })}
-                  />
-                  <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
-                </FormControl>
-                <FormControl isInvalid={Boolean(errors.classroomId)}>
-                  <FormLabel>
-                    <GraduationCap />
-                    <Text>クラス</Text>
-                  </FormLabel>
-                  <ClassroomField
-                    register={register("classroomId", {
-                      required: "必須項目です！",
-                    })}
-                  />
-                  <FormErrorMessage>
-                    {errors.classroomId?.message}
-                  </FormErrorMessage>
-                </FormControl>
-                <FormControl isInvalid={Boolean(errors.number)}>
-                  <FormLabel>
-                    <ListNumbers />
-                    <Text>出席番号</Text>
-                  </FormLabel>
-                  <NumberField
-                    register={register("number", {
-                      required: "必須項目です！",
-                    })}
-                  />
-                  <FormErrorMessage>{errors.number?.message}</FormErrorMessage>
-                </FormControl>
-                <FormControl isInvalid={Boolean(errors.clubId)}>
-                  <FormLabel>
-                    <Baseball />
-                    <Text>部活</Text>
-                  </FormLabel>
-                  <ClubField register={register("clubId")} />
-                  <FormErrorMessage>{errors.clubId?.message}</FormErrorMessage>
-                </FormControl>
-                <FormControl isInvalid={Boolean(errors.email)}>
-                  <FormLabel>
-                    <EnvelopeSimple />
-                    <Text>メールアドレス</Text>
-                  </FormLabel>
-                  <Input
-                    placeholder="user@email.com"
-                    {...register("email", { required: "必須項目です！" })}
-                  />
-                  <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
-                </FormControl>
-              </Flex>
+            <ModalBody maxH="70vh" overflowY="scroll">
+              <StudentForm register={register} errors={errors} />
             </ModalBody>
-
             <ModalFooter>
-              <Button colorScheme="red" mr="auto">
-                削除
+              {error && <ErrorAlert mb={2} message={error} />}
+
+              <Button variant="ghost" mr={3} onClick={onClose}>
+                閉じる
               </Button>
-              <Button type="submit">更新</Button>
+              <Button isLoading={isLoading} type="submit">
+                保存
+              </Button>
             </ModalFooter>
           </form>
         </ModalContent>

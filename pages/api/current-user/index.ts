@@ -8,8 +8,12 @@ const getHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string; data: UserResponse }>
 ) => {
-  const user = await isAuthenticated(req);
-  res.status(200).json({ message: "success", data: user });
+  try {
+    const user = await isAuthenticated(req);
+    res.status(200).json({ message: "success", data: user });
+  } catch (e: any) {
+    throw e;
+  }
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

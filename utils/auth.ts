@@ -6,16 +6,13 @@ import {
 } from "firebase/auth";
 import { app } from "./firebase";
 import { FirebaseError } from "firebase/app";
+import { getCurrentUser } from "../hooks/CurrentUser";
 
 export const login = async () => {
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
-  await signInWithPopup(auth, provider).catch((e: Error) => {
-    if (e instanceof FirebaseError) {
-      throw new Error("システムのエラーが発生しました");
-    }
-    throw new Error("不明なエラーです");
-  });
+  await signInWithPopup(auth, provider);
+  await getCurrentUser();
 };
 
 export const logout = async () => {

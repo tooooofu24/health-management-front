@@ -23,7 +23,7 @@ export const Login = () => {
     setIsLoading(true);
     login()
       .then(() => {
-        router.push("/");
+        router.push("/admin");
         toast({
           title: "",
           description: "ログインしました！",
