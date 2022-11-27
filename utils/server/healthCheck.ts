@@ -7,9 +7,8 @@ import {
   User,
 } from "@prisma/client";
 import { NextApiRequest } from "next";
+import prisma from "./prisma";
 import { isTeacher } from "./user";
-
-const prisma = new PrismaClient();
 
 export const registerHealthCheck = async (
   req: NextApiRequest,

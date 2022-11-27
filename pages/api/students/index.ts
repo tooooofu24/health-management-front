@@ -5,7 +5,7 @@ import { response } from "../../../utils/server/response";
 import { StudentResponse } from "../../../types/APIResponse";
 import { isAuthenticated } from "../../../utils/server/auth";
 import classrooms from "../classrooms";
-const prisma = new PrismaClient();
+import prisma from "../../../utils/server/prisma";
 
 const getHandler = async (
   req: NextApiRequest,

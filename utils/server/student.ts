@@ -1,6 +1,5 @@
 import { PrismaClient, User } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "./prisma";
 
 export const findStudent = async (user: User) => {
   const student = await prisma.student.findFirstOrThrow({

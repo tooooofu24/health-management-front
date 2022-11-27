@@ -4,7 +4,7 @@ import { PrismaClient, Role } from "@prisma/client";
 import { response } from "../../../utils/server/response";
 import { StudentResponse, UserResponse } from "../../../types/APIResponse";
 import { isAuthenticated } from "../../../utils/server/auth";
-const prisma = new PrismaClient();
+import prisma from "../../../utils/server/prisma";
 
 const getHandler = async (
   req: NextApiRequest,

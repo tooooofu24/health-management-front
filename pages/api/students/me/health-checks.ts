@@ -4,8 +4,7 @@ import { HealthCheckResponse } from "../../../../types/APIResponse";
 import { isAuthenticated } from "../../../../utils/server/auth";
 import { findStudent } from "../../../../utils/server/student";
 import { response } from "../../../../utils/server/response";
-
-const prisma = new PrismaClient();
+import prisma from "../../../../utils/server/prisma";
 
 const getHandler = async (
   req: NextApiRequest,

@@ -10,8 +10,7 @@ import { findStudent } from "../../../utils/server/student";
 import { PrismaClient } from "@prisma/client";
 import { HealthCheckResponse } from "../../../types/APIResponse";
 import { addDays } from "date-fns";
-
-const prisma = new PrismaClient();
+import prisma from "../../../utils/server/prisma";
 
 const getHandler = async (
   req: NextApiRequest,

@@ -1,6 +1,6 @@
 import { UserRecord } from "firebase-admin/auth";
 import { PrismaClient, User } from "@prisma/client";
-const prisma = new PrismaClient();
+import prisma from "./prisma";
 
 export const findUser = async (firebaseUser: UserRecord) => {
   const user = await prisma.user.findFirstOrThrow({

@@ -3,14 +3,14 @@ import { PrismaClient } from "@prisma/client";
 import { add, addDays } from "date-fns";
 import { StudentResponse } from "../../../../types/APIResponse";
 import { response } from "../../../../utils/server/response";
-const prisma = new PrismaClient();
+import { isAuthenticated } from "../../../../utils/server/auth";
+import prisma from "../../../../utils/server/prisma";
 
 const getHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string; data: StudentResponse[] }>
 ) => {
-  //   const user = await isAuthenticated(req);
-  //   const id: number = Number(req.query.id);
+  const user = await isAuthenticated(req);
   const { id, date } = req.query;
   const students = await prisma.student.findMany({
     where: {

@@ -8,7 +8,7 @@ import { findTeacher } from "../../../utils/server/teacher";
 import { HealthCheckResponse } from "../../../types/APIResponse";
 import students from "../students";
 import { Student } from "phosphor-react";
-const prisma = new PrismaClient();
+import prisma from "../../../utils/server/prisma";
 
 const getHandler = async (
   req: NextApiRequest,

@@ -6,7 +6,7 @@ import { response } from "../../../utils/server/response";
 import { isAuthenticated } from "../../../utils/server/auth";
 import { ClubResponse } from "../../../types/APIResponse";
 import healthChecks from "../health-checks";
-const prisma = new PrismaClient();
+import prisma from "../../../utils/server/prisma";
 
 const getHandler = async (
   req: NextApiRequest,
