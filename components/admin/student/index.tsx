@@ -32,6 +32,7 @@ import { ClubField } from "../../common/form/ClubField";
 import { HealthCheckTable } from "../../common/health-check/HealthCheckTable";
 import { LoadingTile } from "../../common/loading/LoadingTile";
 import { Tile, TilesWrapper } from "../../common/Tile";
+import { StudentEditButton } from "./StudentEditButton";
 
 export const StudentSearchPage = () => {
   const router = useRouter();
@@ -114,12 +115,13 @@ const StudentList = () => {
                 <Th>氏名</Th>
                 <Th>部活動</Th>
                 <Th>メールアドレス</Th>
+                <Th></Th>
               </Tr>
             </Thead>
             <Tbody>
               {students.map((student) => {
                 return (
-                  <Tr>
+                  <Tr key={student.id}>
                     <Td>
                       {student.classroom.grade}年{student.classroom.name}組
                     </Td>
@@ -127,6 +129,9 @@ const StudentList = () => {
                     <Td>{student.name}</Td>
                     <Td>{student.club?.name}</Td>
                     <Td>{student.user.email}</Td>
+                    <Td>
+                      <StudentEditButton student={student} />
+                    </Td>
                   </Tr>
                 );
               })}
