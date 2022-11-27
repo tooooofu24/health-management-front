@@ -107,7 +107,7 @@ export const MyPageEditButton = () => {
               </Flex>
             </ModalBody>
 
-            <ModalFooter>
+            <ModalFooter flexWrap="wrap">
               {error && <ErrorAlert mb={2} message={error} />}
               <Button variant="ghost" mr={3} onClick={onClose}>
                 閉じる

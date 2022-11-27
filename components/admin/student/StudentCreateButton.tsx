@@ -68,7 +68,7 @@ export const StudentCreateButton = () => {
             <ModalBody maxH="70vh" overflowY="scroll">
               <StudentForm register={register} errors={errors} />
             </ModalBody>
-            <ModalFooter>
+            <ModalFooter flexWrap="wrap">
               {error && <ErrorAlert mb={2} message={error} />}
 
               <Button variant="ghost" mr={3} onClick={onClose}>
