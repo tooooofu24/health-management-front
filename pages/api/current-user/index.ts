@@ -3,6 +3,9 @@ import { response } from "../../../utils/server/response";
 import { isAuthenticated } from "../../../utils/server/auth";
 import { APIError } from "../../../utils/server/error";
 import { UserResponse } from "../../../types/APIResponse";
+import { NotFoundError } from "@prisma/client/runtime";
+import { getFirebaseUser } from "../../../utils/server/auth";
+import { getAuth } from "firebase-admin/auth";
 
 const getHandler = async (
   req: NextApiRequest,
@@ -12,6 +15,10 @@ const getHandler = async (
     const user = await isAuthenticated(req);
     res.status(200).json({ message: "success", data: user });
   } catch (e: any) {
+    if (e instanceof NotFoundError) {
+      const firebaseUser = await getFirebaseUser(req);
+      await getAuth().deleteUser(firebaseUser.uid);
+    }
     throw e;
   }
 };
