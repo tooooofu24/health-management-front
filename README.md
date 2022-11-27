@@ -15,6 +15,8 @@ git checkout -b feature/12345
 
 ```
 npm run tsc
+git fetch
+git merge origin/main
 git add .
 git commit -m "作業内容"
 git push

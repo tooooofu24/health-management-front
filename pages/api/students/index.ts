@@ -37,7 +37,7 @@ const postHandler = async (
   res: NextApiResponse<{ message: string }>
 ) => {
   const { name, email, clubId, classroomId, number } = req.body;
-  const existedUser = await prisma.user.findFirstOrThrow({
+  const existedUser = await prisma.user.findFirst({
     where: {
       email: String(email),
     },
