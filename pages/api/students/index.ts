@@ -37,6 +37,15 @@ const postHandler = async (
   res: NextApiResponse<{ message: string }>
 ) => {
   const { name, email, clubId, classroomId, number } = req.body;
+  const existedUser = await prisma.user.findFirstOrThrow({
+    where: {
+      email: String(email),
+    },
+  });
+  if (existedUser) {
+    throw Error("メールアドレスが既に登録されています");
+  }
+
   const user = await prisma.user.create({
     data: {
       name: String(name),
@@ -44,7 +53,6 @@ const postHandler = async (
       role: "Student",
     },
   });
-
   const student = await prisma.student.create({
     data: {
       name: String(name),
