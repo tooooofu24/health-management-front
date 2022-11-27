@@ -32,6 +32,22 @@ export const useCurrentStudent = () => {
     refetch,
   };
 };
+
+export const useUpdateCurrentStudent = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  type props = {
+    clubId: number | null;
+    classroomId: number;
+  };
+  const updateStudent = async (data: props) => {
+    setIsLoading(true);
+    await putRequest("/api/students/me", data).finally(() => {
+      setIsLoading(false);
+    });
+  };
+  return { isLoading, updateStudent };
+};
+
 export type studentsProps = {
   classroomId?: number;
   clubId?: number;

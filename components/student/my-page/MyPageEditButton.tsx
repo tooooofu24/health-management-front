@@ -23,14 +23,18 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { ClubField } from "../../common/form/ClubField";
-import { useCurrentStudent, useUpdateStudent } from "../../../hooks/Student";
+import {
+  useCurrentStudent,
+  useUpdateCurrentStudent,
+  useUpdateStudent,
+} from "../../../hooks/Student";
 import { ClassroomField } from "../../common/form/ClassroomField";
 import { useState } from "react";
 import { useCustomToast } from "../../../hooks/Toast";
 import { ErrorAlert } from "../../common/error/ErrorAlert";
 
 export const MyPageEditButton = () => {
-  const { updateStudent, isLoading } = useUpdateStudent();
+  const { updateStudent, isLoading } = useUpdateCurrentStudent();
   const { student, refetch } = useCurrentStudent();
   const [error, setError] = useState("");
   const { showToast } = useCustomToast();
@@ -48,7 +52,7 @@ export const MyPageEditButton = () => {
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const onSubmit = (data: form) => {
-    updateStudent({ id: student.id, ...data })
+    updateStudent(data)
       .then(() => {
         refetch();
         onClose();
