@@ -20,6 +20,7 @@ const putHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string }>
 ) => {
+  const { clubId, classroomId, number } = req.body;
   const user = await isAuthenticated(req);
   const student = await findStudent(user);
   await prisma.student.update({
@@ -27,10 +28,9 @@ const putHandler = async (
       id: student.id,
     },
     data: {
-      name: req.body.name || undefined,
-      number: Number(req.body.number) || undefined,
-      classroomId: Number(req.body.classroomId) || undefined,
-      clubId: Number(req.body.clubId) || undefined,
+      number: Number(number) || undefined,
+      classroomId: Number(classroomId) || undefined,
+      clubId: Number(clubId) || undefined,
     },
   });
   res.status(200).json({ message: "success" });

@@ -11,10 +11,10 @@ const getHandler = async (
   res: NextApiResponse<{ message: string; data: StudentResponse }>
 ) => {
   const user = await isAuthenticated(req);
-  const id: number = Number(req.query.id);
+  const { id } = req.query;
   const student = await prisma.student.findFirstOrThrow({
     where: {
-      id: id,
+      id: Number(id),
     },
     include: {
       classroom: true,
@@ -29,17 +29,28 @@ const putHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string }>
 ) => {
-  const user = await isAuthenticated(req, "Teacher");
-  const id = Number(req.query.id);
+  // const user = await isAuthenticated(req, "Teacher");
+  const { id } = req.query;
+  const { name, email, clubId, classroomId, number } = req.body;
   const student = await prisma.student.update({
     where: {
-      id: id,
+      id: Number(id),
     },
     data: {
-      name: req.body.name || undefined,
-      number: Number(req.body.number) || undefined,
-      classroomId: Number(req.body.classroomId) || undefined,
-      clubId: Number(req.body.clubId) || undefined,
+      name: String(name) || undefined,
+      number: Number(number) || undefined,
+      classroomId: Number(classroomId) || undefined,
+      clubId: Number(clubId) || undefined,
+    },
+  });
+  const user = await prisma.user.update({
+    where: {
+      id: Number(student.id),
+    },
+    data: {
+      name: String(name) || undefined,
+      email: String(email) || undefined,
+      role: "Student" || undefined,
     },
   });
   res.status(200).json({ message: "success" });

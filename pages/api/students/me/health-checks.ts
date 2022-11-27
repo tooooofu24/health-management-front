@@ -13,7 +13,12 @@ const getHandler = async (
 ) => {
   const user = await isAuthenticated(req);
   const student = await findStudent(user);
+  const { page } = req.query;
+  const take = 20;
+  const currentPage = page ? Number(page) : 1;
   const healthChecks = await prisma.healthCheck.findMany({
+    take,
+    skip: (currentPage - 1) * take,
     where: {
       studentId: student.id,
     },
