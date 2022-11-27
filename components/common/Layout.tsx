@@ -13,7 +13,7 @@ export const Layout: FC<props> = ({ role, children }) => {
   if (isSmartPhoneScreen()) {
     return (
       <Box sx={{ "@media screen and (min-width: 900px)": { display: "none" } }}>
-        <NavBar />
+        <NavBar role={role} />
         <Box pt="50px">
           <Box p="1.15rem">{children}</Box>
         </Box>

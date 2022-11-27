@@ -9,13 +9,17 @@ import {
   IconButton,
   useDisclosure,
 } from "@chakra-ui/react";
+import { Role } from "@prisma/client";
 import Router, { useRouter } from "next/router";
 import { House, List, UserPlus } from "phosphor-react";
 import React, { FC, ReactNode, useEffect } from "react";
 import { SidebarContentStudent } from "./SideBarContentStudent";
 import { SidebarContentTeacher } from "./SideBarContentTeacher";
 
-export const DrawerButton = () => {
+type Props = {
+  role: Role;
+};
+export const DrawerButton: FC<Props> = ({ role }) => {
   const router = useRouter();
   useEffect(() => {
     onClose();
@@ -33,8 +37,8 @@ export const DrawerButton = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerBody p={0}>
-            <SidebarContentStudent />
-            {/* <SidebarContent /> */}
+            {role === "Student" ? <SidebarContentStudent /> : null}
+            {role === "Teacher" ? <SidebarContentTeacher /> : null}
           </DrawerBody>
         </DrawerContent>
       </Drawer>

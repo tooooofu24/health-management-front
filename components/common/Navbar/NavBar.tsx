@@ -1,9 +1,14 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
+import { Role } from "@prisma/client";
 import Link from "next/link";
+import { FC } from "react";
 import { DrawerButton } from "./DrawerButton";
 
-export const NavBar = () => {
+type props = {
+  role: Role;
+};
+export const NavBar: FC<props> = ({ role }) => {
   return (
     <Box
       w="100%"
@@ -23,7 +28,7 @@ export const NavBar = () => {
             </Flex>
           </a>
         </Link>
-        <DrawerButton />
+        <DrawerButton role={role} />
       </Flex>
     </Box>
   );
