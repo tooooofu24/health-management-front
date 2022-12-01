@@ -70,7 +70,13 @@ export const ContactForm = () => {
                 <Text>メールアドレス</Text>
               </FormLabel>
               <Input
-                {...register("email")}
+                {...register("email", {
+                  pattern: {
+                    value:
+                      /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/,
+                    message: "メールアドレスの形式が正しくありません！",
+                  },
+                })}
                 placeholder="user@shusseki-kun.com"
               />
               <FormErrorMessage>{errors.email?.message}</FormErrorMessage>

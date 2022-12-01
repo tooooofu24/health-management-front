@@ -89,7 +89,14 @@ export const StudentForm: FC<props> = ({ register, errors }) => {
         </FormLabel>
         <Input
           placeholder="user@email.com"
-          {...register("email", { required: "必須項目です！" })}
+          {...register("email", {
+            required: "必須項目です！",
+            pattern: {
+              value:
+                /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/,
+              message: "メールアドレスの形式が正しくありません！",
+            },
+          })}
         />
         <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
       </FormControl>
