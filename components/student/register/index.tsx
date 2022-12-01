@@ -6,6 +6,7 @@ import {
   FormLabel,
   Input,
   Text,
+  Tooltip,
 } from "@chakra-ui/react";
 import { format, parse } from "date-fns";
 import { useRouter } from "next/router";
@@ -101,7 +102,9 @@ export const RegisterPage = () => {
               <User />
               <Text>氏名</Text>
             </FormLabel>
-            <Input value={student.name} readOnly />
+            <Tooltip label="氏名は変更できません！" placement="top">
+              <Input value={student.name} readOnly />
+            </Tooltip>
           </FormControl>
           <FormControl isInvalid={Boolean(errors.date)}>
             <FormLabel>

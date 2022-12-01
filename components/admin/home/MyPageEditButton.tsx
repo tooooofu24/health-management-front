@@ -9,6 +9,7 @@ import {
   FormLabel,
   Input,
   Text,
+  Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
 import { Baseball, GraduationCap, Pencil, User } from "phosphor-react";
@@ -75,7 +76,9 @@ export const MyPageEditButton = () => {
                     <User />
                     <Text>氏名</Text>
                   </FormLabel>
-                  <Input value={teacher?.name} readOnly />
+                  <Tooltip label="氏名は変更できません！" placement="top">
+                    <Input value={teacher?.name} readOnly />
+                  </Tooltip>
                 </FormControl>
                 <FormControl isInvalid={Boolean(errors.classroomId)}>
                   <FormLabel>
