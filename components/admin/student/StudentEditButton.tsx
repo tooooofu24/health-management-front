@@ -10,10 +10,11 @@ import {
   useDisclosure,
   Button,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { PencilSimple } from "phosphor-react";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useUpdateStudent } from "../../../hooks/Student";
+import { useStudents, useUpdateStudent } from "../../../hooks/Student";
 import { useCustomToast } from "../../../hooks/Toast";
 import { StudentResponse } from "../../../types/APIResponse";
 import { ErrorAlert } from "../../common/error/ErrorAlert";
@@ -27,6 +28,8 @@ export const StudentEditButton: FC<props> = ({ student }) => {
   const { updateStudent, isLoading } = useUpdateStudent();
   const { showToast } = useCustomToast();
   const [error, setError] = useState("");
+  const router = useRouter();
+  const { refetch } = useStudents(router.query);
   const {
     register,
     handleSubmit,
@@ -41,15 +44,15 @@ export const StudentEditButton: FC<props> = ({ student }) => {
       number: student.number,
     },
   });
-  const onSubmit = (data: form) => {
-    updateStudent({ id: student.id, ...data })
-      .then(() => {
-        onClose();
-        showToast("登録しました！", "info");
-      })
-      .catch((e: any) => {
-        setError(e.message);
-      });
+  const onSubmit = async (data: form) => {
+    try {
+      await updateStudent({ id: student.id, ...data });
+      refetch();
+      onClose();
+      showToast("変更しました！", "info");
+    } catch (e: any) {
+      setError(e.message);
+    }
   };
   return (
     <>
@@ -70,7 +73,7 @@ export const StudentEditButton: FC<props> = ({ student }) => {
         <ModalOverlay />
         <ModalContent>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <ModalHeader>新規生徒登録</ModalHeader>
+            <ModalHeader>生徒情報編集</ModalHeader>
             <ModalCloseButton />
             <ModalBody maxH="70vh" overflowY="scroll">
               <StudentForm register={register} errors={errors} />

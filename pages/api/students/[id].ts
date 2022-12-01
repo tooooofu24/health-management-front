@@ -29,7 +29,7 @@ const putHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string }>
 ) => {
-  // const user = await isAuthenticated(req, "Teacher");
+  await isAuthenticated(req, "Teacher");
   const { id } = req.query;
   const { name, email, clubId, classroomId, number } = req.body;
   const student = await prisma.student.update({
@@ -43,14 +43,13 @@ const putHandler = async (
       clubId: Number(clubId) || undefined,
     },
   });
-  const user = await prisma.user.update({
+  await prisma.user.update({
     where: {
-      id: Number(student.id),
+      id: Number(student.userId),
     },
     data: {
       name: String(name) || undefined,
       email: String(email) || undefined,
-      role: "Student" || undefined,
     },
   });
   res.status(200).json({ message: "success" });
@@ -60,9 +59,9 @@ const deleteHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string }>
 ) => {
-  const user = await isAuthenticated(req, "Teacher");
+  await isAuthenticated(req, "Teacher");
   const id = Number(req.query.id);
-  const student = await prisma.student.delete({
+  await prisma.student.delete({
     where: {
       id: id,
     },
