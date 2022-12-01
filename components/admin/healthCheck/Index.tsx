@@ -89,22 +89,22 @@ export const HealthChecksPage = () => {
             <Input type="date" {...register("date")} />
             <FormErrorMessage>{errors.date?.message}</FormErrorMessage>
           </FormControl>
-          <FormControl isInvalid={Boolean(errors.isUnread)}>
+          <FormControl isInvalid={Boolean(errors.showChecked)}>
             <FormLabel>
               <CheckCircle />
-              <Text>未読に絞る</Text>
+              <Text>チェック済も表示</Text>
             </FormLabel>
-            <Select placeholder="選択して下さい" {...register("isUnread")}>
-              <option value={1}>絞り込む</option>
+            <Select placeholder="表示しない" {...register("showChecked")}>
+              <option value={1}>表示する</option>
             </Select>
-            <FormErrorMessage>{errors.isUnread?.message}</FormErrorMessage>
+            <FormErrorMessage>{errors.showChecked?.message}</FormErrorMessage>
           </FormControl>
           <FormControl isInvalid={Boolean(errors.isDanger)}>
             <FormLabel>
               <SmileySad />
               <Text>体調不良に絞る</Text>
             </FormLabel>
-            <Select placeholder="選択して下さい" {...register("isDanger")}>
+            <Select placeholder="絞り込まない" {...register("isDanger")}>
               <option value={1}>絞り込む</option>
             </Select>
             <FormErrorMessage>{errors.isDanger?.message}</FormErrorMessage>

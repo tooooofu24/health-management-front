@@ -94,7 +94,6 @@ type ClassroomAlertProps = {
 const ClassroomAlert: FC<ClassroomAlertProps> = ({ classroom }) => {
   const { healthChecks } = useHealthChecks({
     classroomId: classroom.id,
-    isUnread: 1,
   });
   if (!healthChecks.length) return null;
 
@@ -111,9 +110,7 @@ const ClassroomAlert: FC<ClassroomAlertProps> = ({ classroom }) => {
           </AlertDescription>
         </Box>
         <Flex justifyContent="end">
-          <Link
-            href={`/admin/health-checks?isUnread=1&classroomId=${classroom.id}`}
-          >
+          <Link href={`/admin/health-checks?classroomId=${classroom.id}`}>
             <a>
               <Button w="auto">確認する</Button>
             </a>
@@ -131,7 +128,6 @@ type ClubAlertProps = {
 const ClubAlert: FC<ClubAlertProps> = ({ club }) => {
   const { healthChecks } = useHealthChecks({
     clubId: club.id,
-    isUnread: 1,
   });
   if (!healthChecks.length) return null;
   return (
@@ -145,7 +141,7 @@ const ClubAlert: FC<ClubAlertProps> = ({ club }) => {
           </AlertDescription>
         </Box>
         <Flex justifyContent="end">
-          <Link href={`/admin/health-checks?isUnread=1&clubId=${club.id}`}>
+          <Link href={`/admin/health-checks?clubId=${club.id}`}>
             <a>
               <Button w="auto">確認する</Button>
             </a>
@@ -158,7 +154,6 @@ const ClubAlert: FC<ClubAlertProps> = ({ club }) => {
 
 const DangerAlert = () => {
   const { healthChecks } = useHealthChecks({
-    isUnread: 1,
     isDanger: 1,
   });
   if (!healthChecks.length) return null;
@@ -173,7 +168,7 @@ const DangerAlert = () => {
           </AlertDescription>
         </Box>
         <Flex justifyContent="end">
-          <Link href={`/admin/health-checks?isUnread=1&isDanger=1`}>
+          <Link href={`/admin/health-checks?isDanger=1`}>
             <a>
               <Button colorScheme="red" w="auto">
                 確認する

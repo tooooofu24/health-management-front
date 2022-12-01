@@ -16,8 +16,8 @@ const getHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string; data: HealthCheckResponse[] }>
 ) => {
-  // const user = await isAuthenticated(req, "Teacher");
-  const { date, classroomId, studentId, clubId, page, isUnread, isDanger } =
+  const user = await isAuthenticated(req, "Teacher");
+  const { date, classroomId, studentId, clubId, page, showChecked, isDanger } =
     req.query;
   const take = 20;
   const currentPage = page ? Number(page) : 1;
@@ -26,7 +26,7 @@ const getHandler = async (
     skip: (currentPage - 1) * take,
     where: {
       studentId: Number(studentId) || undefined,
-      checkedTeacherId: Boolean(Number(isUnread)) ? null : undefined,
+      checkedTeacherId: !Boolean(Number(showChecked)) ? null : undefined,
       date: {
         gte: date ? new Date(String(date)) : undefined,
         lt: date ? new Date(addDays(new Date(String(date)), 1)) : undefined,
