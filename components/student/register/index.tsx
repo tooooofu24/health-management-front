@@ -27,6 +27,7 @@ import {
   HealthCheckFormProps,
   useRegisterHealthCheck,
 } from "../../../hooks/HealthCheck";
+import { useCurrentStudent } from "../../../hooks/Student";
 import { useCustomToast } from "../../../hooks/Toast";
 import { ErrorAlert } from "../../common/error/ErrorAlert";
 import { BooleanField } from "../../common/form/BooleanField";
@@ -50,6 +51,8 @@ export const RegisterPage = () => {
       comment: "",
     },
   });
+
+  const { student } = useCurrentStudent();
 
   const { showToast } = useCustomToast();
   const router = useRouter();
@@ -98,7 +101,7 @@ export const RegisterPage = () => {
               <User />
               <Text>氏名</Text>
             </FormLabel>
-            <Input value="千葉陶也" readOnly />
+            <Input value={student.name} readOnly />
           </FormControl>
           <FormControl isInvalid={Boolean(errors.date)}>
             <FormLabel>
