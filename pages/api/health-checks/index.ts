@@ -12,6 +12,7 @@ import { HealthCheckResponse } from "../../../types/APIResponse";
 import { addDays, parse, parseISO } from "date-fns";
 import prisma from "../../../utils/server/prisma";
 import healthChecks from "../students/me/health-checks";
+import { ja } from "date-fns/locale";
 
 const getHandler = async (
   req: NextApiRequest,
@@ -29,7 +30,9 @@ const getHandler = async (
     where: {
       studentId: Number(studentId) || undefined,
       checkedTeacherId: !Boolean(Number(showChecked)) ? null : undefined,
-      date: date ? parse(String(date), "yyyy-MM-dd", new Date()) : undefined,
+      date: date
+        ? parse(String(date), "yyyy-MM-dd", new Date(), { locale: ja })
+        : undefined,
       OR: Boolean(Number(isDanger))
         ? [
             { nightTemp: { gte: 37.5 } },

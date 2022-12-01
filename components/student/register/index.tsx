@@ -9,6 +9,7 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import { format, parse } from "date-fns";
+import { ja } from "date-fns/locale";
 import { useRouter } from "next/router";
 import {
   Calendar,
@@ -75,9 +76,9 @@ export const RegisterPage = () => {
     } = data;
     const submitData: HealthCheckFormProps = {
       ...others,
-      date: parse(date, "yyyy-MM-dd", new Date()),
-      bedTime: parse(bedTime, "HH:mm", new Date()),
-      wakeUpTime: parse(wakeUpTime, "HH:mm", new Date()),
+      date: parse(date, "yyyy-MM-dd", new Date(), { locale: ja }),
+      bedTime: parse(bedTime, "HH:mm", new Date(), { locale: ja }),
+      wakeUpTime: parse(wakeUpTime, "HH:mm", new Date(), { locale: ja }),
       cough: Boolean(cough),
       stuffiness: Boolean(cough),
       languor: Boolean(cough),
