@@ -92,11 +92,7 @@ export const HealthCheckTableForStudentList: FC<props> = ({
                   <Td>{convertBoolean(healthCheck.lessAppetite)}</Td>
                   <Td>{convertBoolean(healthCheck.goHospital)}</Td>
                   <Td>{healthCheck.comment}</Td>
-                  <Td>
-                    {format(new Date(healthCheck.date), "MM月dd日", {
-                      locale: ja,
-                    })}
-                  </Td>
+                  <Td>{healthCheck.date}</Td>
                 </Tr>
               );
             })}

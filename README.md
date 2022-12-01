@@ -57,3 +57,5 @@ npx prisma db seed
 ```
 npx prisma studio
 ```
+
+npx prisma migrate deploy

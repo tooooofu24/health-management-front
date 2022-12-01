@@ -60,7 +60,7 @@ export const HealthCheckTable: FC<props> = ({ healthChecks, refetch }) => {
                   <Td>{convertBoolean(healthCheck.lessAppetite)}</Td>
                   <Td>{convertBoolean(healthCheck.goHospital)}</Td>
                   <Td>{healthCheck.comment}</Td>
-                  <Td>{format(new Date(healthCheck.date), "MM月dd日")}</Td>
+                  <Td>{healthCheck.date}</Td>
                 </Tr>
               );
             })}
