@@ -11,6 +11,7 @@ import { PrismaClient } from "@prisma/client";
 import { HealthCheckResponse } from "../../../types/APIResponse";
 import { addDays } from "date-fns";
 import prisma from "../../../utils/server/prisma";
+import healthChecks from "../students/me/health-checks";
 
 const getHandler = async (
   req: NextApiRequest,
@@ -55,8 +56,18 @@ const getHandler = async (
 };
 
 const postHandler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
-  const user = await isAuthenticated(req);
+  const user = await isAuthenticated(req, "Student");
   const student = await findStudent(user);
+  const date = req.body.date;
+  const healthCheck = await prisma.healthCheck.findFirst({
+    where: {
+      date,
+      studentId: student.id,
+    },
+  });
+  if (healthCheck) {
+    throw Error("すでにデータを登録済みです！");
+  }
   await registerHealthCheck(req, student);
   res.status(200).json(response("success"));
 };
