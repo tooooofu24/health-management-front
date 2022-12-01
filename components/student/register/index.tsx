@@ -76,7 +76,7 @@ export const RegisterPage = () => {
     } = data;
     const submitData: HealthCheckFormProps = {
       ...others,
-      date: parse(date, "yyyy-MM-dd", new Date(), { locale: ja }),
+      date: date,
       bedTime: parse(bedTime, "HH:mm", new Date(), { locale: ja }),
       wakeUpTime: parse(wakeUpTime, "HH:mm", new Date(), { locale: ja }),
       cough: Boolean(cough),

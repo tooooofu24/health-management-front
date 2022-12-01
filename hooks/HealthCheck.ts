@@ -7,7 +7,7 @@ import { fetcher } from "../utils/fetcher";
 import { filterProps } from "../utils/server/healthCheck";
 
 export type HealthCheckFormProps = {
-  date: Date;
+  date: string;
   bedTime: Date;
   wakeUpTime: Date;
   nightTemp: number;
