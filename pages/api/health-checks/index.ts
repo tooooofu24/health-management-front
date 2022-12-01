@@ -50,6 +50,11 @@ const getHandler = async (
     include: {
       student: true,
     },
+    orderBy: [
+      { date: "desc" },
+      { student: { classroomId: "asc" } },
+      { student: { number: "asc" } },
+    ],
   });
   res.status(200).json({ message: "success", data: healthChecks });
 };
