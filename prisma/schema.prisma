@@ -71,7 +71,7 @@ model Club {
 
 model HealthCheck {
   id               Int      @id @default(autoincrement())
-  date             DateTime
+  date             String
   wakeUpTime       DateTime
   bedTime          DateTime
   nightTemp        Float

@@ -22,12 +22,7 @@ const getHandler = async (
       club: true,
       healthChecks: {
         where: {
-          date: {
-            gte: date ? new Date(String(date)) : new Date(),
-            lt: date
-              ? new Date(addDays(new Date(String(date)), 1))
-              : new Date(addDays(new Date(), 1)),
-          },
+          date: date ? String(date) : undefined,
         },
       },
     },

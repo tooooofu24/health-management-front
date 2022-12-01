@@ -30,9 +30,7 @@ const getHandler = async (
     where: {
       studentId: Number(studentId) || undefined,
       checkedTeacherId: !Boolean(Number(showChecked)) ? null : undefined,
-      date: date
-        ? parse(String(date), "yyyy-MM-dd", new Date(), { locale: ja })
-        : undefined,
+      date: date ? String(date) : undefined,
       OR: Boolean(Number(isDanger))
         ? [
             { nightTemp: { gte: 37.5 } },
