@@ -9,7 +9,7 @@ import { APIError } from "../../../utils/server/error";
 import { findStudent } from "../../../utils/server/student";
 import { PrismaClient } from "@prisma/client";
 import { HealthCheckResponse } from "../../../types/APIResponse";
-import { addDays } from "date-fns";
+import { addDays, parseISO } from "date-fns";
 import prisma from "../../../utils/server/prisma";
 import healthChecks from "../students/me/health-checks";
 
@@ -29,8 +29,8 @@ const getHandler = async (
       studentId: Number(studentId) || undefined,
       checkedTeacherId: !Boolean(Number(showChecked)) ? null : undefined,
       date: {
-        gte: date ? new Date(String(date)) : undefined,
-        lt: date ? new Date(addDays(new Date(String(date)), 1)) : undefined,
+        gte: date ? parseISO(String(date)) : undefined,
+        lt: date ? addDays(parseISO(String(date)), 1) : undefined,
       },
       OR: Boolean(Number(isDanger))
         ? [

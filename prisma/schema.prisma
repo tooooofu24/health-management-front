@@ -39,8 +39,6 @@ model Student {
   clubId       Int?
   club         Club?         @relation(fields: [clubId], references: [id])
   healthChecks HealthCheck[]
-
-  @@index([clubId, classroomId])
 }
 
 model Teacher {
@@ -54,8 +52,6 @@ model Teacher {
   clubId       Int?
   club         Club?         @relation(fields: [clubId], references: [id])
   healthChecks HealthCheck[]
-
-  @@index([classroomId, clubId])
 }
 
 model Classroom {
@@ -92,6 +88,4 @@ model HealthCheck {
   checkedTeacher   Teacher? @relation(fields: [checkedTeacherId], references: [id])
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
-
-  @@index([studentId, checkedTeacherId])
 }
