@@ -49,14 +49,15 @@ export const putRequest = async (uri: string, body: {}, query?: {}) => {
   return json;
 };
 
-// export const deleteRequest = async (uri: string, query?: {}) => {
-//   const url = createURL(uri, query);
-//   const res = await fetch(url, {
-//     method: "DELETE",
-//     headers: await headers(),
-//   });
-//   const json = await res.json();
-//   if (json?.error) {
-//     throw new APIError(json, json.displayMessage);
-//   }
-// };
+export const deleteRequest = async (uri: string) => {
+  const res = await fetch(uri, {
+    method: "DELETE",
+    headers: await headers(),
+  });
+  const json = await res.json();
+  if (!res.ok) {
+    throw new Error(json.message);
+  }
+
+  return json;
+};

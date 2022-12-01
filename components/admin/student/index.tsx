@@ -32,6 +32,7 @@ import { ClubField } from "../../common/form/ClubField";
 import { HealthCheckTable } from "../../common/health-check/HealthCheckTable";
 import { LoadingTile } from "../../common/loading/LoadingTile";
 import { Tile, TilesWrapper } from "../../common/Tile";
+import { StudentDeleteButton } from "./StudentDeleteButton";
 import { StudentEditButton } from "./StudentEditButton";
 
 export const StudentSearchPage = () => {
@@ -130,7 +131,10 @@ const StudentList = () => {
                     <Td>{student.club?.name}</Td>
                     <Td>{student.user.email}</Td>
                     <Td>
-                      <StudentEditButton student={student} />
+                      <Flex gap={3} justifyContent="end">
+                        <StudentEditButton student={student} />
+                        <StudentDeleteButton student={student} />
+                      </Flex>
                     </Td>
                   </Tr>
                 );

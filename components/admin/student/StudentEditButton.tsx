@@ -9,6 +9,7 @@ import {
   IconButton,
   useDisclosure,
   Button,
+  ButtonProps,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { PencilSimple } from "phosphor-react";
@@ -23,7 +24,7 @@ import { StudentForm } from "./StudentForm";
 type props = {
   student: StudentResponse;
 };
-export const StudentEditButton: FC<props> = ({ student }) => {
+export const StudentEditButton: FC<props & ButtonProps> = ({ student }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { updateStudent, isLoading } = useUpdateStudent();
   const { showToast } = useCustomToast();

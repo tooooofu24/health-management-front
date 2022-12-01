@@ -61,9 +61,24 @@ const deleteHandler = async (
 ) => {
   await isAuthenticated(req, "Teacher");
   const id = Number(req.query.id);
-  await prisma.student.delete({
+  const student = await prisma.student.findFirstOrThrow({
     where: {
       id: id,
+    },
+  });
+  await prisma.healthCheck.deleteMany({
+    where: {
+      studentId: student.id,
+    },
+  });
+  await prisma.student.delete({
+    where: {
+      id: student.id,
+    },
+  });
+  await prisma.user.delete({
+    where: {
+      id: student.userId,
     },
   });
   res.status(200).json({ message: "success" });
