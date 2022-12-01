@@ -22,18 +22,14 @@ const getHandler = async (
     req.query;
   const take = 20;
   const currentPage = page ? Number(page) : 1;
+
   const healthChecks = await prisma.healthCheck.findMany({
     take,
     skip: (currentPage - 1) * take,
     where: {
       studentId: Number(studentId) || undefined,
       checkedTeacherId: !Boolean(Number(showChecked)) ? null : undefined,
-      date: {
-        gte: date ? parse(String(date), "yyyy-MM-dd", new Date()) : undefined,
-        lt: date
-          ? addDays(parse(String(date), "yyyy-MM-dd", new Date()), 1)
-          : undefined,
-      },
+      date: date ? parse(String(date), "yyyy-MM-dd", new Date()) : undefined,
       OR: Boolean(Number(isDanger))
         ? [
             { nightTemp: { gte: 37.5 } },
