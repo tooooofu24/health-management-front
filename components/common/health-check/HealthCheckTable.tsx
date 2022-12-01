@@ -12,7 +12,6 @@ import {
   Flex,
   Box,
 } from "@chakra-ui/react";
-import ja from "date-fns/locale/ja";
 import { format } from "date-fns";
 import { CheckButton } from "../../admin/healthCheck/CheckButton";
 import { KeyedMutator } from "swr";
@@ -51,16 +50,8 @@ export const HealthCheckTable: FC<props> = ({ healthChecks, refetch }) => {
               return (
                 <Tr key={healthCheck.id}>
                   <Td>{healthCheck.student.name}</Td>
-                  <Td>
-                    {format(new Date(healthCheck.wakeUpTime), "HH:mm", {
-                      locale: ja,
-                    })}
-                  </Td>
-                  <Td>
-                    {format(new Date(healthCheck.bedTime), "HH:mm", {
-                      locale: ja,
-                    })}
-                  </Td>
+                  <Td>{format(new Date(healthCheck.wakeUpTime), "HH:mm")}</Td>
+                  <Td>{format(new Date(healthCheck.bedTime), "HH:mm")}</Td>
                   <Td>{convertNumber(healthCheck.nightTemp)}</Td>
                   <Td>{convertNumber(healthCheck.morningTemp)}</Td>
                   <Td>{convertBoolean(healthCheck.cough)}</Td>
@@ -69,11 +60,7 @@ export const HealthCheckTable: FC<props> = ({ healthChecks, refetch }) => {
                   <Td>{convertBoolean(healthCheck.lessAppetite)}</Td>
                   <Td>{convertBoolean(healthCheck.goHospital)}</Td>
                   <Td>{healthCheck.comment}</Td>
-                  <Td>
-                    {format(new Date(healthCheck.date), "MM月dd日", {
-                      locale: ja,
-                    })}
-                  </Td>
+                  <Td>{format(new Date(healthCheck.date), "MM月dd日")}</Td>
                 </Tr>
               );
             })}
