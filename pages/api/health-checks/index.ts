@@ -70,9 +70,21 @@ const postHandler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
     },
   });
   if (healthCheck) {
-    throw Error("すでにデータを登録済みです！");
+    await prisma.healthCheck.update({
+      where: { id: healthCheck.id },
+      data: {
+        studentId: student.id,
+        ...req.body,
+      },
+    });
+  } else {
+    await prisma.healthCheck.create({
+      data: {
+        studentId: student.id,
+        ...req.body,
+      },
+    });
   }
-  await registerHealthCheck(req, student);
   res.status(200).json(response("success"));
 };
 
