@@ -24,15 +24,15 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { ClubField } from "../../common/form/ClubField";
-import { useCurrentTeacher, useUpdateTeacher } from "../../../hooks/Teacher";
 import { ClassroomField } from "../../common/form/ClassroomField";
 import { useCustomToast } from "../../../hooks/Toast";
 import { useState } from "react";
 import { ErrorAlert } from "../../common/error/ErrorAlert";
+import { useCurrentTeacher } from "../../../hooks/CurrentTeacher";
+import { updateTeacher } from "../../../utils/api/Teacher";
 
 export const MyPageEditButton = () => {
   const { teacher, refetch } = useCurrentTeacher();
-  const { updateTeacher, isLoading } = useUpdateTeacher();
   const { showToast } = useCustomToast();
   const [error, setError] = useState("");
   const {
@@ -42,13 +42,13 @@ export const MyPageEditButton = () => {
   } = useForm<form>({
     mode: "onBlur",
     defaultValues: {
-      classroomId: teacher.classroomId,
-      clubId: teacher.clubId,
+      classroomId: teacher?.classroomId,
+      clubId: teacher?.clubId,
     },
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const onSubmit = (data: form) => {
-    updateTeacher({ id: teacher.id, ...data })
+    updateTeacher({ id: teacher?.id!, ...data })
       .then(() => {
         onClose();
         refetch();
@@ -107,9 +107,7 @@ export const MyPageEditButton = () => {
               <Button variant="ghost" mr={3} onClick={onClose}>
                 閉じる
               </Button>
-              <Button isLoading={isLoading} type="submit">
-                保存
-              </Button>
+              <Button type="submit">保存</Button>
             </ModalFooter>
           </form>
         </ModalContent>

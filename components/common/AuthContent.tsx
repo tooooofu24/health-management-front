@@ -1,33 +1,39 @@
+import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { useAtom } from "jotai";
 import { useRouter } from "next/router";
-import { FC, ReactNode, useEffect } from "react";
-import { useFirebaseUser } from "../../hooks/CurrentUser";
-import { userAtom } from "../../jotai/user";
+import { FC, ReactNode, useEffect, useState } from "react";
+import { useCurrentUser } from "../../hooks/CurrentUser";
 import { logout } from "../../utils/auth";
+import { app } from "../../utils/firebase";
 
 type props = {
   children: ReactNode;
 };
 export const AuthContent: FC<props> = ({ children }) => {
-  const { user, isLoading } = useFirebaseUser();
   const router = useRouter();
-
+  const auth = getAuth(app);
+  const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
-    if (isLoading) return;
-    (async () => {
+    const unListen = onAuthStateChanged(auth, async (user) => {
+      setUser(user);
       if (!user) {
         await logout();
         router.push("/login");
       }
-    })();
-  }, [user, isLoading]);
+    });
+    return () => {
+      unListen();
+    };
+  }, []);
 
   return user ? <TeacherCheck>{children}</TeacherCheck> : null;
 };
 
 const TeacherCheck = ({ children }: { children: ReactNode }) => {
+  return <>{children}</>;
+
   const router = useRouter();
-  const [currentUser] = useAtom(userAtom);
+  const { user: currentUser } = useCurrentUser();
   const isAdminRoute = router.pathname.indexOf("/admin") === 0;
   const isTeacher = currentUser?.role === "Teacher";
   const isStudent = currentUser?.role === "Student";

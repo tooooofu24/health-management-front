@@ -3,16 +3,15 @@ import { HealthCheck } from "@prisma/client";
 import { Check } from "phosphor-react";
 import { FC, useEffect, useState } from "react";
 import { KeyedMutator } from "swr";
-import { useCheckHealthCheck } from "../../../hooks/HealthCheck";
 import { useCustomToast } from "../../../hooks/Toast";
+import { checkHealthCheck } from "../../../utils/api/HealthCheck";
 
 type props = {
   healthCheck: HealthCheck;
-  refetch: KeyedMutator<any>;
+  refetch: () => void;
 };
 export const CheckButton: FC<props> = ({ healthCheck, refetch }) => {
   const { showToast } = useCustomToast();
-  const { checkHealthCheck } = useCheckHealthCheck();
   const [isLoading, setIsLoading] = useState(false);
   const onClick = async () => {
     setIsLoading(true);

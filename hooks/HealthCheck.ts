@@ -1,74 +1,19 @@
-import { HealthCheck, Student } from "@prisma/client";
-import { useState } from "react";
-import useSWR from "swr";
+import { atom, useAtom } from "jotai";
 import { HealthCheckResponse } from "../types/APIResponse";
-import { postRequest } from "../utils/apiClient";
 import { fetcher } from "../utils/fetcher";
 import { filterProps } from "../utils/server/healthCheck";
 
-export type HealthCheckFormProps = {
-  date: string;
-  bedTime: Date;
-  wakeUpTime: Date;
-  nightTemp: number;
-  morningTemp: number;
-  cough: boolean; // 咳
-  stuffiness: boolean; // 息苦しさ
-  languor: boolean; // だるさ
-  lessAppetite: boolean; // 食欲の減退
-  goHospital: boolean; // 通院
-  comment: string;
-};
-export const useRegisterHealthCheck = () => {
-  const [isLoading, setIsLoading] = useState(false);
+const healthChecksAtom = atom<Promise<HealthCheckResponse[]> | []>([]);
 
-  const registerHealthCheck = async (props: HealthCheckFormProps) => {
-    setIsLoading(true);
-    await postRequest("/api/health-checks", props).finally(() => {
-      setIsLoading(false);
-    });
-  };
-  return { isLoading, registerHealthCheck };
-};
+healthChecksAtom.read = () => fetcher("/api/health-checks");
 
 export const useHealthChecks = (props: filterProps) => {
-  const { data, mutate: refetch } = useSWR(
-    ["/api/health-checks", props],
-    fetcher,
-    {
-      suspense: true,
-    }
-  );
-  const healthChecks: (HealthCheck & { student: Student })[] = data;
+  const [healthChecks, updateValue] = useAtom(healthChecksAtom);
+  const refetch = () => {
+    updateValue(fetcher("/api/health-checks", props));
+  };
   return {
     healthChecks,
     refetch,
   };
-};
-
-export const useUnreadHealthChecks = () => {
-  const { data, mutate: refetch } = useSWR(
-    ["/api/health-checks/unread"],
-    fetcher,
-    {
-      suspense: true,
-    }
-  );
-  const healthChecks: HealthCheckResponse[] = data;
-  return {
-    healthChecks,
-    refetch,
-  };
-};
-
-export const useCheckHealthCheck = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const checkHealthCheck = async (id: number) => {
-    setIsLoading(true);
-    await postRequest("/api/health-checks/check", { id }).finally(() => {
-      setIsLoading(false);
-    });
-  };
-  return { isLoading, checkHealthCheck };
 };

@@ -15,9 +15,10 @@ import { useRouter } from "next/router";
 import { PencilSimple } from "phosphor-react";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useStudents, useUpdateStudent } from "../../../hooks/Student";
+import { useStudents } from "../../../hooks/Student";
 import { useCustomToast } from "../../../hooks/Toast";
 import { StudentResponse } from "../../../types/APIResponse";
+import { updateStudent } from "../../../utils/api/Student";
 import { ErrorAlert } from "../../common/error/ErrorAlert";
 import { StudentForm } from "./StudentForm";
 
@@ -26,7 +27,6 @@ type props = {
 };
 export const StudentEditButton: FC<props & ButtonProps> = ({ student }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { updateStudent, isLoading } = useUpdateStudent();
   const { showToast } = useCustomToast();
   const [error, setError] = useState("");
   const router = useRouter();
@@ -84,9 +84,7 @@ export const StudentEditButton: FC<props & ButtonProps> = ({ student }) => {
               <Button variant="ghost" mr={3} onClick={onClose}>
                 閉じる
               </Button>
-              <Button isLoading={isLoading} type="submit">
-                保存
-              </Button>
+              <Button type="submit">保存</Button>
             </ModalFooter>
           </form>
         </ModalContent>

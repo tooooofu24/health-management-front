@@ -9,7 +9,7 @@ import {
   TableContainer,
   Avatar,
 } from "@chakra-ui/react";
-import { useCurrentStudent } from "../../../hooks/Student";
+import { useCurrentStudent } from "../../../hooks/CurrentStudent";
 
 export const MyPage = () => {
   const { student } = useCurrentStudent();
@@ -31,12 +31,12 @@ export const MyPage = () => {
                 <Td>
                   <Avatar />
                 </Td>
-                <Td>{student.name}</Td>
+                <Td>{student?.name}</Td>
                 <Td>
-                  {student.classroom.grade}年{student.classroom.name}組
+                  {student?.classroom.grade}年{student?.classroom.name}組
                 </Td>
                 <Td>
-                  {student.clubId ? <>{student.club?.name}</> : <>なし</>}
+                  {student?.clubId ? <>{student.club?.name}</> : <>なし</>}
                 </Td>
               </Tr>
             </Tbody>

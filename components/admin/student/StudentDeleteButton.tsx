@@ -14,25 +14,19 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { PencilSimple, X } from "phosphor-react";
+import { X } from "phosphor-react";
 import { FC, useState } from "react";
-import { useForm } from "react-hook-form";
-import {
-  useDeleteStudent,
-  useStudents,
-  useUpdateStudent,
-} from "../../../hooks/Student";
+import { useStudents } from "../../../hooks/Student";
 import { useCustomToast } from "../../../hooks/Toast";
 import { StudentResponse } from "../../../types/APIResponse";
+import { deleteStudent } from "../../../utils/api/Student";
 import { ErrorAlert } from "../../common/error/ErrorAlert";
-import { StudentForm } from "./StudentForm";
 
 type props = {
   student: StudentResponse;
 };
 export const StudentDeleteButton: FC<props> = ({ student }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { deleteStudent, isLoading } = useDeleteStudent();
   const { showToast } = useCustomToast();
   const [error, setError] = useState("");
   const router = useRouter();
@@ -87,7 +81,7 @@ export const StudentDeleteButton: FC<props> = ({ student }) => {
             <Button variant="ghost" mr={3} onClick={onClose}>
               閉じる
             </Button>
-            <Button colorScheme="red" isLoading={isLoading} onClick={onClick}>
+            <Button colorScheme="red" onClick={onClick}>
               削除
             </Button>
           </ModalFooter>

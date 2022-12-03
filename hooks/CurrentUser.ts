@@ -1,31 +1,18 @@
-import {
-  getAuth,
-  onAuthStateChanged,
-  User as FirebaseUser,
-} from "firebase/auth";
-import { useEffect, useState } from "react";
-import { getRequest } from "../utils/apiClient";
-import { app } from "../utils/firebase";
-import { User } from "@prisma/client";
 import { UserResponse } from "../types/APIResponse";
+import { atom, useAtom } from "jotai";
+import { fetcher } from "../utils/fetcher";
 
-export const useFirebaseUser = () => {
-  const [user, setUser] = useState<FirebaseUser | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const auth = getAuth(app);
-  useEffect(() => {
-    const unListen = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      setIsLoading(false);
-    });
-    return () => {
-      unListen();
-    };
-  }, []);
-  return { user, isLoading };
-};
+const userAtom = atom<Promise<UserResponse> | null>(null);
 
-export const getCurrentUser = async (): Promise<UserResponse> => {
-  const res = await getRequest("/api/current-user");
-  return res.data;
+userAtom.read = () => fetcher("/api/current-user");
+
+export const useCurrentUser = () => {
+  const [user, updateValue] = useAtom(userAtom);
+  const refetch = () => {
+    updateValue(fetcher("/api/current-user"));
+  };
+  return {
+    user,
+    refetch,
+  };
 };

@@ -8,41 +8,34 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import { useAtom } from "jotai";
 import {
   ChatCircleText,
-  ChatsCircle,
   EnvelopeSimple,
   User,
   PaperPlaneTilt,
 } from "phosphor-react";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useFirebaseUser } from "../../hooks/CurrentUser";
+import { useCurrentUser } from "../../hooks/CurrentUser";
 import { useCustomToast } from "../../hooks/Toast";
-import { userAtom } from "../../jotai/user";
 import { usePostSlackMessage } from "../../utils/slack";
 import { Tile } from "../common/Tile";
 
 export const ContactForm = () => {
-  const { user, isLoading } = useFirebaseUser();
+  const { user } = useCurrentUser();
   const { postSlackMessage } = usePostSlackMessage();
   const { showToast } = useCustomToast();
   const {
     register,
     handleSubmit,
-    setValue,
     reset,
     formState: { errors },
   } = useForm<form>({
     mode: "onBlur",
+    defaultValues: {
+      name: user?.name,
+      email: user?.email,
+    },
   });
-
-  useEffect(() => {
-    if (isLoading) return;
-    setValue("name", user?.displayName || "");
-    setValue("email", user?.email || "");
-  }, [isLoading]);
 
   const onSubmit = async (data: form) => {
     const { name, email, text } = data;

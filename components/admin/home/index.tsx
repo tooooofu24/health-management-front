@@ -17,21 +17,16 @@ import {
   Flex,
   Button,
 } from "@chakra-ui/react";
-import { useCurrentTeacher } from "../../../hooks/Teacher";
-import {
-  useHealthChecks,
-  useUnreadHealthChecks,
-} from "../../../hooks/HealthCheck";
+import { useHealthChecks } from "../../../hooks/HealthCheck";
 import { Classroom, Club } from "@prisma/client";
 import { FC } from "react";
 import { PageTitle } from "../../common/PageTitle";
 import { Bell } from "phosphor-react";
-import { CommonError } from "../../common/error/CommonError";
 import Link from "next/link";
+import { useCurrentTeacher } from "../../../hooks/CurrentTeacher";
 
 export const AdminMyPage = () => {
   const { teacher } = useCurrentTeacher();
-  const { healthChecks } = useUnreadHealthChecks();
   return (
     <TilesWrapper>
       <Tile>
@@ -50,18 +45,18 @@ export const AdminMyPage = () => {
                 <Td>
                   <Avatar />
                 </Td>
-                <Td>{teacher.name}</Td>
+                <Td>{teacher?.name}</Td>
                 <Td>
-                  {teacher.classroomId ? (
+                  {teacher?.classroomId ? (
                     <>
-                      {teacher.classroom?.grade}年{teacher.classroom?.name}組
+                      {teacher?.classroom?.grade}年{teacher?.classroom?.name}組
                     </>
                   ) : (
                     <>なし</>
                   )}
                 </Td>
                 <Td>
-                  {teacher.clubId ? <>{teacher.club?.name}</> : <>なし</>}
+                  {teacher?.clubId ? <>{teacher.club?.name}</> : <>なし</>}
                 </Td>
               </Tr>
             </Tbody>
@@ -71,17 +66,13 @@ export const AdminMyPage = () => {
       <Box>
         <PageTitle iconUrl="" icon={<Bell />} title="通知" />
         <Tile>
-          {healthChecks.length ? (
-            <Flex flexDir="column" gap={4}>
-              {teacher.classroom ? (
-                <ClassroomAlert classroom={teacher.classroom} />
-              ) : null}
-              {teacher.club ? <ClubAlert club={teacher.club} /> : null}
-              <DangerAlert />
-            </Flex>
-          ) : (
-            <CommonError message="通知はありません" />
-          )}
+          <Flex flexDir="column" gap={4}>
+            {teacher?.classroom ? (
+              <ClassroomAlert classroom={teacher.classroom} />
+            ) : null}
+            {teacher?.club ? <ClubAlert club={teacher.club} /> : null}
+            <DangerAlert />
+          </Flex>
         </Tile>
       </Box>
     </TilesWrapper>
@@ -114,7 +105,7 @@ const ClassroomAlert: FC<ClassroomAlertProps> = ({ classroom }) => {
             <a>
               <Button w="auto">確認する</Button>
             </a>
-          </Link>{" "}
+          </Link>
         </Flex>
       </SimpleGrid>
     </Alert>

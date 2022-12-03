@@ -19,7 +19,7 @@ import { CommonError } from "../error/CommonError";
 
 type props = {
   healthChecks: (HealthCheck & { student: Student })[];
-  refetch: KeyedMutator<any>;
+  refetch: () => void;
 };
 export const HealthCheckTable: FC<props> = ({ healthChecks, refetch }) => {
   if (!healthChecks.length) {

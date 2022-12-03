@@ -23,12 +23,10 @@ import {
   WarningCircle,
 } from "phosphor-react";
 import { FC, ReactNode } from "react";
-import { useUnreadHealthChecks } from "../../../hooks/HealthCheck";
 import { Logo } from "../Logo";
 import { LogoutModal } from "../LogoutModal";
 
 export const SidebarContentTeacher = () => {
-  const { healthChecks } = useUnreadHealthChecks();
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -51,17 +49,15 @@ export const SidebarContentTeacher = () => {
               title="ホーム"
               isActive={router.pathname == "/admin"}
             />
-            {healthChecks.length ? (
-              <Flex
-                right="1rem"
-                top="0"
-                position="absolute"
-                alignItems="center"
-                h="full"
-              >
-                <Badge>NEW</Badge>
-              </Flex>
-            ) : null}
+            <Flex
+              right="1rem"
+              top="0"
+              position="absolute"
+              alignItems="center"
+              h="full"
+            >
+              <Badge>NEW</Badge>
+            </Flex>
           </Box>
         </a>
       </Link>

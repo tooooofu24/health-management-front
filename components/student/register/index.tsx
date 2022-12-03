@@ -25,12 +25,12 @@ import {
 } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useCurrentStudent } from "../../../hooks/CurrentStudent";
+import { useCustomToast } from "../../../hooks/Toast";
 import {
   HealthCheckFormProps,
-  useRegisterHealthCheck,
-} from "../../../hooks/HealthCheck";
-import { useCurrentStudent } from "../../../hooks/Student";
-import { useCustomToast } from "../../../hooks/Toast";
+  registerHealthCheck,
+} from "../../../utils/api/HealthCheck";
 import { ErrorAlert } from "../../common/error/ErrorAlert";
 import { BooleanField } from "../../common/form/BooleanField";
 import { TempField } from "../../common/form/TempField";
@@ -59,7 +59,6 @@ export const RegisterPage = () => {
   const { showToast } = useCustomToast();
   const router = useRouter();
 
-  const { registerHealthCheck, isLoading } = useRegisterHealthCheck();
   const [error, setError] = useState("");
 
   const onSubmit = async (data: form) => {
@@ -104,7 +103,7 @@ export const RegisterPage = () => {
               <Text>氏名</Text>
             </FormLabel>
             <Tooltip label="氏名は変更できません！" placement="top">
-              <Input value={student.name} readOnly />
+              <Input value={student?.name} readOnly />
             </Tooltip>
           </FormControl>
           <FormControl isInvalid={Boolean(errors.date)}>
@@ -248,13 +247,7 @@ export const RegisterPage = () => {
             <FormErrorMessage>{errors.goHospital?.message}</FormErrorMessage>
           </FormControl>
         </Flex>
-        <Button
-          leftIcon={<PaperPlaneTilt />}
-          mt={8}
-          w="full"
-          type="submit"
-          isLoading={isLoading}
-        >
+        <Button leftIcon={<PaperPlaneTilt />} mt={8} w="full" type="submit">
           送信
         </Button>
         <ErrorAlert message={error} mt={3} />

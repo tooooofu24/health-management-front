@@ -2,7 +2,8 @@ import { headers } from "./apiClient";
 
 export const fetcher = async (uri: string, query?: {}) => {
   const queryString = query ? "?" + new URLSearchParams(query).toString() : "";
-  const res = await fetch(uri + queryString, {
+
+  const res = await fetch("http://localhost:3000" + uri + queryString, {
     method: "GET",
     headers: await headers(),
   });

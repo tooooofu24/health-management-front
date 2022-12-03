@@ -24,18 +24,14 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { ClubField } from "../../common/form/ClubField";
-import {
-  useCurrentStudent,
-  useUpdateCurrentStudent,
-  useUpdateStudent,
-} from "../../../hooks/Student";
 import { ClassroomField } from "../../common/form/ClassroomField";
 import { useState } from "react";
 import { useCustomToast } from "../../../hooks/Toast";
 import { ErrorAlert } from "../../common/error/ErrorAlert";
+import { useCurrentStudent } from "../../../hooks/CurrentStudent";
+import { updateCurrentStudent } from "../../../utils/api/CurrentStudent";
 
 export const MyPageEditButton = () => {
-  const { updateStudent, isLoading } = useUpdateCurrentStudent();
   const { student, refetch } = useCurrentStudent();
   const [error, setError] = useState("");
   const { showToast } = useCustomToast();
@@ -47,13 +43,13 @@ export const MyPageEditButton = () => {
   } = useForm<form>({
     mode: "onBlur",
     defaultValues: {
-      clubId: student.clubId,
-      classroomId: student.classroomId,
+      clubId: student?.clubId,
+      classroomId: student?.classroomId,
     },
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const onSubmit = (data: form) => {
-    updateStudent(data)
+    updateCurrentStudent(data)
       .then(() => {
         refetch();
         onClose();
@@ -82,7 +78,7 @@ export const MyPageEditButton = () => {
                     <Text>氏名</Text>
                   </FormLabel>
                   <Tooltip label="氏名は変更できません！" placement="top">
-                    <Input value={student.name} readOnly />
+                    <Input value={student?.name} readOnly />
                   </Tooltip>
                 </FormControl>
                 <FormControl isInvalid={Boolean(errors.classroomId)}>
@@ -115,9 +111,7 @@ export const MyPageEditButton = () => {
               <Button variant="ghost" mr={3} onClick={onClose}>
                 閉じる
               </Button>
-              <Button isLoading={isLoading} type="submit">
-                保存
-              </Button>
+              <Button type="submit">保存</Button>
             </ModalFooter>
           </form>
         </ModalContent>
