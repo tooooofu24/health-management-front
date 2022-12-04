@@ -1,14 +1,10 @@
 import { atom, useAtom } from "jotai";
-import { useState } from "react";
-import useSWR from "swr";
-import { StudentForm } from "../components/admin/student/StudentForm";
 import { StudentResponse } from "../types/APIResponse";
-import { deleteRequest, postRequest, putRequest } from "../utils/apiClient";
 import { fetcher } from "../utils/fetcher";
+import { atomFamily, useUpdateAtom } from "jotai/utils";
+import deepEqual from "fast-deep-equal";
 
-const studentsAtom = atom<Promise<StudentResponse[]> | []>([]);
-
-studentsAtom.read = () => fetcher("/api/students");
+const versionAtom = atom(0);
 
 export type studentsProps = {
   classroomId?: number;
@@ -17,10 +13,20 @@ export type studentsProps = {
   email?: string;
 };
 
-export const useStudents = (props: studentsProps) => {
-  const [students, updateValue] = useAtom(studentsAtom);
+const studentsFamilyAtom = atomFamily(
+  (filter: studentsProps) =>
+    atom<Promise<StudentResponse[]> | []>((get) => {
+      get(versionAtom);
+      return fetcher("/api/students", filter);
+    }),
+  deepEqual
+);
+
+export const useStudents = (filter: studentsProps) => {
+  const [students] = useAtom(studentsFamilyAtom(filter));
+  const [version, setVersion] = useAtom(versionAtom);
   const refetch = () => {
-    updateValue(fetcher("/api/students", props));
+    setVersion(version + 1);
   };
   return {
     students,
