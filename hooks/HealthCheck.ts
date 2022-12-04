@@ -1,16 +1,26 @@
 import { atom, useAtom } from "jotai";
+import { atomFamily, useUpdateAtom } from "jotai/utils";
 import { HealthCheckResponse } from "../types/APIResponse";
 import { fetcher } from "../utils/fetcher";
 import { filterProps } from "../utils/server/healthCheck";
+import deepEqual from "fast-deep-equal";
 
-const healthChecksAtom = atom<Promise<HealthCheckResponse[]> | []>([]);
+const versionAtom = atom(0);
 
-healthChecksAtom.read = () => fetcher("/api/health-checks");
+const healthChecksFamilyAtom = atomFamily(
+  (filter: filterProps) =>
+    atom<Promise<HealthCheckResponse[]> | []>((get) => {
+      get(versionAtom);
+      return fetcher("/api/health-checks", filter);
+    }),
+  deepEqual
+);
 
-export const useHealthChecks = (props: filterProps) => {
-  const [healthChecks, updateValue] = useAtom(healthChecksAtom);
+export const useHealthChecks = (filter: filterProps) => {
+  const [healthChecks] = useAtom(healthChecksFamilyAtom(filter));
+  const [version, setVersion] = useAtom(versionAtom);
   const refetch = () => {
-    updateValue(fetcher("/api/health-checks", props));
+    setVersion(version + 1);
   };
   return {
     healthChecks,

@@ -19,11 +19,13 @@ import {
 } from "@chakra-ui/react";
 import { useHealthChecks } from "../../../hooks/HealthCheck";
 import { Classroom, Club } from "@prisma/client";
-import { FC } from "react";
+import { FC, Suspense } from "react";
 import { PageTitle } from "../../common/PageTitle";
 import { Bell } from "phosphor-react";
 import Link from "next/link";
 import { useCurrentTeacher } from "../../../hooks/CurrentTeacher";
+import { Provider } from "jotai";
+import { Loading } from "../../common/loading/Loading";
 
 export const AdminMyPage = () => {
   const { teacher } = useCurrentTeacher();
@@ -68,9 +70,19 @@ export const AdminMyPage = () => {
         <Tile>
           <Flex flexDir="column" gap={4}>
             {teacher?.classroom ? (
-              <ClassroomAlert classroom={teacher.classroom} />
+              <Provider>
+                <Suspense fallback={<Loading />}>
+                  <ClassroomAlert classroom={teacher.classroom} />
+                </Suspense>
+              </Provider>
             ) : null}
-            {teacher?.club ? <ClubAlert club={teacher.club} /> : null}
+            {teacher?.club ? (
+              <Provider>
+                <Suspense fallback={<Loading />}>
+                  <ClubAlert club={teacher.club} />
+                </Suspense>
+              </Provider>
+            ) : null}
             <DangerAlert />
           </Flex>
         </Tile>

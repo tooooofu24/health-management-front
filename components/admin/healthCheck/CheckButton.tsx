@@ -1,8 +1,7 @@
 import { IconButton } from "@chakra-ui/react";
 import { HealthCheck } from "@prisma/client";
 import { Check } from "phosphor-react";
-import { FC, useEffect, useState } from "react";
-import { KeyedMutator } from "swr";
+import { FC, useState } from "react";
 import { useCustomToast } from "../../../hooks/Toast";
 import { checkHealthCheck } from "../../../utils/api/HealthCheck";
 

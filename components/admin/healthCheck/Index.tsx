@@ -9,6 +9,7 @@ import {
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
+import { Provider, useAtom } from "jotai";
 import { useRouter } from "next/router";
 import {
   Baseball,
@@ -19,7 +20,7 @@ import {
   CheckCircle,
   SmileySad,
 } from "phosphor-react";
-import { Suspense } from "react";
+import { memo, Suspense, useEffect, useMemo, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useForm } from "react-hook-form";
 import { useHealthChecks } from "../../../hooks/HealthCheck";
@@ -33,33 +34,23 @@ import { Tile, TilesWrapper } from "../../common/Tile";
 
 export const HealthChecksPage = () => {
   const router = useRouter();
-  const { page } = router.query;
   const {
     register,
     watch,
     formState: { errors },
-    control,
-    setValue,
   } = useForm<filterProps>({
     mode: "onBlur",
     defaultValues: router.query,
   });
 
   watch((data, { name, type }) => {
+    router.query.page = "1";
     const key = name!;
     const value = data?.[key];
     router.replace({
       query: { ...router.query, [key]: value },
     });
   });
-
-  const addPage = () => {
-    setValue("page", page ? Number(page) + 1 : 2);
-  };
-
-  const backPage = () => {
-    setValue("page", page ? Number(page) - 1 : 1);
-  };
 
   return (
     <TilesWrapper>
@@ -111,34 +102,53 @@ export const HealthChecksPage = () => {
           </FormControl>
         </SimpleGrid>
       </Tile>
-      <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
-        <Suspense fallback={<LoadingTile />}>
-          <HealthCheckList />
-        </Suspense>
-      </ErrorBoundary>
-      <Flex justifyContent="space-between">
-        <Button
-          disabled={!page || Number(page) == 1}
-          onClick={backPage}
-          leftIcon={<CaretLeft />}
-        >
-          戻る
-        </Button>
-        <Button onClick={addPage} rightIcon={<CaretRight />}>
-          次へ
-        </Button>
-      </Flex>
+      <Provider>
+        <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
+          <Suspense fallback={<LoadingTile />}>
+            <HealthCheckList />
+          </Suspense>
+        </ErrorBoundary>
+      </Provider>
     </TilesWrapper>
   );
 };
 
-const HealthCheckList = () => {
+const HealthCheckList = memo(() => {
   const router = useRouter();
   const { healthChecks, refetch } = useHealthChecks(router.query);
 
+  const page = router.query.page ? Number(router.query.page) : 1;
+
+  const goPage = (toPage: number) => {
+    router.replace({
+      query: { ...router.query, page: toPage },
+    });
+  };
+
+  useEffect(() => {
+    // refetch();
+  }, [router.query]);
   return (
-    <Tile>
-      <HealthCheckTable healthChecks={healthChecks} refetch={refetch} />
-    </Tile>
+    <>
+      <Tile>
+        <HealthCheckTable healthChecks={healthChecks} refetch={refetch} />
+      </Tile>
+      <Flex justifyContent="space-between">
+        <Button
+          onClick={() => goPage(page - 1)}
+          disabled={page == 1}
+          leftIcon={<CaretLeft />}
+        >
+          戻る
+        </Button>
+        <Button
+          onClick={() => goPage(page + 1)}
+          disabled={healthChecks.length < 20}
+          rightIcon={<CaretRight />}
+        >
+          次へ
+        </Button>
+      </Flex>
+    </>
   );
-};
+});
