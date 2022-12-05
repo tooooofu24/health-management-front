@@ -5,6 +5,7 @@ import { FC, ReactNode, useEffect, useState } from "react";
 import { useCurrentUser } from "../../hooks/CurrentUser";
 import { logout } from "../../utils/auth";
 import { app } from "../../utils/firebase";
+import { LoadingPage } from "./loading/LoadingPage";
 
 type props = {
   children: ReactNode;
@@ -26,12 +27,10 @@ export const AuthContent: FC<props> = ({ children }) => {
     };
   }, []);
 
-  return user ? <TeacherCheck>{children}</TeacherCheck> : null;
+  return user ? <TeacherCheck>{children}</TeacherCheck> : <LoadingPage />;
 };
 
 const TeacherCheck = ({ children }: { children: ReactNode }) => {
-  return <>{children}</>;
-
   const router = useRouter();
   const { user: currentUser } = useCurrentUser();
   const isAdminRoute = router.pathname.indexOf("/admin") === 0;
@@ -51,5 +50,5 @@ const TeacherCheck = ({ children }: { children: ReactNode }) => {
     }
   }
 
-  return null;
+  return <LoadingPage />;
 };

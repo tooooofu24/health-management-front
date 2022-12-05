@@ -1,13 +1,13 @@
 import { Box, Button, Flex, Img, Square, Text } from "@chakra-ui/react";
 import { FC, memo, useState } from "react";
+import { Illustration } from "../Illustration";
 
 type props = {
   message?: string;
   error?: string;
-  image?: typeof images[number];
 };
 
-export const CommonError: FC<props> = memo(({ message, error, image }) => {
+export const CommonError: FC<props> = memo(({ message, error }) => {
   return (
     <Flex
       alignItems="center"
@@ -16,7 +16,7 @@ export const CommonError: FC<props> = memo(({ message, error, image }) => {
       pb={3}
     >
       <Square size="200px" maxWidth="100%">
-        <Illustration image={image} />
+        <Illustration />
       </Square>
       <Box width="300px" maxWidth="100%">
         {message && <Text textAlign="center">{message}</Text>}
@@ -29,33 +29,3 @@ export const CommonError: FC<props> = memo(({ message, error, image }) => {
     </Flex>
   );
 });
-
-const images = [
-  "bath",
-  "box",
-  "cat",
-  "flower",
-  "kiwi",
-  "meat",
-  "money",
-  "PC",
-  "snow",
-  "tel",
-  "work",
-  "worry",
-] as const;
-type IllustrationProps = {
-  image?: typeof images[number];
-};
-const Illustration: FC<IllustrationProps> = ({ image }) => {
-  if (!image) {
-    image = images[Math.floor(Math.random() * images.length)];
-  }
-  return (
-    <Img
-      src={`/img/shigureni/${image}.png`}
-      alt="shigureniのイラスト"
-      width="full"
-    />
-  );
-};
