@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Flex,
   FormControl,
@@ -7,9 +8,11 @@ import {
   Input,
   Select,
   SimpleGrid,
+  Tag,
   Text,
 } from "@chakra-ui/react";
 import { Provider, useAtom } from "jotai";
+import { RESET } from "jotai/utils";
 import { useRouter } from "next/router";
 import {
   Baseball,
@@ -19,12 +22,16 @@ import {
   CaretLeft,
   CheckCircle,
   SmileySad,
+  MagnifyingGlass,
 } from "phosphor-react";
 import { memo, Suspense, useEffect, useMemo, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useForm } from "react-hook-form";
 import { useHealthChecks } from "../../../hooks/HealthCheck";
+import { findClassroom } from "../../../utils/api/Classroom";
+import { findClub } from "../../../utils/api/Club";
 import { filterProps } from "../../../utils/server/healthCheck";
+import { formatDateString } from "../../../utils/time";
 import { ErrorFallbackTile } from "../../common/error/ErrorFallbackTile";
 import { ClassroomField } from "../../common/form/ClassroomField";
 import { ClubField } from "../../common/form/ClubField";
@@ -37,6 +44,7 @@ export const HealthChecksPage = () => {
   const {
     register,
     watch,
+    reset,
     formState: { errors },
   } = useForm<filterProps>({
     mode: "onBlur",
@@ -44,13 +52,15 @@ export const HealthChecksPage = () => {
   });
 
   watch((data, { name, type }) => {
-    router.query.page = "1";
-    const key = name!;
-    const value = data?.[key];
     router.replace({
-      query: { ...router.query, [key]: value },
+      query: watch(),
     });
   });
+
+  const onReset = () => {
+    router.replace({ query: {} });
+    reset();
+  };
 
   return (
     <TilesWrapper>
@@ -101,7 +111,13 @@ export const HealthChecksPage = () => {
             <FormErrorMessage>{errors.isDanger?.message}</FormErrorMessage>
           </FormControl>
         </SimpleGrid>
+        <Flex justifyContent="center" mt={4}>
+          <Button colorScheme="gray" size="sm" onClick={onReset}>
+            検索条件をリセット
+          </Button>
+        </Flex>
       </Tile>
+      <SearchResult />
       <Provider>
         <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
           <Suspense fallback={<LoadingTile />}>
@@ -125,9 +141,6 @@ const HealthCheckList = memo(() => {
     });
   };
 
-  useEffect(() => {
-    // refetch();
-  }, [router.query]);
   return (
     <>
       <Tile>
@@ -152,3 +165,29 @@ const HealthCheckList = memo(() => {
     </>
   );
 });
+
+const SearchResult = () => {
+  const router = useRouter();
+  const { date, classroomId, clubId, showChecked, isDanger } = router.query;
+  const classroom = findClassroom(Number(classroomId));
+  const club = findClub(Number(clubId));
+  return (
+    <Flex alignItems="center" color="gray.500" gap={3}>
+      <Box mr={1}>
+        <MagnifyingGlass />
+      </Box>
+      {date && <Tag>{formatDateString(String(date))}</Tag>}
+      {classroom && (
+        <Tag>
+          {classroom?.grade}年{classroom?.name}組
+        </Tag>
+      )}
+      {club && <Tag>{club.name}</Tag>}
+      {showChecked && <Tag>チェック済を表示</Tag>}
+      {isDanger && <Tag>体調不良に絞る</Tag>}
+      {!date && !classroomId && !clubId && !showChecked && !isDanger && (
+        <Tag>全て</Tag>
+      )}
+    </Flex>
+  );
+};

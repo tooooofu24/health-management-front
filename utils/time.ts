@@ -14,3 +14,8 @@ export const formatDate = (date: string | null): string => {
   const distance = formatDistance(now, time, { locale: ja });
   return distance + "前";
 };
+
+export const formatDateString = (date: string) => {
+  const [year, month, day] = date.split("-");
+  return `${month}月${day}日`;
+};
