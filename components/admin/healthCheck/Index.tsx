@@ -58,8 +58,17 @@ export const HealthChecksPage = () => {
   });
 
   const onReset = () => {
-    router.replace({ query: {} });
-    reset();
+    reset({
+      date: "",
+      classroomId: null,
+      studentId: null,
+      clubId: null,
+      showChecked: null,
+      isDanger: null,
+    });
+    router.replace({
+      query: null,
+    });
   };
 
   return (
@@ -111,7 +120,7 @@ export const HealthChecksPage = () => {
             <FormErrorMessage>{errors.isDanger?.message}</FormErrorMessage>
           </FormControl>
         </SimpleGrid>
-        <Flex justifyContent="center" mt={4}>
+        <Flex justifyContent="center" mt={5}>
           <Button colorScheme="gray" size="sm" onClick={onReset}>
             検索条件をリセット
           </Button>

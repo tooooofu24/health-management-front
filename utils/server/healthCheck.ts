@@ -25,12 +25,12 @@ export const registerHealthCheck = async (
 
 export type filterProps = {
   date?: string;
-  classroomId?: number;
-  studentId?: number;
-  clubId?: number;
-  showChecked?: 0 | 1;
-  isDanger?: 0 | 1;
-  page?: number;
+  classroomId?: number | null;
+  studentId?: number | null;
+  clubId?: number | null;
+  showChecked?: 0 | 1 | null;
+  isDanger?: 0 | 1 | null;
+  page?: number | null;
 };
 export const getHealthChecks = async (
   props: filterProps
