@@ -12,7 +12,7 @@ import prisma from "../../../utils/server/prisma";
 
 const getHandler = async (
   req: NextApiRequest,
-  res: NextApiResponse<{ message: string; data: HealthCheckResponse[] }>
+  res: NextApiResponse<{ message: string; data: number }>
 ) => {
   const user = await isAuthenticated(req, "Teacher");
   const teacher = await findTeacher(user);
@@ -39,7 +39,7 @@ const getHandler = async (
       student: true,
     },
   });
-  res.status(200).json({ message: "success", data: healthChecks });
+  res.status(200).json({ message: "success", data: healthChecks.length });
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

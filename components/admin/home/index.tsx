@@ -17,7 +17,7 @@ import {
   Flex,
   Button,
 } from "@chakra-ui/react";
-import { useHealthChecks } from "../../../hooks/HealthCheck";
+import { useHealthChecks, useUnreadCount } from "../../../hooks/HealthCheck";
 import { Classroom, Club } from "@prisma/client";
 import { FC, Suspense } from "react";
 import { PageTitle } from "../../common/PageTitle";
@@ -26,9 +26,11 @@ import Link from "next/link";
 import { useCurrentTeacher } from "../../../hooks/CurrentTeacher";
 import { Provider } from "jotai";
 import { Loading } from "../../common/loading/Loading";
+import { CommonError } from "../../common/error/CommonError";
 
 export const AdminMyPage = () => {
   const { teacher } = useCurrentTeacher();
+  const { count } = useUnreadCount();
   return (
     <TilesWrapper>
       <Tile>
@@ -68,23 +70,27 @@ export const AdminMyPage = () => {
       <Box>
         <PageTitle iconUrl="" icon={<Bell />} title="通知" />
         <Tile>
-          <Flex flexDir="column" gap={4}>
-            {teacher?.classroom ? (
-              <Provider>
-                <Suspense fallback={<Loading />}>
-                  <ClassroomAlert classroom={teacher.classroom} />
-                </Suspense>
-              </Provider>
-            ) : null}
-            {teacher?.club ? (
-              <Provider>
-                <Suspense fallback={<Loading />}>
-                  <ClubAlert club={teacher.club} />
-                </Suspense>
-              </Provider>
-            ) : null}
-            <DangerAlert />
-          </Flex>
+          {count && count > 0 ? (
+            <Flex flexDir="column" gap={4}>
+              {teacher?.classroom ? (
+                <Provider>
+                  <Suspense fallback={<Loading />}>
+                    <ClassroomAlert classroom={teacher.classroom} />
+                  </Suspense>
+                </Provider>
+              ) : null}
+              {teacher?.club ? (
+                <Provider>
+                  <Suspense fallback={<Loading />}>
+                    <ClubAlert club={teacher.club} />
+                  </Suspense>
+                </Provider>
+              ) : null}
+              <DangerAlert />
+            </Flex>
+          ) : (
+            <CommonError message="通知はありません" />
+          )}
         </Tile>
       </Box>
     </TilesWrapper>
@@ -109,7 +115,11 @@ const ClassroomAlert: FC<ClassroomAlertProps> = ({ classroom }) => {
             {classroom.grade}年{classroom.name}組に未読の回答があります！
           </AlertTitle>
           <AlertDescription>
-            チェックしていない生徒の回答が{healthChecks.length}件あります！
+            チェックしていない生徒の回答が{" "}
+            {healthChecks.length >= 20
+              ? "20件以上"
+              : `${healthChecks.length}件`}
+            あります！
           </AlertDescription>
         </Box>
         <Flex justifyContent="end">
@@ -140,7 +150,11 @@ const ClubAlert: FC<ClubAlertProps> = ({ club }) => {
         <Box>
           <AlertTitle>{club.name}に未読の回答があります！</AlertTitle>
           <AlertDescription>
-            チェックしていない生徒の回答が{healthChecks.length}件あります！
+            チェックしていない生徒の回答が
+            {healthChecks.length >= 20
+              ? "20件以上"
+              : `${healthChecks.length}件`}
+            あります！
           </AlertDescription>
         </Box>
         <Flex justifyContent="end">
@@ -167,7 +181,9 @@ const DangerAlert = () => {
         <Box>
           <AlertTitle>未読の体調不良生徒がいます！</AlertTitle>
           <AlertDescription>
-            体調不良生徒の生徒が{healthChecks.length}人います！
+            体調不良生徒の生徒が
+            {healthChecks.length >= 20 ? "20人" : `${healthChecks.length}人`}
+            います！
           </AlertDescription>
         </Box>
         <Flex justifyContent="end">

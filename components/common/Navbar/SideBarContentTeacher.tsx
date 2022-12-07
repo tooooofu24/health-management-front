@@ -23,12 +23,14 @@ import {
   WarningCircle,
 } from "phosphor-react";
 import { FC, ReactNode } from "react";
+import { useUnreadCount } from "../../../hooks/HealthCheck";
 import { Logo } from "../Logo";
 import { LogoutModal } from "../LogoutModal";
 
 export const SidebarContentTeacher = () => {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { count } = useUnreadCount();
 
   return (
     <Flex flexDirection="column" h="full" py="20px">
@@ -43,22 +45,14 @@ export const SidebarContentTeacher = () => {
       {/* ロゴ部分終了 */}
       <Link href="/admin">
         <a>
-          <Box position="relative">
-            <SidebarItem
-              icon={<House />}
-              title="ホーム"
-              isActive={router.pathname == "/admin"}
-            />
-            <Flex
-              right="1rem"
-              top="0"
-              position="absolute"
-              alignItems="center"
-              h="full"
-            >
-              <Badge>NEW</Badge>
-            </Flex>
-          </Box>
+          <SidebarItem
+            icon={<House />}
+            title="ホーム"
+            isActive={router.pathname == "/admin"}
+            {...(count && count > 0
+              ? { notify: count > 9 ? "9+" : String(count) }
+              : null)}
+          />
         </a>
       </Link>
       <Link href="/admin/health-checks">
@@ -123,30 +117,70 @@ type props = {
   icon: ReactNode;
   title: string;
   isActive: boolean;
+  notify?: string;
 } & BoxProps;
-export const SidebarItem: FC<props> = ({ isActive, icon, title, ...props }) => {
+export const SidebarItem: FC<props> = ({
+  isActive,
+  icon,
+  title,
+  notify,
+  ...props
+}) => {
   return (
     <Box
-      width="full"
-      p="16px"
-      bg="white"
-      textColor="telegram.500"
-      fontWeight="bold"
-      cursor="pointer"
-      _hover={{ bg: "telegram.500", textColor: "white" }}
-      {...(isActive && { bg: "telegram.500", textColor: "white" })}
-      {...props}
-      __css={{
-        svg: {
-          height: "20px",
-          width: "20px",
+      position="relative"
+      _hover={{
+        div: {
+          bg: "telegram.500",
+          textColor: "white",
         },
+        span: { bg: "white", textColor: "telegram.500" },
       }}
     >
-      <Flex alignItems="center" gap="15px">
-        {icon}
-        {title}
-      </Flex>
+      <Box
+        width="full"
+        p="16px"
+        bg="white"
+        textColor="telegram.500"
+        fontWeight="bold"
+        cursor="pointer"
+        {...(isActive && { bg: "telegram.500", textColor: "white" })}
+        {...props}
+        __css={{
+          svg: {
+            height: "20px",
+            width: "20px",
+          },
+        }}
+      >
+        <Flex alignItems="center" gap="15px">
+          {icon}
+          {title}
+        </Flex>
+      </Box>
+      {notify && (
+        <Flex
+          right="1rem"
+          top="0"
+          position="absolute"
+          alignItems="center"
+          h="full"
+        >
+          <Tag
+            justifyContent="center"
+            rounded="full"
+            width={3}
+            height={3}
+            fontSize={12}
+            fontWeight="bold"
+            bg="telegram.500"
+            textColor="white"
+            {...(isActive && { bg: "white", textColor: "telegram.500" })}
+          >
+            {notify}
+          </Tag>
+        </Flex>
+      )}
     </Box>
   );
 };

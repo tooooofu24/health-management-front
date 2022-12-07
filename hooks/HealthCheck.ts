@@ -27,3 +27,17 @@ export const useHealthChecks = (filter: filterProps) => {
     refetch,
   };
 };
+
+const unreadCountAtom = atom<Promise<number> | null>(null);
+unreadCountAtom.read = () => fetcher("/api/health-checks/unread-count");
+
+export const useUnreadCount = () => {
+  const [count, updateValue] = useAtom(unreadCountAtom);
+  const refetch = async () => {
+    updateValue(fetcher("/api/health-checks/unread-count"));
+  };
+  return {
+    count,
+    refetch,
+  };
+};

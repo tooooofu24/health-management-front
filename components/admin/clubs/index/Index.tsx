@@ -12,7 +12,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { CaretRight } from "phosphor-react";
-import { Club, Student, Teacher } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useClubs } from "../../../../hooks/Clubs";
 import { ClubResponse } from "../../../../types/APIResponse";
