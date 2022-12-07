@@ -18,7 +18,14 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { Baseball, GraduationCap, User, EnvelopeSimple } from "phosphor-react";
+import {
+  Baseball,
+  GraduationCap,
+  User,
+  EnvelopeSimple,
+  CaretLeft,
+  CaretRight,
+} from "phosphor-react";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useForm } from "react-hook-form";
@@ -40,6 +47,7 @@ export const StudentSearchPage = () => {
   const {
     register,
     watch,
+    reset,
     formState: { errors },
   } = useForm<studentsProps>({
     mode: "onBlur",
@@ -47,12 +55,22 @@ export const StudentSearchPage = () => {
   });
 
   watch((data, { name, type }) => {
-    const key = name!;
-    const value = data?.[key];
     router.replace({
-      query: { ...router.query, [key]: value },
+      query: watch(),
     });
   });
+
+  const onReset = () => {
+    reset({
+      name: "",
+      email: "",
+      classroomId: null,
+      clubId: null,
+    });
+    router.replace({
+      query: null,
+    });
+  };
 
   return (
     <TilesWrapper>
@@ -91,6 +109,11 @@ export const StudentSearchPage = () => {
             <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
           </FormControl>
         </SimpleGrid>
+        <Flex justifyContent="center" mt={5}>
+          <Button colorScheme="gray" size="sm" onClick={onReset}>
+            検索条件をリセット
+          </Button>
+        </Flex>
       </Tile>
       <ErrorBoundary FallbackComponent={ErrorFallbackTile}>
         <Suspense fallback={<LoadingTile />}>
@@ -103,10 +126,17 @@ export const StudentSearchPage = () => {
 
 const StudentList = () => {
   const router = useRouter();
-  const { students, refetch } = useStudents(router.query);
-  return (
-    <Tile>
-      {students.length ? (
+  const { students } = useStudents(router.query);
+  const page = router.query.page ? Number(router.query.page) : 1;
+
+  const goPage = (toPage: number) => {
+    router.replace({
+      query: { ...router.query, page: toPage },
+    });
+  };
+  return students.length ? (
+    <>
+      <Tile>
         <TableContainer>
           <Table variant="simple">
             <Thead>
@@ -142,9 +172,27 @@ const StudentList = () => {
             </Tbody>
           </Table>
         </TableContainer>
-      ) : (
-        <CommonError message="データがありません" />
-      )}
+      </Tile>
+      <Flex justifyContent="space-between">
+        <Button
+          onClick={() => goPage(page - 1)}
+          disabled={page == 1}
+          leftIcon={<CaretLeft />}
+        >
+          戻る
+        </Button>
+        <Button
+          onClick={() => goPage(page + 1)}
+          disabled={students.length < 20}
+          rightIcon={<CaretRight />}
+        >
+          次へ
+        </Button>
+      </Flex>
+    </>
+  ) : (
+    <Tile>
+      <CommonError message="データがありません" />
     </Tile>
   );
 };

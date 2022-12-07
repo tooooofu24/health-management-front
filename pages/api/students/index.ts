@@ -1,20 +1,21 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { PrismaClient } from "@prisma/client";
 import { response } from "../../../utils/server/response";
 import { StudentResponse } from "../../../types/APIResponse";
 import { isAuthenticated } from "../../../utils/server/auth";
-import classrooms from "../classrooms";
 import prisma from "../../../utils/server/prisma";
 
 const getHandler = async (
   req: NextApiRequest,
   res: NextApiResponse<{ message: string; data: StudentResponse[] }>
 ) => {
-  const user = await isAuthenticated(req, "Teacher");
-  const { classroomId, clubId, name, email } = req.query;
-  /* 著者リストを取得 */
+  await isAuthenticated(req, "Teacher");
+  const { classroomId, clubId, name, email, page } = req.query;
+  const take = 20;
+  const currentPage = page ? Number(page) : 1;
   const students = await prisma.student.findMany({
+    take,
+    skip: (currentPage - 1) * take,
     where: {
       classroomId: Number(classroomId) || undefined,
       clubId: Number(clubId) || undefined,

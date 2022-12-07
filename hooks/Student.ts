@@ -7,10 +7,11 @@ import deepEqual from "fast-deep-equal";
 const versionAtom = atom(0);
 
 export type studentsProps = {
-  classroomId?: number;
-  clubId?: number;
-  name?: string;
-  email?: string;
+  classroomId?: number | null;
+  clubId?: number | null;
+  name?: string | null;
+  email?: string | null;
+  page?: number | null;
 };
 
 const studentsFamilyAtom = atomFamily(

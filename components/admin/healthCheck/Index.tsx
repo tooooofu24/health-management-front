@@ -12,7 +12,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Provider, useAtom } from "jotai";
-import { RESET } from "jotai/utils";
 import { useRouter } from "next/router";
 import {
   Baseball,
